@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-Login-And-Registration-master.iml" filepath="$PROJECT_DIR$/Android-Login-And-Registration-master.iml" group="Android-Login-And-Registration-master" />
+      <module fileurl="file://$PROJECT_DIR$/app/Android-Login-And-Registration-master-app.iml" filepath="$PROJECT_DIR$/app/Android-Login-And-Registration-master-app.iml" group="Android-Login-And-Registration-master/app" />
+      <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "720443766255",
+    "firebase_url": "https://savemoneyhelper-1f3ae.firebaseio.com",
+    "project_id": "savemoneyhelper-1f3ae",
+    "storage_bucket": "savemoneyhelper-1f3ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720443766255:android:4052bf6cb4cbd1e96bb21a",
+        "android_client_info": {
+          "package_name": "org.snowcorp.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720443766255-cr02roge948kkad1hejeahra33h7gefn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.snowcorp.login",
+            "certificate_hash": "e52c64a0a543c51d6931d5b7b0e8f77712efd1dc"
+          }
+        },
+        {
+          "client_id": "720443766255-s41krmri290fvmainnhjnbanq816seik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv_BCnxKleKFqsxRPZwWQil-SAbQW4B9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720443766255-s41krmri290fvmainnhjnbanq816seik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
