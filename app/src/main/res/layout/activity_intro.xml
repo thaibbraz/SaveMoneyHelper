@@ -16,6 +16,7 @@
         android:foregroundGravity="center"
         android:overScrollMode="never"/>
 
+
     <Button
         android:visibility="invisible"
         android:id="@+id/btn_next"
@@ -31,7 +32,8 @@
         android:textColor="@color/colorLogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        style="?attr/materialButtonOutlinedStyle"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_indicator"

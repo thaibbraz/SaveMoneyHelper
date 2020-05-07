@@ -2,15 +2,15 @@
 <resources>
     <!-- Primaries App style colors -->
     <color name="colorPrimary">#46946F</color>
-    <color name="colorLogo">#46946F</color>
+    <color name="colorLogo">#53ECA3</color>
     <color name="colorPrimaryDark">#BFBFBF</color>
     <color name="colorAccent">#373D58</color>
     <color name="white">#ffffff</color>
 
     <!-- colors for buttons style -->
     <color name="colorTransparentWhite">#cccccc</color>
-    <color name="gradient_start_color">#4c84ff</color>
-    <color name="gradient_end_color">#18a3fe</color>
+    <color name="gradient_start_color">#53ECA3</color>
+    <color name="gradient_end_color">#53ECA3</color>
     <!-- intro colors  -->
     <color name="intro_title_color">#000000</color>
     <color name="intro_description_color">#656565</color>
@@ -18,7 +18,7 @@
 
 
     <color name="color1">#cccccc</color>
-    <color name="color2">#7e455e</color>
-    <color name="color3">#796e25</color>
-    <color name="color4">#59717c</color>
+    <color name="color2">#656565</color>
+    <color name="color3">#c0c0c0</color>
+    <color name="color4">#ffffff</color>
 </resources>
