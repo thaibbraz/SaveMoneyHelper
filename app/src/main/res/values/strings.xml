@@ -13,5 +13,8 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="intro_title">Intro title</string>
+    <string name="question1">Rendimento mensal?</string>
+    <string name="question2">Intro title</string>
+
     <string name="intro_description">Intro description example</string>
 </resources>

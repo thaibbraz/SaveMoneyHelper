@@ -16,7 +16,7 @@
         android:foregroundGravity="center"
         android:overScrollMode="never"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_get_started"
         android:layout_width="132dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,8 @@
         app:backgroundTint="@color/gradient_end_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
     
     <com.google.android.material.tabs.TabLayout

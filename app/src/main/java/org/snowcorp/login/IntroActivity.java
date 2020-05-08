@@ -113,7 +113,7 @@ public class IntroActivity extends AppCompatActivity {
 
                 //open main activity
 
-                Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent loginActivity = new Intent(getApplicationContext(),DadosActivity.class);
                 startActivity(loginActivity);
                 // also we need to save a boolean value to storage so next time when the user run the app
                 // we could know that he is already checked the intro screen activity
@@ -137,15 +137,14 @@ public class IntroActivity extends AppCompatActivity {
     }
     private boolean restorePrefData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
-        boolean isIntroActivityOpenedBefore = pref.getBoolean("isIntroOpnend",false);
-        return  isIntroActivityOpenedBefore;
+        return pref.getBoolean("isIntroOpened",false);
     }
 
     private void savePrefsData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean("isIntroOpened",true);
-        editor.apply();
+        editor.commit();
     }
 
 }

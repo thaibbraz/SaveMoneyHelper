@@ -14,10 +14,12 @@
         android:layout_centerVertical="true"
         android:clipToPadding="false"
         android:foregroundGravity="center"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never">
+
+    </androidx.viewpager.widget.ViewPager>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:visibility="invisible"
         android:id="@+id/btn_next"
         android:layout_width="132dp"
@@ -27,28 +29,30 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="64dp"
-        android:background="@color/colorTransparentWhite"
+
         android:text="Get Started"
-        android:textColor="@color/colorLogo"
+        android:textColor="@color/colorTransparentWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="?attr/materialButtonOutlinedStyle"/>
+
+
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_next"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:tabBackground="@drawable/indicator_selector"
+
         />
 
 
