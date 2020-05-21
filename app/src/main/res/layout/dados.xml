@@ -21,7 +21,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/roboto_thin"
         android:text="@string/question1"
-        android:textColor="@color/grey"
+        android:textColor="@color/white"
         android:textSize="33sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline"

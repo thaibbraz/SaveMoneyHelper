@@ -1,9 +1,11 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.intro;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,12 +15,13 @@ import com.example.saveMoneyHelper.R;
 
 import java.util.List;
 
-public class AdapterDados extends PagerAdapter {
+public class Adapter extends PagerAdapter{
+
     private List<Model> models;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public AdapterDados(List<Model> models, Context context) {
+      public Adapter(List<Model> models, Context context) {
         this.models = models;
         this.context = context;
     }
@@ -37,18 +40,28 @@ public class AdapterDados extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.dados, container, false);
+        View view = layoutInflater.inflate(R.layout.item, container, false);
 
+        ImageView imageView;
+        TextView title, desc;
 
-        TextView title;
+        imageView = view.findViewById(R.id.intro_img);
+        title = view.findViewById(R.id.intro_title);
+        desc = view.findViewById(R.id.intro_description);
 
-
-
-        title = view.findViewById(R.id.question);
-
-
-
+        imageView.setImageResource(models.get(position).getImage());
         title.setText(models.get(position).getTitle());
+        desc.setText(models.get(position).getDesc());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("param", models.get(position).getTitle());
+                context.startActivity(intent);
+                // finish();
+            }
+        });
 
         container.addView(view, 0);
         return view;
@@ -59,4 +72,3 @@ public class AdapterDados extends PagerAdapter {
         container.removeView((View)object);
     }
 }
-

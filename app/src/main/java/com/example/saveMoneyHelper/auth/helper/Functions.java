@@ -1,14 +1,10 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.auth.helper;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 
-/**
- * Created by Akshay Raj on 06-02-2017.
- * akshay@snowcorp.org
- * www.snowcorp.org
- */
+
 
 public class Functions {
 

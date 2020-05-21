@@ -22,6 +22,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.saveMoneyHelper.auth.LoginActivity;
+import com.example.saveMoneyHelper.auth.helper.Functions;
+import com.example.saveMoneyHelper.auth.helper.SessionManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -33,9 +36,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
+ * Created by @Thainá Braz
+ * @2161902
+ * IPL - ESTG
  */
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = HomeActivity.class.getSimpleName();

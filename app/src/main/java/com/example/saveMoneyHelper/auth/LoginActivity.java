@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.auth;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.saveMoneyHelper.intro.DadosActivity;
+import com.example.saveMoneyHelper.auth.helper.Functions;
+import com.example.saveMoneyHelper.HomeActivity;
+import com.example.saveMoneyHelper.MyApplication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -36,11 +41,10 @@ import com.example.saveMoneyHelper.R;
 
 import java.util.HashMap;
 import java.util.Map;
-
 /**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
+ * Created by @Thainá Braz
+ * @2161902
+ * IPL - ESTG
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -50,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     private static String KEY_EMAIL = "email";
     private static String KEY_CREATED_AT = "created_at";
 
-    private MaterialButton btnLogin, btnLinkToRegister, btnForgotPass;
-    private TextInputLayout inputEmail, inputPassword;
+    private Button btnLogin, btnLinkToRegister, btnForgotPass;
+    private EditText inputEmail, inputPassword;
     private ProgressDialog pDialog;
 
 
@@ -63,11 +67,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        inputEmail = findViewById(R.id.lTextEmail);
-        inputPassword = findViewById(R.id.lTextPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnLinkToRegister = findViewById(R.id.btnLinkToRegisterScreen);
-        btnForgotPass = findViewById(R.id.btnForgotPassword);
+        inputEmail = findViewById(R.id.editEmail);
+        inputPassword = findViewById(R.id.editPassword);
+        btnLogin = findViewById(R.id.btn_login);
+        btnLinkToRegister = findViewById(R.id.btn_register);
+        btnForgotPass = findViewById(R.id.btn_forgotPassword);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -97,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Hide Keyboard
                // Functions.hideSoftKeyboard(LoginActivity.this);
 
-                String email = inputEmail.getEditText().getText().toString().trim();
-                String password = inputPassword.getEditText().getText().toString().trim();
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
                 Toast.makeText(getApplicationContext(), "Email: "+ email + "Password: "+ password, Toast.LENGTH_SHORT).show();
 
                 // Check for empty data in the form

@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.auth;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -18,6 +18,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.saveMoneyHelper.auth.helper.DatabaseHandler;
+import com.example.saveMoneyHelper.auth.helper.Functions;
+import com.example.saveMoneyHelper.HomeActivity;
+import com.example.saveMoneyHelper.MyApplication;
+import com.example.saveMoneyHelper.auth.helper.SessionManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -29,11 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Akshay Raj on 06-02-2017.
- * akshay@snowcorp.org
- * www.snowcorp.org
- */
+
 public class EmailVerify extends AppCompatActivity {
     private static final String TAG = EmailVerify.class.getSimpleName();
 

@@ -1,15 +1,19 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.saveMoneyHelper.auth.helper.Functions;
+import com.example.saveMoneyHelper.MyApplication;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,16 +29,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
+ * Created by @Thainá Braz
+ * @2161902
+ * IPL - ESTG
  */
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
-    private MaterialButton btnRegister, btnLinkToLogin;
-    private TextInputLayout inputName, inputEmail, inputPassword;
+    private Button btnRegister, btnLinkToLogin;
+    private EditText inputName, inputEmail, inputPassword;
     private ProgressDialog pDialog;
 
     @Override
@@ -66,9 +70,9 @@ public class RegisterActivity extends AppCompatActivity {
                 // Hide Keyboard
                 Functions.hideSoftKeyboard(RegisterActivity.this);
 
-                String name = inputName.getEditText().getText().toString().trim();
-                String email = inputEmail.getEditText().getText().toString().trim();
-                String password = inputPassword.getEditText().getText().toString().trim();
+                String name = inputName.getText().toString().trim();
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
 
                 // Check for empty data in the form
                 if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {

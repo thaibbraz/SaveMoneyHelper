@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.auth.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

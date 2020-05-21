@@ -6,11 +6,10 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
 /**
- * Created by Akshay Raj on 6/16/2016.
- * akshay@snowcorp.org
- * www.snowcorp.org
+ * Created by @Thainá Braz
+ * @2161902
+ * IPL - ESTG
  */
 public class MyApplication extends Application {
     public static final String TAG = MyApplication.class.getSimpleName();

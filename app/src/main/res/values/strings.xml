@@ -19,4 +19,5 @@
 
     <string name="intro_description">Intro description example</string>
     <string name="intro_title">Intro example</string>
+    <string name="confirm_password">confirmar palavra-passe</string>
 </resources>

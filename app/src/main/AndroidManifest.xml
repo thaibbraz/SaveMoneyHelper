@@ -16,11 +16,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="com.example.saveMoneyHelper.DadosActivity" />
-        <activity android:name="com.example.saveMoneyHelper.DetailActivity" />
-        <activity android:name="com.example.saveMoneyHelper.IntroActivity" />
+        <activity android:name="com.example.saveMoneyHelper.intro.DadosActivity" />
+        <activity android:name="com.example.saveMoneyHelper.intro.DetailActivity" />
+        <activity android:name="com.example.saveMoneyHelper.intro.IntroActivity" />
         <activity android:name="com.example.saveMoneyHelper.MainActivity" />
-        <activity android:name="com.example.saveMoneyHelper.SplashActivity">
+        <activity android:name="com.example.saveMoneyHelper.intro.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,29 +28,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.saveMoneyHelper.LoginActivity"
+            android:name="com.example.saveMoneyHelper.auth.LoginActivity"
             android:label="@string/app_name" />
         <activity
             android:name="com.example.saveMoneyHelper.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="com.example.saveMoneyHelper.RegisterActivity"
+            android:name="com.example.saveMoneyHelper.auth.RegisterActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.example.saveMoneyHelper.LoginActivity"
+            android:parentActivityName="com.example.saveMoneyHelper.auth.LoginActivity"
             android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.saveMoneyHelper.LoginActivity" />
+                android:value="com.example.saveMoneyHelper.auth.LoginActivity" />
         </activity>
         <activity
-            android:name="com.example.saveMoneyHelper.EmailVerify"
+            android:name="com.example.saveMoneyHelper.auth.EmailVerify"
             android:label="@string/app_name"
-            android:parentActivityName="com.example.saveMoneyHelper.LoginActivity"
+            android:parentActivityName="com.example.saveMoneyHelper.auth.LoginActivity"
             android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.saveMoneyHelper.LoginActivity" />
+                android:value="com.example.saveMoneyHelper.auth.LoginActivity" />
         </activity>
 
         <meta-data
