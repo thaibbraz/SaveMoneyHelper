@@ -1,4 +1,4 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -12,6 +12,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.saveMoneyHelper.R;
 
 import java.util.ArrayList;
 import java.util.List;

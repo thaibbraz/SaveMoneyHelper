@@ -1,4 +1,4 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 public class Model {
 

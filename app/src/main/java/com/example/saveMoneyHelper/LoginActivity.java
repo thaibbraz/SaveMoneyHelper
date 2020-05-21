@@ -1,4 +1,4 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -32,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.snowcorp.login.helper.Functions;
+import com.example.saveMoneyHelper.R;
 
 import java.util.HashMap;
 import java.util.Map;

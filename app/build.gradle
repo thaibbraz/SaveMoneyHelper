@@ -5,7 +5,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "org.snowcorp.login"
+        applicationId "com.example.saveMoneyHelper"
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 17
         targetSdkVersion 29

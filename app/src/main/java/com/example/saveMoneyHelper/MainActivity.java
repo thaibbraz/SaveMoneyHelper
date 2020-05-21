@@ -1,10 +1,10 @@
-package org.snowcorp.main;
+package com.example.saveMoneyHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-import org.snowcorp.login.R;
+import com.example.saveMoneyHelper.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:720443766255:android:4052bf6cb4cbd1e96bb21a",
         "android_client_info": {
-          "package_name": "org.snowcorp.login"
+          "package_name": "com.example.saveMoneyHelper"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "720443766255-cr02roge948kkad1hejeahra33h7gefn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.snowcorp.login",
+            "package_name": "com.example.saveMoneyHelper",
             "certificate_hash": "e52c64a0a543c51d6931d5b7b0e8f77712efd1dc"
           }
         },

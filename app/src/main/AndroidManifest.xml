@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.snowcorp.login">
+    package="com.example.saveMoneyHelper">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,18 +9,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.example.saveMoneyHelper.MyApplication"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".DadosActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".IntroActivity" />
-        <activity android:name="org.snowcorp.main.MainActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name="com.example.saveMoneyHelper.DadosActivity" />
+        <activity android:name="com.example.saveMoneyHelper.DetailActivity" />
+        <activity android:name="com.example.saveMoneyHelper.IntroActivity" />
+        <activity android:name="com.example.saveMoneyHelper.MainActivity" />
+        <activity android:name="com.example.saveMoneyHelper.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,29 +28,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.saveMoneyHelper.LoginActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".HomeActivity"
+            android:name="com.example.saveMoneyHelper.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.example.saveMoneyHelper.RegisterActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".LoginActivity"
+            android:parentActivityName="com.example.saveMoneyHelper.LoginActivity"
             android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value="com.example.saveMoneyHelper.LoginActivity" />
         </activity>
         <activity
-            android:name=".EmailVerify"
+            android:name="com.example.saveMoneyHelper.EmailVerify"
             android:label="@string/app_name"
-            android:parentActivityName=".LoginActivity"
+            android:parentActivityName="com.example.saveMoneyHelper.LoginActivity"
             android:screenOrientation="fullSensor">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value="com.example.saveMoneyHelper.LoginActivity" />
         </activity>
 
         <meta-data

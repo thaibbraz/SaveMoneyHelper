@@ -1,4 +1,4 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import android.app.Application;
 import android.text.TextUtils;

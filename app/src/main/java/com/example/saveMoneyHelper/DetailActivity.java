@@ -1,9 +1,11 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.saveMoneyHelper.R;
 
 public class DetailActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.snowcorp.login.helper.DatabaseHandler;
-import org.snowcorp.login.helper.Functions;
-import org.snowcorp.login.helper.SessionManager;
+import com.example.saveMoneyHelper.R;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,7 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.snowcorp.login.helper.Functions;
+import com.example.saveMoneyHelper.R;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package org.snowcorp.login.helper;
+package com.example.saveMoneyHelper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

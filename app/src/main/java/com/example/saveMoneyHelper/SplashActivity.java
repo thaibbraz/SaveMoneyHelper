@@ -1,11 +1,12 @@
-package org.snowcorp.login;
+package com.example.saveMoneyHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+
+import com.example.saveMoneyHelper.R;
 
 public class SplashActivity extends AppCompatActivity {
 
