@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="@color/color1"
-        android:background="@color/colorLogo"
+        android:background="@color/colorPrimary"
         android:text="Resend Code"
         android:id="@+id/btnResendCode" />
 

@@ -6,6 +6,9 @@ public class Model {
     private String title;
     private String desc;
 
+    public Model(String title) {
+        this.title = title;
+    }
     public Model(int image, String title, String desc) {
         this.image = image;
         this.title = title;

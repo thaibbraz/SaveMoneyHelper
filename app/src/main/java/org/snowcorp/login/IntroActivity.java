@@ -29,7 +29,7 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // when this activity is about to be launch we need to check if its openened before or not
+        // when this activity is about to be launch we need to check if its opened before or not
 
         if (restorePrefData()) {
 
@@ -46,8 +46,8 @@ public class IntroActivity extends AppCompatActivity {
         models = new ArrayList<>();
         models.add(new Model(R.drawable.code_icon, "Brochure", "Brochure is an informative paper document (often also used for advertising) that can be folded into a template"));
         models.add(new Model(R.drawable.sleep_icon, "Sticker", "Sticker is a type of label: a piece of printed paper, plastic, vinyl, or other material with pressure sensitive adhesive on one side"));
-        models.add(new Model(R.drawable.sleep_icon, "Poster", "Poster is any piece of printed paper designed to be attached to a wall or vertical surface."));
-        models.add(new Model(R.drawable.eat_icon, "Namecard", "Business cards are cards bearing business information about a company or individual."));
+        models.add(new Model(R.drawable.code_icon, "Poster", "Poster is any piece of printed paper designed to be attached to a wall or vertical surface."));
+        models.add(new Model(R.drawable.sleep_icon, "Namecard", "Business cards are cards bearing business information about a company or individual."));
 
         adapter = new Adapter(models, this);
         btnGetStarted = findViewById(R.id.btn_get_started);
@@ -118,7 +118,7 @@ public class IntroActivity extends AppCompatActivity {
                 // also we need to save a boolean value to storage so next time when the user run the app
                 // we could know that he is already checked the intro screen activity
                 // i'm going to use shared preferences to that process
-                savePrefsData();
+             //   savePrefsData();
                 finish();
 
 

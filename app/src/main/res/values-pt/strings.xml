@@ -1,0 +1,24 @@
+<resources>
+
+
+    <string name="app_name">SaveMoneyHelper</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Nome</string>
+    <string name="login">Login</string>
+    <string name="register">register</string>
+    <string name="btn_link_to_register">Not a member? Register! </string>
+    <string name="btn_link_to_login">Already registered! Login Me.</string>
+    <string name="welcome">Welcome!</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+
+    <string name="question1">What is your monthly income?</string>
+    <string name="question2">Financial target</string>
+    <string name="hint_question1">Ex: 500</string>
+    <string name="get_started_btn">Get Started!</string>
+    <string name="intro_description">Intro description example</string>
+    <string name="intro_title">Intro example</string>
+</resources>

@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".DadosActivity"></activity>
+        <activity android:name=".DadosActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".IntroActivity" />
         <activity android:name="org.snowcorp.main.MainActivity" />
@@ -29,7 +29,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
@@ -52,6 +52,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         // Link to Register Screen
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, IntroActivity.class);
+                Intent i = new Intent(LoginActivity.this, DadosActivity.class);
                 startActivity(i);
             }
         });

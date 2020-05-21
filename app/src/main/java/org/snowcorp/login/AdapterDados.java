@@ -5,21 +5,23 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.List;
 
-public class Adapter extends PagerAdapter{
-
+public class AdapterDados extends PagerAdapter {
     private List<Model> models;
     private LayoutInflater layoutInflater;
     private Context context;
 
-      public Adapter(List<Model> models, Context context) {
+    public AdapterDados(List<Model> models, Context context) {
         this.models = models;
         this.context = context;
     }
@@ -38,28 +40,18 @@ public class Adapter extends PagerAdapter{
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.item, container, false);
+        View view = layoutInflater.inflate(R.layout.dados, container, false);
 
-        ImageView imageView;
-        TextView title, desc;
 
-        imageView = view.findViewById(R.id.intro_img);
-        title = view.findViewById(R.id.intro_title);
-        desc = view.findViewById(R.id.intro_description);
+        TextView title;
 
-        imageView.setImageResource(models.get(position).getImage());
+
+
+        title = view.findViewById(R.id.question);
+
+
+
         title.setText(models.get(position).getTitle());
-        desc.setText(models.get(position).getDesc());
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("param", models.get(position).getTitle());
-                context.startActivity(intent);
-                // finish();
-            }
-        });
 
         container.addView(view, 0);
         return view;
@@ -70,3 +62,4 @@ public class Adapter extends PagerAdapter{
         container.removeView((View)object);
     }
 }
+
