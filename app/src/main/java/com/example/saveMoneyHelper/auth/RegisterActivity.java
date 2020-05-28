@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.saveMoneyHelper.auth.helper.Functions;
-import com.example.saveMoneyHelper.MyApplication;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -164,8 +162,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         };
 
-        // Adding request to request queue
-        MyApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void showDialog() {

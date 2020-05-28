@@ -23,15 +23,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.saveMoneyHelper.HomePage;
 import com.example.saveMoneyHelper.intro.DadosActivity;
 import com.example.saveMoneyHelper.auth.helper.Functions;
-import com.example.saveMoneyHelper.HomeActivity;
-import com.example.saveMoneyHelper.MyApplication;
 import com.example.saveMoneyHelper.intro.IntroActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -322,9 +318,7 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         // Adding request to volley request queue
-        strReq.setRetryPolicy(new DefaultRetryPolicy(5 * DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 0));
-        strReq.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
-        MyApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+
     }
 
     private void showDialog() {

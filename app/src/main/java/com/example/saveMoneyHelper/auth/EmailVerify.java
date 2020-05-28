@@ -21,7 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.saveMoneyHelper.auth.helper.DatabaseHandler;
 import com.example.saveMoneyHelper.auth.helper.Functions;
 import com.example.saveMoneyHelper.HomeActivity;
-import com.example.saveMoneyHelper.MyApplication;
 import com.example.saveMoneyHelper.auth.helper.SessionManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -201,8 +200,8 @@ public class EmailVerify extends AppCompatActivity {
             }
 
         };
-        // Adding request to request queue
-        MyApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+
     }
 
     private void resendCode(final String email) {
@@ -268,8 +267,7 @@ public class EmailVerify extends AppCompatActivity {
             }
 
         };
-        // Adding request to request queue
-        MyApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+
     }
 
     private void showDialog() {
