@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primaries App style colors -->
-    <color name="colorPrimary">#46946F</color>
-    <color name="colorLogo">#46946F</color>
-    <color name="colorPrimaryDark">#BFBFBF</color>
-    <color name="colorAccent">#373D58</color>
+    <color name="colorPrimary">#03DAC5</color>
+    <color name="colorPrimaryDark">#03DAC5</color>
+    <color name="colorAccent">#ffffff</color>
     <color name="white">#ffffff</color>
+    <color name="colorGreen">#53ECA3</color>
 
-    <!-- colors for buttons style -->
+
+
+    <!-- General colors  -->
     <color name="colorTransparentWhite">#cccccc</color>
-    <color name="gradient_start_color">#4c84ff</color>
-    <color name="gradient_end_color">#18a3fe</color>
-    <!-- intro colors  -->
-    <color name="intro_title_color">#000000</color>
-    <color name="intro_description_color">#656565</color>
+    <color name="black">#000000</color>
+    <color name="grey">#656565</color>
     <color name="tab_indicator_gray">#c0c0c0</color>
 
-
     <color name="color1">#cccccc</color>
-    <color name="color2">#7e455e</color>
-    <color name="color3">#796e25</color>
-    <color name="color4">#59717c</color>
+    <color name="color2">#656565</color>
+    <color name="color3">#c0c0c0</color>
+    <color name="color4">#ffffff</color>
 </resources>

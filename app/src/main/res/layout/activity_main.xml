@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="org.snowcorp.main.MainActivity">
+    tools:context="com.example.saveMoneyHelper.MainActivity">
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slideViewPage"
@@ -25,5 +26,11 @@
         android:layout_gravity="center"
         android:layout_marginBottom="-1dp"
         android:orientation="horizontal" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

@@ -1,17 +1,26 @@
 <resources>
-    <string name="app_name">Android Login</string>
+    <string name="app_name">SaveMoneyHelper</string>
     <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_name">Fullname</string>
+    <string name="hint_password">Palavra-passe</string>
+    <string name="hint_name">Nome</string>
     <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="btn_link_to_register">Not a member? Sign up now.</string>
-    <string name="btn_link_to_login">Already registred! Login Me.</string>
-    <string name="welcome">Welcome</string>
+    <string name="register">Registar-se</string>
+    <string name="btn_link_to_register">Não é um membro? regista-te já</string>
+    <string name="btn_link_to_login">Already registered! Login Me.</string>
+    <string name="welcome">Bem-vindo!</string>
     <string name="logout">logout</string>
-    <string name="change_password">Change Password</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
-    <string name="intro_title">Intro title</string>
+    <string name="change_password">Mudar palavra-passe</string>
+    <string name="old_password"> Antiga palavra-passe</string>
+    <string name="new_password">Nova palavra-passe</string>
+    <string name="question1">Qual é o seu rendimento mensal?</string>
+    <string name="question2">Principal objetivo financeiro</string>
+    <string name="hint_question1">Ex: 500</string>
+    <string name="get_started_btn">Get Started</string>
+
     <string name="intro_description">Intro description example</string>
+    <string name="intro_title">Intro example</string>
+    <string name="confirm_password">confirmar palavra-passe</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

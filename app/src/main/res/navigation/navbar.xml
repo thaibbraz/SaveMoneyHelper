@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navbar"
+    app:startDestination="@id/homePage">
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.saveMoneyHelper.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/income"
+        android:name="com.example.saveMoneyHelper.Income"
+        android:label="fragment_income"
+        tools:layout="@layout/fragment_income" />
+    <fragment
+        android:id="@+id/outcome"
+        android:name="com.example.saveMoneyHelper.Outcome"
+        android:label="fragment_outcome"
+        tools:layout="@layout/fragment_outcome" />
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.saveMoneyHelper.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" />
+</navigation>
