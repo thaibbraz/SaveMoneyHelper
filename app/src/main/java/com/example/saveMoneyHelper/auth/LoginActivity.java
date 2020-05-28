@@ -23,10 +23,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.saveMoneyHelper.HomePage;
 import com.example.saveMoneyHelper.intro.DadosActivity;
 import com.example.saveMoneyHelper.auth.helper.Functions;
 import com.example.saveMoneyHelper.HomeActivity;
 import com.example.saveMoneyHelper.MyApplication;
+import com.example.saveMoneyHelper.intro.IntroActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -84,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (mAuth.getCurrentUser() != null) {
-            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent i = new Intent(LoginActivity.this, DadosActivity.class);
             startActivity(i);
             finish();
         }
@@ -103,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-                Toast.makeText(getApplicationContext(), "Email: "+ email + "Password: "+ password, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Email: "+ email + "Password: "+ password, Toast.LENGTH_SHORT).show();
 
                 // Check for empty data in the form
                 if (!email.isEmpty() && !password.isEmpty()) {
@@ -126,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         // Link to Register Screen
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, DadosActivity.class);
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(i);
             }
         });
@@ -248,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null){
             Toast.makeText(getApplicationContext(), "Authentication succeed.", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent i = new Intent(LoginActivity.this, IntroActivity.class);
             startActivity(i);
             //finish();
         }else{

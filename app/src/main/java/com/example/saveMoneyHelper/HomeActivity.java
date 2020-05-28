@@ -50,17 +50,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
 
-    private HashMap<String,String> user = new HashMap<>();
+    private HashMap<String, String> user = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        txtName = findViewById(R.id.name);
-        txtEmail = findViewById(R.id.email);
-        btnChangePass = findViewById(R.id.change_password);
-        btnLogout = findViewById(R.id.logout);
 
         // Progress dialog
 
@@ -70,6 +66,8 @@ public class HomeActivity extends AppCompatActivity {
         } */
 
         // Fetching user details from database
+
+        /*
         String name = user.get("name");
         String email = user.get("email");
 
@@ -263,5 +261,7 @@ public class HomeActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+    */
 
+    }
 }

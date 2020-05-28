@@ -31,40 +31,47 @@ public class DadosActivity extends AppCompatActivity {
     TextView tvSkip;
     TextInputEditText answer;
     private ViewPager screenPager;
-    int position =0;
+    int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (restorePrefData()) {
+
+            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(loginActivity);
+            finish();
+
+
+        }
         setContentView(R.layout.activity_intro);
 
         models = new ArrayList<>();
         models.add(new Model("Quanto é o seu rendimento mensal?"));
         models.add(new Model("Quanto é o seu rendimento mensal?"));
-        models.add(new Model("DADOS TESTE2"));
+        models.add(new Model("Página final"));
 
 
-        adapter = new AdapterDados(models,this);
+        adapter = new AdapterDados(models, this);
         btnGetStarted = findViewById(R.id.btn_get_started);
         tvSkip = findViewById(R.id.skip);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
         answer = findViewById(R.id.answer);
-        btnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.button_animation);
+        btnAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_animation);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 btnGetStarted.setText("Next");
-                if (position < (adapter.getCount() -1) ) {
+                if (position < (adapter.getCount() - 1)) {
 
                     btnGetStarted.setVisibility(View.VISIBLE);
                     tvSkip.setVisibility(View.VISIBLE);
 
-                }
-                else{
+                } else {
                     btnGetStarted.setText("Get started");
                     btnGetStarted.setAnimation(btnAnim);
                     btnGetStarted.setVisibility(View.VISIBLE);
@@ -91,7 +98,7 @@ public class DadosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                position=viewPager.getCurrentItem();
+                position = viewPager.getCurrentItem();
                 if (position < models.size()) {
 
                     position++;
@@ -99,20 +106,18 @@ public class DadosActivity extends AppCompatActivity {
 
                 }
 
-                if (position == models.size()-1) { // when we rech to the last screen
+                if (position == models.size() - 1) { // when we rech to the last screen
 
                     // TODO : show the GETSTARTED Button and hide the indicator and the next button
                     viewPager.setCurrentItem(models.size());
-                    Intent i = new Intent(DadosActivity.this, LoginActivity.class);
-                    startActivity(i);
+                    Intent login = new Intent(getApplicationContext(), IntroActivity.class);
+                    startActivity(login);
 
                 }
                 // also we need to save a boolean value to storage so next time when the user run the app
                 // we could know that he is already checked the intro screen activity
                 // i'm going to use shared preferences to that process
-                //savePrefsData();
-                //savePrefsData();
-
+                savePrefsData();
 
             }
         });
@@ -128,14 +133,14 @@ public class DadosActivity extends AppCompatActivity {
     }
 
     private boolean restorePrefData() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
-        return pref.getBoolean("isIntroOpened",false);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
+        return pref.getBoolean("isIntroOpened", false);
     }
 
     private void savePrefsData() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("isIntroOpened",true);
+        editor.putBoolean("isIntroOpened", true);
         editor.commit();
     }
 }

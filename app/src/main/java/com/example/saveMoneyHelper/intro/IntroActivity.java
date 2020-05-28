@@ -62,7 +62,7 @@ public class IntroActivity extends AppCompatActivity {
 
         Integer[] colors_temp = {
                 getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color2),
+                getResources().getColor(R.color.color4),
                 getResources().getColor(R.color.color3),
                 getResources().getColor(R.color.color4)
         };
@@ -115,13 +115,12 @@ public class IntroActivity extends AppCompatActivity {
 
 
                 //open main activity
-
-                Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(loginActivity);
+                Intent dadosActivity = new Intent(getApplicationContext(),DadosActivity.class);
+                startActivity(dadosActivity);
                 // also we need to save a boolean value to storage so next time when the user run the app
                 // we could know that he is already checked the intro screen activity
                 // i'm going to use shared preferences to that process
-             //   savePrefsData();
+                savePrefsData();
                 finish();
 
 

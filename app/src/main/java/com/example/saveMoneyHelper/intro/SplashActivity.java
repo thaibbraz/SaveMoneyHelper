@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void mostrarIntro() {
-        Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
+        Intent intent = new Intent(SplashActivity.this, DadosActivity.class);
         startActivity(intent);
         finish();
 
