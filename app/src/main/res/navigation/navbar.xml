@@ -6,7 +6,7 @@
     app:startDestination="@id/homePage">
 
     <fragment
-        android:id="@+id/profile"
+        android:id="@+id/overview"
         android:name="com.example.saveMoneyHelper.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />

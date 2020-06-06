@@ -22,4 +22,23 @@
     <string name="intro_description">Intro description example</string>
     <string name="intro_title">Intro example</string>
     <string name="confirm_password">confirm password</string>
+
+    <!-- TODO: Fragment's strings -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saldo_title">current balance</string>
+    <string name="valor">Value:</string>
+    <string name="durante">Period:</string>
+
+    <string-array name="menuSimulacoes">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+
 </resources>

@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SaveMoneyHelper.iml" filepath="$PROJECT_DIR$/SaveMoneyHelper.iml" group="SaveMoneyHelper" />
-      <module fileurl="file://$PROJECT_DIR$/app/SaveMoneyHelper-app.iml" filepath="$PROJECT_DIR$/app/SaveMoneyHelper-app.iml" group="SaveMoneyHelper/app" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SaveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/SaveMoneyHelper.iml" group="SaveMoneyHelper" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="SaveMoneyHelper/app" />
     </modules>
   </component>
 </project>

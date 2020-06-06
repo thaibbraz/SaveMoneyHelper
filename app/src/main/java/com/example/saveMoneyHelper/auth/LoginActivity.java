@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.saveMoneyHelper.HomeActivity;
 import com.example.saveMoneyHelper.intro.DadosActivity;
 import com.example.saveMoneyHelper.auth.helper.Functions;
 import com.example.saveMoneyHelper.intro.IntroActivity;
@@ -246,11 +247,13 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null){
             Toast.makeText(getApplicationContext(), "Authentication succeed.", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(LoginActivity.this, IntroActivity.class);
+            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(i);
-            //finish();
+            finish();
         }else{
             Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
         }
 
     }
