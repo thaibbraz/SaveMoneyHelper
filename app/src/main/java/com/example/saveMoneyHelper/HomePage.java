@@ -1,14 +1,12 @@
 package com.example.saveMoneyHelper;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-
 import androidx.fragment.app.Fragment;
-
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -17,13 +15,13 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 
 import com.anychart.core.cartesian.series.Column;
-
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
-
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
-
+import com.example.saveMoneyHelper.auth.EditProfileActivity;
+import com.example.saveMoneyHelper.auth.RegisterActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,8 @@ import java.util.List;
 
 public class HomePage extends Fragment {
     AnyChartView chartView;
+    FloatingActionButton btnProfile;
+    ProgressBar progressBar;
     int day,month,year;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +41,8 @@ public class HomePage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         chartView = view.findViewById(R.id.any_chart_view);
         chartView.setProgressBar(view.findViewById(R.id.progress_bar));
-
+        btnProfile = view.findViewById(R.id.btn_floatingProfile);
+        progressBar = view.findViewById(R.id.progress_bar);
         Cartesian cartesian = AnyChart.column();
 
         List<DataEntry> lazer = new ArrayList<>();
@@ -118,6 +119,13 @@ public class HomePage extends Fragment {
         cartesian.barGroupsPadding(0);
         chartView.setChart(cartesian);
 
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), EditProfileActivity.class);
+                startActivity(i);
+
+            }
+        });
 
 
         return view;

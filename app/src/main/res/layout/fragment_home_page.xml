@@ -70,7 +70,7 @@
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floating_action_button"
+                android:id="@+id/btn_floatingProfile"
                 android:layout_width="43dp"
                 android:layout_height="45dp"
                 android:layout_gravity="start"

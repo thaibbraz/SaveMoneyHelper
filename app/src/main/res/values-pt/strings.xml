@@ -28,6 +28,7 @@
     <string name="saldo_title">current balance</string>
     <string name="valor">Value:</string>
     <string name="durante">Period:</string>
+    <string name="skip">skip</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

@@ -26,6 +26,7 @@
     <string name="saldo_title">saldo atual</string>
     <string name="valor">Valor:</string>
     <string name="durante">Durante:</string>
+    <string name="skip">pular</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

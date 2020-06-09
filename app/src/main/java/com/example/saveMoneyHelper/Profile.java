@@ -1,13 +1,18 @@
 package com.example.saveMoneyHelper;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -47,13 +52,23 @@ public class Profile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         final AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
         APIlib.getInstance().setActiveAnyChartView(anyChartView);
+/*
 
-        Spinner spinner = view.findViewById(R.id.spinner2);
-        String [] values =
-                {"Time at Residence","Under 6 months","6-12 months","1-2 years","2-4 years","4-8 years","8-15 years","Over 15 years",};
-        ArrayAdapter<String> adapter =  new ArrayAdapter<String>(this.getActivity(),R.layout.fragment_profile,values);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
+        try {
+
+
+            Spinner spinner = view.findViewById(R.id.spinner2);
+            String [] values =
+                    {"Time at Residence","Under 6 months","6-12 months","1-2 years","2-4 years","4-8 years","8-15 years","Over 15 years"};
+            ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.fragment_profile,values);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            spinner.setAdapter(adapter);
+        }catch (Exception ex){
+            Log.d("profile: ",ex.getLocalizedMessage());
+        }
+    */
+
         final Pie pie = AnyChart.pie();
 
         pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
@@ -144,5 +159,29 @@ public class Profile extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Spinner spinner = view.findViewById(R.id.spinner2);
+
+        String [] values = {"Time at Residence","Under 6 months","6-12 months","1-2 years","2-4 years","4-8 years","8-15 years","Over 15 years"};
+        ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,values);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(getContext(),String.valueOf(position),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

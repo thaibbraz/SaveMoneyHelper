@@ -13,8 +13,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.saveMoneyHelper.HomeActivity;
+import com.example.saveMoneyHelper.HomePage;
 import com.example.saveMoneyHelper.R;
 import com.example.saveMoneyHelper.auth.LoginActivity;
+import com.example.saveMoneyHelper.auth.helper.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,24 +30,34 @@ public class IntroActivity extends AppCompatActivity {
     Integer[] colors = null;
     Button btnGetStarted;
     TextView tvSkip;
-    ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    ArgbEvaluator argbEvaluator;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_intro);
+
+        argbEvaluator = new ArgbEvaluator();
+        session = new SessionManager(this);
+
         // when this activity is about to be launch we need to check if its opened before or not
 
+        if (session.isLoggedIn()) {
+            Intent homeActivity = new Intent(this, HomePage.class);
+            startActivity(homeActivity);
+            finish();
+            return;
+        }
         if (restorePrefData()) {
 
-            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class );
+            Intent loginActivity = new Intent(this, LoginActivity.class);
             startActivity(loginActivity);
             finish();
 
 
         }
 
-
-        setContentView(R.layout.activity_intro);
 
         models = new ArrayList<>();
         models.add(new Model(R.drawable.code_icon, "Brochure", "Brochure is an informative paper document (often also used for advertising) that can be folded into a template"));
@@ -57,7 +70,7 @@ public class IntroActivity extends AppCompatActivity {
         tvSkip = findViewById(R.id.skip);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
-        btnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.button_animation);
+        btnAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_animation);
 
 
         Integer[] colors_temp = {
@@ -73,7 +86,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (position < (adapter.getCount() -1) && position < (colors.length - 1)) {
+                if (position < (adapter.getCount() - 1) && position < (colors.length - 1)) {
                     viewPager.setBackgroundColor(
 
                             (Integer) argbEvaluator.evaluate(
@@ -85,14 +98,12 @@ public class IntroActivity extends AppCompatActivity {
                     btnGetStarted.setVisibility(View.INVISIBLE);
                     tvSkip.setVisibility(View.VISIBLE);
 
-                }
-
-                else if(position == (adapter.getCount() -1) ){
+                } else if (position == (adapter.getCount() - 1)) {
                     btnGetStarted.setVisibility(View.VISIBLE);
                     btnGetStarted.setAnimation(btnAnim);
                     tvSkip.setVisibility(View.INVISIBLE);
 
-                }else{
+                } else {
                     viewPager.setBackgroundColor(colors[colors.length - 1]);
                 }
 
@@ -115,14 +126,13 @@ public class IntroActivity extends AppCompatActivity {
 
 
                 //open main activity
-                Intent dadosActivity = new Intent(getApplicationContext(),DadosActivity.class);
+                Intent dadosActivity = new Intent(getApplicationContext(), DadosActivity.class);
                 startActivity(dadosActivity);
                 // also we need to save a boolean value to storage so next time when the user run the app
                 // we could know that he is already checked the intro screen activity
                 // i'm going to use shared preferences to that process
                 savePrefsData();
                 finish();
-
 
 
             }
@@ -137,15 +147,16 @@ public class IntroActivity extends AppCompatActivity {
             }
         });
     }
+
     private boolean restorePrefData() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
-        return pref.getBoolean("isIntroOpened",false);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
+        return pref.getBoolean("isIntroOpened", false);
     }
 
     private void savePrefsData() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("isIntroOpened",true);
+        editor.putBoolean("isIntroOpened", true);
         editor.commit();
     }
 
