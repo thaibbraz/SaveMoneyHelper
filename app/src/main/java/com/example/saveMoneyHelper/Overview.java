@@ -1,21 +1,18 @@
 package com.example.saveMoneyHelper;
 
-import android.content.Context;
-import android.database.DataSetObserver;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.anychart.APIlib;
@@ -34,12 +31,11 @@ import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+
 import java.util.List;
 
 
-public class Profile extends Fragment {
+public class Overview extends Fragment {
 
 
 
@@ -49,7 +45,7 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_overview, container, false);
         final AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
         APIlib.getInstance().setActiveAnyChartView(anyChartView);
 /*
@@ -60,7 +56,7 @@ public class Profile extends Fragment {
             Spinner spinner = view.findViewById(R.id.spinner2);
             String [] values =
                     {"Time at Residence","Under 6 months","6-12 months","1-2 years","2-4 years","4-8 years","8-15 years","Over 15 years"};
-            ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.fragment_profile,values);
+            ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.fragment_overview,values);
 
             adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
             spinner.setAdapter(adapter);

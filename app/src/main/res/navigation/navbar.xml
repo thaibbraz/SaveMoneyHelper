@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/overview"
-        android:name="com.example.saveMoneyHelper.Profile"
+        android:name="com.example.saveMoneyHelper.Overview"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_overview" />
     <fragment
         android:id="@+id/income"
         android:name="com.example.saveMoneyHelper.Income"

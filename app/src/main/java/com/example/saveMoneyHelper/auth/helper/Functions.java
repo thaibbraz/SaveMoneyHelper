@@ -8,29 +8,14 @@ import android.view.inputmethod.InputMethodManager;
 
 public class Functions {
 
-    //Main URL
-    private static String MAIN_URL = "http://192.168.43.166/~snow/android_login/";
-
-    // Login URL
-    public static String LOGIN_URL = MAIN_URL + "login.php";
-
-    // Register URL
-    public static String REGISTER_URL = MAIN_URL + "register.php";
-
-    // OTP Verification
-    public static String OTP_VERIFY_URL = MAIN_URL + "verification.php";
-
-    // Forgot Password
-    public static String RESET_PASS_URL = MAIN_URL + "reset-password.php";
-
 
     /**
      * Function to logout user
-     * Resets the temporary data stored in SQLite Database
+     * Resets the temporary data stored in Firebase Database
      * */
     public boolean logoutUser(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
-        db.resetTables();
+       /* DatabaseHandler db = new DatabaseHandler(context);
+        db.resetTables();*/
         return true;
     }
 

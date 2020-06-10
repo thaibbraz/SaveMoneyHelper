@@ -2,7 +2,6 @@ package com.example.saveMoneyHelper.auth;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -18,9 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.saveMoneyHelper.auth.helper.DatabaseHandler;
 import com.example.saveMoneyHelper.auth.helper.Functions;
-import com.example.saveMoneyHelper.HomeActivity;
 import com.example.saveMoneyHelper.auth.helper.SessionManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,7 +39,7 @@ public class EmailVerify extends AppCompatActivity {
     private TextView otpCountDown;
 
     private SessionManager session;
-    private DatabaseHandler db;
+    //private DatabaseHandler db;
     private ProgressDialog pDialog;
 
     private static final String FORMAT = "%02d:%02d";
@@ -66,7 +63,7 @@ public class EmailVerify extends AppCompatActivity {
 
         bundle = getIntent().getExtras();
 
-        db = new DatabaseHandler(getApplicationContext());
+       // db = new DatabaseHandler(getApplicationContext());
         session = new SessionManager(getApplicationContext());
 
         pDialog = new ProgressDialog(this);
@@ -134,74 +131,6 @@ public class EmailVerify extends AppCompatActivity {
         pDialog.setMessage("Checking in ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                Functions.OTP_VERIFY_URL, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Verification Response: " + response);
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // Check for error node in json
-                    if (!error) {
-                        JSONObject json_user = jObj.getJSONObject("user");
-
-                        Functions logout = new Functions();
-                        logout.logoutUser(getApplicationContext());
-                        db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
-                        session.setLogin(true);
-                        Intent upanel = new Intent(EmailVerify.this, HomeActivity.class);
-                        upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(upanel);
-                        finish();
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Invalid Verification Code", Toast.LENGTH_LONG).show();
-                        textVerifyCode.setError("Invalid Verification Code");
-                    }
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Verify Code Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<>();
-
-                params.put("tag", "verify_code");
-                params.put("email", email);
-                params.put("otp", otp);
-
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                return params;
-            }
-
-        };
-
-
     }
 
     private void resendCode(final String email) {
@@ -211,62 +140,6 @@ public class EmailVerify extends AppCompatActivity {
         pDialog.setMessage("Resending code ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                Functions.OTP_VERIFY_URL, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Resend Code Response: " + response);
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // Check for error node in json
-                    if (!error) {
-                        Toast.makeText(getApplicationContext(), "Code successfully sent to your email!", Toast.LENGTH_LONG).show();
-                        btnResend.setEnabled(false);
-                        countDown();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Code sending failed!", Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Resend Code Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("tag", "resend_code");
-                params.put("email", email);
-
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                return params;
-            }
-
-        };
 
     }
 
