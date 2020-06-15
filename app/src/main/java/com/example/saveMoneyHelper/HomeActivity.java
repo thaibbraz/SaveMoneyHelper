@@ -19,18 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * @2161902 IPL - ESTG
  */
 public class HomeActivity extends AppCompatActivity {
-   /*
-    private static final String TAG = HomeActivity.class.getSimpleName();
 
-    private TextView txtName, txtEmail;
-    private MaterialButton btnChangePass, btnLogout;
-    private SessionManager session;
-
-
-    private ProgressDialog pDialog;
-
-    private HashMap<String, String> user = new HashMap<>();
-    */
    private View fragmentHome;
    private BottomNavigationView bottomNavigationView;
 

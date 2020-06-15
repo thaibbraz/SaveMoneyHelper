@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.saveMoneyHelper.HomeActivity;
+import com.example.saveMoneyHelper.MainActivity;
+import com.example.saveMoneyHelper.firebase.models.User;
 import com.example.saveMoneyHelper.intro.DadosActivity;
 import com.example.saveMoneyHelper.auth.helper.Functions;
 import com.example.saveMoneyHelper.intro.IntroActivity;
@@ -37,8 +40,11 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.example.saveMoneyHelper.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,15 +56,9 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    private static String KEY_UID = "uid";
-    private static String KEY_NAME = "name";
-    private static String KEY_EMAIL = "email";
-    private static String KEY_CREATED_AT = "created_at";
-
     private Button btnLogin, btnLinkToRegister, btnForgotPass;
     private EditText inputEmail, inputPassword;
     private ProgressDialog pDialog;
-
 
 
     private FirebaseAuth mAuth;
@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLinkToRegister = findViewById(R.id.btn_register);
         btnForgotPass = findViewById(R.id.btn_forgotPassword);
 
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -81,16 +82,13 @@ public class LoginActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        // check user is already logged in
-
 
         if (mAuth.getCurrentUser() != null) {
-            Intent i = new Intent(LoginActivity.this, DadosActivity.class);
+
+            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(i);
             finish();
         }
-        // Hide Keyboard
-       // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
        init();
     }
@@ -218,8 +216,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginProcess(final String email, final String password) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
 
         pDialog.setMessage("Logging in ...");
         showDialog();
@@ -228,7 +224,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -249,11 +244,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null){
             Toast.makeText(getApplicationContext(), "Authentication succeed.", Toast.LENGTH_SHORT).show();
-            // Write a message to the database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("message");
 
-            myRef.setValue("Hello, World!");
             Intent i = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(i);
             finish();
@@ -283,4 +274,6 @@ public class LoginActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
+
 }

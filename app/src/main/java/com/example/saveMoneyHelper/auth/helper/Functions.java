@@ -11,7 +11,6 @@ public class Functions {
 
     /**
      * Function to logout user
-     * Resets the temporary data stored in Firebase Database
      * */
     public boolean logoutUser(Context context){
        /* DatabaseHandler db = new DatabaseHandler(context);

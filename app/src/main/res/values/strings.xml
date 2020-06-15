@@ -21,12 +21,19 @@
     <string name="intro_title">Intro example</string>
     <string name="confirm_password">confirmar palavra-passe</string>
 
-    <!-- TODO: Fragment's strings -->
+    <!-- Fragment's strings -->
     <string name="hello_blank_fragment">Fragmento branco</string>
     <string name="saldo_title">saldo atual</string>
     <string name="valor">Valor:</string>
     <string name="durante">Durante:</string>
     <string name="skip">pular</string>
+
+    <string name="select_type">Escolher tipo:</string>
+    <string name="select_category">Selecionar categoria:</string>
+    <string name="amount">Valor</string>
+    <string name="select_day">Selecionar dia:</string>
+    <string name="select_time">Selecionar hora:</string>
+    <string name="add">Adicionar</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>
