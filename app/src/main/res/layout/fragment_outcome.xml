@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="12dp"
                         android:paddingTop="8dp"
-                        android:text="Choose type:"
+                        android:text="@string/select_type"
                         android:textColor="@color/black" />
 
                     <Spinner
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="12dp"
                         android:paddingTop="4dp"
-                        android:text="Select category:"
+                        android:text="@string/select_category"
                          />
 
                     <Spinner
@@ -102,7 +102,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginBottom="16dp"
-                        android:hint="Name"
+                        android:hint="@string/hint_name"
                         app:layout_constraintTop_toBottomOf="@+id/sign_out_button">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -121,7 +121,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginBottom="16dp"
-                        android:hint="Amount"
+                        android:hint="@string/amount"
                         app:layout_constraintTop_toBottomOf="@+id/sign_out_button">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -143,7 +143,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingLeft="12dp"
-                            android:text="Select day:"
+                            android:text="@string/select_day"
                             app:layout_constraintBottom_toTopOf="@+id/choose_day_textview"
                             app:layout_constraintEnd_toStartOf="@+id/guideline3"
                             app:layout_constraintStart_toStartOf="@+id/choose_day_textview"
@@ -155,7 +155,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingLeft="12dp"
-                            android:text="Select time:"
+                            android:text="@string/select_time"
                             app:layout_constraintEnd_toEndOf="@+id/choose_time_textview"
                             app:layout_constraintStart_toStartOf="@+id/choose_time_textview"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -238,7 +238,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="Add"
+                android:text="@string/add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

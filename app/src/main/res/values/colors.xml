@@ -14,7 +14,8 @@
     <color name="black">#000000</color>
     <color name="grey">#656565</color>
     <color name="tab_indicator_gray">#c0c0c0</color>
-
+    <color name="outcome_color">#ef5350</color>
+    <color name="income_color">#66bb6a</color>
     <color name="color1">#cccccc</color>
     <color name="color2">#656565</color>
     <color name="color3">#c0c0c0</color>

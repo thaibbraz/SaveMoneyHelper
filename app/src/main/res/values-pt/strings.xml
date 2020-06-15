@@ -30,6 +30,13 @@
     <string name="durante">Period:</string>
     <string name="skip">skip</string>
 
+    <string name="select_type">Select type:</string>
+    <string name="select_category">Select category:</string>
+    <string name="amount">Amount</string>
+    <string name="select_day">Select day:</string>
+    <string name="select_time">Select time:</string>
+    <string name="add">Add</string>
+
     <string-array name="menuSimulacoes">
         <item>Mercury</item>
         <item>Venus</item>
