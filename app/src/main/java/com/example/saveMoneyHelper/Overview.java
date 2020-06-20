@@ -50,24 +50,7 @@ public class Overview extends Fragment {
         Spinner spinner = view.findViewById(R.id.spinner2);
 
 
-        tvX = view.findViewById(R.id.tvXMax);
-        tvY = view.findViewById(R.id.tvYMax);
 
-        seekBarX = view.findViewById(R.id.seekBar1);
-        seekBarY = view.findViewById(R.id.seekBar2);
-
-        seekBarY.setOnSeekBarChangeListener((SeekBar.OnSeekBarChangeListener) this);
-        seekBarX.setOnSeekBarChangeListener((SeekBar.OnSeekBarChangeListener) this);
-
-        chart = view.findViewById(R.id.chart1);
-        chart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
-
-        chart.setDrawBarShadow(false);
-        chart.setDrawValueAboveBar(true);
-
-        chart.getDescription().setEnabled(false);
-
-        chart.invalidate();
 
         String [] values = {"Simulação financeira ","SaveMoneyHelper"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,values);

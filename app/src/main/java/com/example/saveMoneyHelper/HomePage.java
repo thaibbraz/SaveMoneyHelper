@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
@@ -39,6 +40,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +55,8 @@ public class HomePage extends Fragment {
     private TextView incomesTextView;
     private TextView balance;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
+    private TopCategoriesAdapter adapter;
+    private ArrayList<TopCategoryListViewModel> categoryModelsHome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,12 +71,15 @@ public class HomePage extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
 
+        categoryModelsHome = new ArrayList<>();
         btnOverview = view.findViewById(R.id.btn_floatingProfile);
         pieChart = view.findViewById(R.id.pie_chart);
-
+        ListView favoriteListView = view.findViewById(R.id.favourite_categories_list_view);
         progressbar_income_expense = view.findViewById(R.id.progress_bar);
         balance = view.findViewById(R.id.balance);
 
+        adapter = new TopCategoriesAdapter(categoryModelsHome, getContext());
+        favoriteListView.setAdapter(adapter);
 
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).observe(this,
                 new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
@@ -123,9 +131,16 @@ public class HomePage extends Fragment {
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
             ArrayList<Integer> pieColors = new ArrayList<>();
 
+
+            categoryModelsHome.clear();
+
             for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
                 float percentage = categoryModel.getValue() / (float) expensesSumInDateRange;
                 final float minPercentageToShowLabelOnChart = 0.1f;
+
+
+                categoryModelsHome.add(new TopCategoryListViewModel(categoryModel.getKey(), categoryModel.getKey().getCategoryVisibleName(getContext()),
+                        categoryModel.getValue()));
 
                 if (percentage > minPercentageToShowLabelOnChart) {
                     Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
@@ -136,7 +151,17 @@ public class HomePage extends Fragment {
                     pieEntries.add(new PieEntry(-categoryModel.getValue()));
                 }
                 pieColors.add(categoryModel.getKey().getIconColor());
+
             }
+            Collections.sort(categoryModelsHome, new Comparator<TopCategoryListViewModel>() {
+                @Override
+                public int compare(TopCategoryListViewModel o1, TopCategoryListViewModel o2) {
+                        return Long.compare(o1.getMoney(),o2.getMoney());
+                }
+            });
+
+
+            adapter.refresh(categoryModelsHome);
 
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
             pieDataSet.setDrawValues(false);
@@ -169,7 +194,7 @@ public class HomePage extends Fragment {
 
 
             pieChart.invalidate();
-            System.out.println("income: "+incomesSumInDateRange+ " outcome "+expensesSumInDateRange);
+            //System.out.println("income: "+incomesSumInDateRange+ " outcome "+expensesSumInDateRange);
             float progress = 100 * incomesSumInDateRange / (float) (incomesSumInDateRange - expensesSumInDateRange);
             progressbar_income_expense.setProgress((int) progress);
 
