@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" group="SaveMoneyHelper/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SaveMoneyHelper-saveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/SaveMoneyHelper-saveMoneyHelper.iml" group="saveMoneyHelper" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="SaveMoneyHelper/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/saveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/saveMoneyHelper.iml" group="saveMoneyHelper" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" group="saveMoneyHelper/app" />
     </modules>
   </component>
 </project>

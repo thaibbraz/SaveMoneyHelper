@@ -94,6 +94,7 @@ public class HomePage extends Fragment {
 
         });
 
+        });
 
         btnOverview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -160,6 +161,10 @@ public class HomePage extends Fragment {
                 }
             });
 
+            PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+            pieDataSet.setDrawValues(false);
+            pieDataSet.setColors(pieColors);
+            pieDataSet.setSliceSpace(2f);
 
             adapter.refresh(categoryModelsHome);
 
