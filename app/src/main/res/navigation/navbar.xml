@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_income" />
     <fragment
         android:id="@+id/outcome"
-        android:name="com.example.saveMoneyHelper.Outcome"
+        android:name="com.example.saveMoneyHelper.wallet.Outcome"
         android:label="fragment_outcome"
         tools:layout="@layout/fragment_outcome" />
     <fragment

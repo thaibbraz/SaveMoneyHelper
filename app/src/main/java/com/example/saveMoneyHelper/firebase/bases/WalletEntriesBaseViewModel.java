@@ -1,10 +1,14 @@
-package com.example.saveMoneyHelper.firebase.models;
+package com.example.saveMoneyHelper.firebase.bases;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.example.saveMoneyHelper.firebase.FirebaseElement;
+import com.example.saveMoneyHelper.firebase.FirebaseObserver;
+import com.example.saveMoneyHelper.firebase.queries.FirebaseQueryLiveDataSet;
+import com.example.saveMoneyHelper.firebase.models.WalletEntry;
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
 import com.google.firebase.database.Query;
 

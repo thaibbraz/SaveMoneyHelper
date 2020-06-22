@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.wallet;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.saveMoneyHelper.R;
 
 import java.util.List;
 

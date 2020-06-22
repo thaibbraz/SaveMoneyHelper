@@ -2,6 +2,8 @@ package com.example.saveMoneyHelper.firebase.models;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.saveMoneyHelper.settings.UserSettings;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties

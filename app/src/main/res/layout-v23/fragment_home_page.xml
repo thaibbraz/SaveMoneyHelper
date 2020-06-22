@@ -77,6 +77,7 @@ tools:context=".HomePage">
 
             android:layout_margin="4dp"
             android:foreground="@drawable/ic_person"
+
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

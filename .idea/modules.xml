@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Repo_smh-SaveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/Repo_smh-SaveMoneyHelper.iml" group="SaveMoneyHelper" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SaveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/SaveMoneyHelper.iml" group="SaveMoneyHelper" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" group="SaveMoneyHelper/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SaveMoneyHelper-saveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/SaveMoneyHelper-saveMoneyHelper.iml" group="saveMoneyHelper" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SaveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/SaveMoneyHelper.iml" group="SaveMoneyHelper" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="SaveMoneyHelper/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/saveMoneyHelper.iml" filepath="$PROJECT_DIR$/.idea/modules/saveMoneyHelper.iml" group="saveMoneyHelper" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/saveMoneyHelper-app.iml" group="saveMoneyHelper/app" />
     </modules>
   </component>
 </project>

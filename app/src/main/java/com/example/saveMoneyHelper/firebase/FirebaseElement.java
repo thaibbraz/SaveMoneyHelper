@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper.firebase.models;
+package com.example.saveMoneyHelper.firebase;
 
 import com.google.firebase.database.DatabaseError;
 

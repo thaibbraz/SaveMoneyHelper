@@ -1,9 +1,11 @@
-package com.example.saveMoneyHelper.firebase.models;
+package com.example.saveMoneyHelper.firebase.factories;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.saveMoneyHelper.firebase.bases.WalletEntriesBaseViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;

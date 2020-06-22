@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.categories;
 
 
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.saveMoneyHelper.models.Category;
+import com.example.saveMoneyHelper.R;
 
 import java.util.ArrayList;
 

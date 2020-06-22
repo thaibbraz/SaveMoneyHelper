@@ -3,10 +3,10 @@ package com.example.saveMoneyHelper.util;
 import android.graphics.Color;
 
 import com.example.saveMoneyHelper.R;
-import com.example.saveMoneyHelper.models.Category;
+import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.firebase.models.User;
 import com.example.saveMoneyHelper.firebase.models.WalletEntryCategory;
-import com.example.saveMoneyHelper.models.DefaultCategories;
+import com.example.saveMoneyHelper.categories.DefaultCategories;
 
 import java.util.ArrayList;
 import java.util.Arrays;

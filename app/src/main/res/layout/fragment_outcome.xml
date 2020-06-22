@@ -5,7 +5,7 @@
     android:id="@+id/outcomeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Outcome">
+    tools:context=".wallet.Outcome">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +32,21 @@
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:titleTextColor="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@drawable/ic_back"
+
+                android:tint="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:rippleColor="@color/white" />
 
             <ScrollView
                 android:id="@+id/scrollView2"
@@ -60,7 +75,8 @@
                     <Spinner
                         android:id="@+id/select_type_spinner"
                         android:layout_width="match_parent"
-                        android:layout_height="72dp" />
+                        android:layout_height="72dp"
+                        android:backgroundTint="@android:color/transparent" />
 
                     <View
                         android:layout_width="match_parent"

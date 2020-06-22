@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.wallet;
 
 public class EntryTypeListViewModel {
     public final String name;

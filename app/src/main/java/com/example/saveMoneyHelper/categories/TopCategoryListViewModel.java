@@ -1,7 +1,4 @@
-package com.example.saveMoneyHelper;
-
-import com.example.saveMoneyHelper.firebase.models.Currency;
-import com.example.saveMoneyHelper.models.Category;
+package com.example.saveMoneyHelper.categories;
 
 public class TopCategoryListViewModel{
     private long money;

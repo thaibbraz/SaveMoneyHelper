@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper;
+package com.example.saveMoneyHelper.wallet;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -17,10 +17,11 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
+import com.example.saveMoneyHelper.R;
+import com.example.saveMoneyHelper.categories.Category;
+import com.example.saveMoneyHelper.categories.EntryCategoriesAdapter;
 import com.example.saveMoneyHelper.firebase.models.WalletEntry;
-import com.example.saveMoneyHelper.models.Category;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
 import com.example.saveMoneyHelper.util.CurrencyHelper;
 import com.google.android.material.textfield.TextInputEditText;
@@ -105,17 +106,21 @@ public class Outcome extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
+
                     addToWallet(((selectTypeSpinner.getSelectedItemPosition() * 2) - 1) *
                                     CurrencyHelper.convertAmountStringToLong(selectAmountEditText.getText().toString()),
                             chosenDate.getTime(),
                             ((Category) selectCategorySpinner.getSelectedItem()).getCategoryID(),
                             selectNameEditText.getText().toString());
+                    getActivity().onBackPressed();
                 } catch (Exception e) {
                     selectNameInputLayout.setError(e.getMessage());
-                  //  selectNameInputLayout.setError(e.getMessage());
+
 
                 }
+
             }
+
         });
     }
 
@@ -130,9 +135,9 @@ public class Outcome extends Fragment {
 
         EntryTypesAdapter typeAdapter = new EntryTypesAdapter(getContext(),
                 R.layout.new_entry_type_spinner_row, Arrays.asList(
-                new EntryTypeListViewModel("Expense", Color.parseColor("#ef5350"),
+                new EntryTypeListViewModel("Despesas", Color.parseColor("#ef5350"),
                         R.drawable.money_icon),
-                new EntryTypeListViewModel("Income", Color.parseColor("#66bb6a"),
+                new EntryTypeListViewModel("Ganhos", Color.parseColor("#66bb6a"),
                         R.drawable.money_icon)));
 
         selectTypeSpinner.setAdapter(typeAdapter);

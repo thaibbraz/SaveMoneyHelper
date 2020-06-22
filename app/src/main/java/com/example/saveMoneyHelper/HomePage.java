@@ -16,44 +16,53 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.anychart.chart.common.listener.Event;
-import com.anychart.chart.common.listener.ListenersInterface;
 import com.example.saveMoneyHelper.auth.EditProfileActivity;
 
-import com.example.saveMoneyHelper.firebase.models.FirebaseElement;
-import com.example.saveMoneyHelper.firebase.models.FirebaseObserver;
-import com.example.saveMoneyHelper.firebase.models.TopWalletEntriesViewModelFactory;
+import com.example.saveMoneyHelper.categories.Category;
+import com.example.saveMoneyHelper.categories.TopCategoriesAdapter;
+import com.example.saveMoneyHelper.categories.TopCategoryListViewModel;
+import com.example.saveMoneyHelper.firebase.FirebaseElement;
+import com.example.saveMoneyHelper.firebase.FirebaseObserver;
+import com.example.saveMoneyHelper.firebase.factories.TopWalletEntriesViewModelFactory;
+
 import com.example.saveMoneyHelper.firebase.models.WalletEntry;
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
-import com.example.saveMoneyHelper.models.Category;
+import com.example.saveMoneyHelper.intro.Model;
+import com.example.saveMoneyHelper.settings.UserSettings;
+import com.example.saveMoneyHelper.util.CalendarHelper;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
-import com.example.saveMoneyHelper.util.CurrencyHelper;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
+
 import java.util.ArrayList;
+
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.saveMoneyHelper.settings.UserSettings.PERIOD_MONTHLY;
+
 
 public class HomePage extends Fragment {
 
     private PieChart pieChart;
+    private UserSettings userSettings;
     private FloatingActionButton btnOverview;
     private ProgressBar progressbar_income_expense;
     private TextView incomesTextView;
     private TextView balance;
+    private  Calendar dateBegin;
+    private Calendar dateEnd;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private TopCategoriesAdapter adapter;
     private ArrayList<TopCategoryListViewModel> categoryModelsHome;
@@ -63,9 +72,16 @@ public class HomePage extends Fragment {
                              Bundle savedInstanceState) {
 
         //Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        //MONTHLY BY DEFAULT
+        userSettings = new UserSettings();
+        // UserSettings settings = PreferencesManager.getInstance().getUserSettings(getContext());
+
+            dateBegin = CalendarHelper.getStartDate(userSettings);
+            dateEnd = CalendarHelper.getEndDate(userSettings);
 
 
-        return inflater.inflate(R.layout.fragment_home_page, container, false);
+        return view;
     }
 
     @Override
@@ -81,20 +97,22 @@ public class HomePage extends Fragment {
         adapter = new TopCategoriesAdapter(categoryModelsHome, getContext());
         favoriteListView.setAdapter(adapter);
 
-        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).observe(this,
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),getActivity()).observe(this,
                 new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
 
             @Override
             public void onChanged(FirebaseElement<ListDataSet<WalletEntry>> firebaseElement) {
                 if (firebaseElement.hasNoError()) {
+
                     HomePage.this.walletEntryListDataSet = firebaseElement.getElement();
                     dataUpdated();
+
                 }
             }
 
         });
 
-        });
+
 
         btnOverview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -109,6 +127,7 @@ public class HomePage extends Fragment {
 
     private void dataUpdated() {
         if (walletEntryListDataSet != null) {
+
             List<WalletEntry> entryList = new ArrayList<>(walletEntryListDataSet.getList());
 
             long expensesSumInDateRange = 0;
@@ -128,7 +147,8 @@ public class HomePage extends Fragment {
                     categoryModels.put(category, walletEntry.balanceDifference);
 
             }
-
+            long expenses = -expensesSumInDateRange;
+           // long budget = user.
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
             ArrayList<Integer> pieColors = new ArrayList<>();
 
@@ -168,10 +188,7 @@ public class HomePage extends Fragment {
 
             adapter.refresh(categoryModelsHome);
 
-            PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
-            pieDataSet.setDrawValues(false);
-            pieDataSet.setColors(pieColors);
-            pieDataSet.setSliceSpace(2f);
+
 
             PieData data = new PieData(pieDataSet);
             pieChart.setData(data);
@@ -199,8 +216,9 @@ public class HomePage extends Fragment {
 
 
             pieChart.invalidate();
-            //System.out.println("income: "+incomesSumInDateRange+ " outcome "+expensesSumInDateRange);
+
             float progress = 100 * incomesSumInDateRange / (float) (incomesSumInDateRange - expensesSumInDateRange);
+           // float progress = expensesSumInDateRange;
             progressbar_income_expense.setProgress((int) progress);
 
             balance.setText(String.valueOf(progress));

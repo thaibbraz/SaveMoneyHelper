@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper.models;
+package com.example.saveMoneyHelper.categories;
 
 import android.content.Context;
 

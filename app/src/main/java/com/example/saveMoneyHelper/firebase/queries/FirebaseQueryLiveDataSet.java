@@ -1,9 +1,10 @@
-package com.example.saveMoneyHelper.firebase.models;
+package com.example.saveMoneyHelper.firebase.queries;
 
 
 
 import androidx.lifecycle.LiveData;
 
+import com.example.saveMoneyHelper.firebase.FirebaseElement;
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
