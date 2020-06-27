@@ -9,19 +9,15 @@
         android:id="@+id/overview"
         android:name="com.example.saveMoneyHelper.Overview"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_overview" >
-        <action
-            android:id="@+id/action_overview_to_simulacao"
-            app:destination="@id/simulacao" />
-    </fragment>
+        tools:layout="@layout/fragment_overview" />
     <fragment
         android:id="@+id/income"
         android:name="com.example.saveMoneyHelper.Income"
         android:label="fragment_income"
         tools:layout="@layout/fragment_income" />
     <fragment
-        android:id="@+id/outcome"
-        android:name="com.example.saveMoneyHelper.wallet.Outcome"
+        android:id="@+id/addWallet"
+        android:name="com.example.saveMoneyHelper.wallet.AddWallet"
         android:label="fragment_outcome"
         tools:layout="@layout/fragment_outcome" />
     <fragment
@@ -30,8 +26,8 @@
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
     <fragment
-        android:id="@+id/simulacao"
-        android:name="com.example.saveMoneyHelper.Simulacao"
+        android:id="@+id/transacoes"
+        android:name="com.example.saveMoneyHelper.Transacoes"
         android:label="fragment_simulacao"
-        tools:layout="@layout/fragment_simulacao" />
+        tools:layout="@layout/fragment_transacoes" />
 </navigation>

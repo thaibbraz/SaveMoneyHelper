@@ -3,7 +3,7 @@
     <!-- Primaries App style colors -->
     <color name="colorPrimary">#03DAC5</color>
     <color name="colorPrimaryDark">#03DAC5</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#656565</color>
     <color name="white">#ffffff</color>
     <color name="colorGreen">#53ECA3</color>
 
