@@ -37,7 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Outcome extends Fragment {
+public class AddWallet extends Fragment {
 
     private Spinner selectCategorySpinner;
     private TextInputEditText selectNameEditText;

@@ -30,7 +30,7 @@ tools:context=".HomePage">
     android:layout_width="431dp"
     android:layout_height="134dp"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@color/white"
 
     app:contentPadding="20dp"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -153,7 +153,7 @@ tools:context=".HomePage">
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:fontFamily="sans-serif-medium"
-            android:text="Top expenses:"
+            android:text="@string/top10"
             android:textColor="@color/black"
             android:textSize="16sp"
             />
