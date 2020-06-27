@@ -1,5 +1,7 @@
 package com.example.saveMoneyHelper;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,12 +14,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
-
-import com.example.saveMoneyHelper.auth.EditProfileActivity;
+import android.widget.Toast;
 
 import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.categories.TopCategoriesAdapter;
@@ -28,7 +30,8 @@ import com.example.saveMoneyHelper.firebase.factories.TopWalletEntriesViewModelF
 
 import com.example.saveMoneyHelper.firebase.models.WalletEntry;
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
-import com.example.saveMoneyHelper.intro.Model;
+
+import com.example.saveMoneyHelper.settings.PreferencesManager;
 import com.example.saveMoneyHelper.settings.UserSettings;
 import com.example.saveMoneyHelper.util.CalendarHelper;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
@@ -50,7 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.saveMoneyHelper.settings.UserSettings.PERIOD_MONTHLY;
+import amalhichri.androidprojects.com.techpragmatictheorieslibsexpanditlibrary.ExpanditActivityList;
 
 
 public class HomePage extends Fragment {
@@ -63,6 +66,7 @@ public class HomePage extends Fragment {
     private TextView balance;
     private  Calendar dateBegin;
     private Calendar dateEnd;
+    private ListView favoriteListView;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private TopCategoriesAdapter adapter;
     private ArrayList<TopCategoryListViewModel> categoryModelsHome;
@@ -75,10 +79,19 @@ public class HomePage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         //MONTHLY BY DEFAULT
         userSettings = new UserSettings();
-        // UserSettings settings = PreferencesManager.getInstance().getUserSettings(getContext());
+
+        if(PreferencesManager.getInstance().getSavedUserSettings(getContext()) != null) {
+
+            dateBegin = CalendarHelper.getStartDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
+            dateEnd = CalendarHelper.getEndDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
+
+
+        }else{
 
             dateBegin = CalendarHelper.getStartDate(userSettings);
             dateEnd = CalendarHelper.getEndDate(userSettings);
+        }
+
 
 
         return view;
@@ -90,13 +103,15 @@ public class HomePage extends Fragment {
         categoryModelsHome = new ArrayList<>();
         btnOverview = view.findViewById(R.id.btn_floatingProfile);
         pieChart = view.findViewById(R.id.pie_chart);
-        ListView favoriteListView = view.findViewById(R.id.favourite_categories_list_view);
+        favoriteListView = view.findViewById(R.id.favourite_categories_list_view);
         progressbar_income_expense = view.findViewById(R.id.progress_bar);
         balance = view.findViewById(R.id.balance);
 
         adapter = new TopCategoriesAdapter(categoryModelsHome, getContext());
         favoriteListView.setAdapter(adapter);
 
+
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),getActivity()).setDateFilter(dateBegin,dateEnd);
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),getActivity()).observe(this,
                 new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
 
@@ -107,6 +122,9 @@ public class HomePage extends Fragment {
                     HomePage.this.walletEntryListDataSet = firebaseElement.getElement();
                     dataUpdated();
 
+
+
+
                 }
             }
 
@@ -116,6 +134,7 @@ public class HomePage extends Fragment {
 
         btnOverview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+
                 Intent i = new Intent(view.getContext(), EditProfileActivity.class);
                 startActivity(i);
 
@@ -145,6 +164,8 @@ public class HomePage extends Fragment {
                     categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
                 else
                     categoryModels.put(category, walletEntry.balanceDifference);
+
+
 
             }
             long expenses = -expensesSumInDateRange;
@@ -180,6 +201,7 @@ public class HomePage extends Fragment {
                         return Long.compare(o1.getMoney(),o2.getMoney());
                 }
             });
+
 
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
             pieDataSet.setDrawValues(false);
