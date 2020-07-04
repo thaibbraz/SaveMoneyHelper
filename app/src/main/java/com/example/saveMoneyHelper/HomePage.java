@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.saveMoneyHelper.auth.EditProfileActivity;
 import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.categories.TopCategoriesAdapter;
 import com.example.saveMoneyHelper.categories.TopCategoryListViewModel;
@@ -53,7 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import amalhichri.androidprojects.com.techpragmatictheorieslibsexpanditlibrary.ExpanditActivityList;
+
 
 
 public class HomePage extends Fragment {
@@ -134,7 +135,6 @@ public class HomePage extends Fragment {
 
         btnOverview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                 Intent i = new Intent(view.getContext(), EditProfileActivity.class);
                 startActivity(i);
 

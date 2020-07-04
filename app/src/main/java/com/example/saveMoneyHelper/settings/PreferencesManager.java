@@ -21,7 +21,7 @@ public class PreferencesManager {
         trailsEditor.apply();
     }
 
-    public UserSettings getUserSettings(Context context) {
+    public UserSettings getSavedUserSettings(Context context) {
         if (sharedTrails == null) {
             sharedTrails = context.getApplicationContext().getSharedPreferences("user prefs", Context.MODE_PRIVATE);
         }
