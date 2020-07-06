@@ -26,8 +26,8 @@
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
     <fragment
-        android:id="@+id/transacoes"
-        android:name="com.example.saveMoneyHelper.Transacoes"
-        android:label="fragment_simulacao"
+        android:id="@+id/transacao"
+        android:name="com.example.saveMoneyHelper.transactions.Transacao"
+        android:label="fragment_transacoes"
         tools:layout="@layout/fragment_transacoes" />
 </navigation>

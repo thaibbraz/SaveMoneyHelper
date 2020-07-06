@@ -2,6 +2,7 @@ package com.example.saveMoneyHelper.categories;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.example.saveMoneyHelper.R;
+import com.example.saveMoneyHelper.auth.ProfileEditActivity;
+import com.example.saveMoneyHelper.wallet.AddWallet;
 
 import java.util.ArrayList;
 
@@ -58,8 +61,15 @@ public class TopCategoriesAdapter extends ArrayAdapter<TopCategoryListViewModel>
         else
             sumTextView.setTextColor(ContextCompat.getColor(context, R.color.income_color));
 
-        listItem.setClickable(false);
-        listItem.setOnClickListener(null);
+        listItem.setClickable(true);
+        listItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ProfileEditActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
         return listItem;
     }
     public void refresh(ArrayList<TopCategoryListViewModel> top10List){

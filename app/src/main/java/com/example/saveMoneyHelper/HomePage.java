@@ -1,7 +1,6 @@
 package com.example.saveMoneyHelper;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -14,14 +13,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.saveMoneyHelper.auth.EditProfileActivity;
+import com.example.saveMoneyHelper.auth.ProfileEditActivity;
 import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.categories.TopCategoriesAdapter;
 import com.example.saveMoneyHelper.categories.TopCategoryListViewModel;
@@ -55,17 +53,15 @@ import java.util.List;
 import java.util.Map;
 
 
-
-
 public class HomePage extends Fragment {
 
     private PieChart pieChart;
     private UserSettings userSettings;
-    private FloatingActionButton btnOverview;
+    private FloatingActionButton btnFloattingProfile;
     private ProgressBar progressbar_income_expense;
     private TextView incomesTextView;
     private TextView balance;
-    private  Calendar dateBegin;
+    private Calendar dateBegin;
     private Calendar dateEnd;
     private ListView favoriteListView;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
@@ -78,31 +74,29 @@ public class HomePage extends Fragment {
 
         //Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+
         //MONTHLY BY DEFAULT
         userSettings = new UserSettings();
 
-        if(PreferencesManager.getInstance().getSavedUserSettings(getContext()) != null) {
+        if (PreferencesManager.getInstance().getSavedUserSettings(getContext()) != null) {
 
             dateBegin = CalendarHelper.getStartDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
             dateEnd = CalendarHelper.getEndDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
 
 
-        }else{
-
+        } else {
             dateBegin = CalendarHelper.getStartDate(userSettings);
             dateEnd = CalendarHelper.getEndDate(userSettings);
         }
-
-
 
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         categoryModelsHome = new ArrayList<>();
-        btnOverview = view.findViewById(R.id.btn_floatingProfile);
+        btnFloattingProfile = view.findViewById(R.id.btn_floatingProfile);
         pieChart = view.findViewById(R.id.pie_chart);
         favoriteListView = view.findViewById(R.id.favourite_categories_list_view);
         progressbar_income_expense = view.findViewById(R.id.progress_bar);
@@ -112,41 +106,37 @@ public class HomePage extends Fragment {
         favoriteListView.setAdapter(adapter);
 
 
-        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),getActivity()).setDateFilter(dateBegin,dateEnd);
-        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),getActivity()).observe(this,
+
+        //Profile button
+        btnFloattingProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), ProfileEditActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //Setting month filter for top 10 expenses
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).setDateFilter(dateBegin, dateEnd);
+        //Observer for TopWalletEntries
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).observe(this,
                 new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
 
-            @Override
-            public void onChanged(FirebaseElement<ListDataSet<WalletEntry>> firebaseElement) {
-                if (firebaseElement.hasNoError()) {
+                    @Override
+                    public void onChanged(FirebaseElement<ListDataSet<WalletEntry>> firebaseElement) {
+                        if (firebaseElement.hasNoError()) {
+                            HomePage.this.walletEntryListDataSet = firebaseElement.getElement();
+                            dataUpdated();
 
-                    HomePage.this.walletEntryListDataSet = firebaseElement.getElement();
-                    dataUpdated();
+                        }
+                    }
 
-
-
-
-                }
-            }
-
-        });
-
-
-
-        btnOverview.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), EditProfileActivity.class);
-                startActivity(i);
-
-            }
-        });
-
+                });
 
     }
 
     private void dataUpdated() {
         if (walletEntryListDataSet != null) {
-
+            //list of entries
             List<WalletEntry> entryList = new ArrayList<>(walletEntryListDataSet.getList());
 
             long expensesSumInDateRange = 0;
@@ -165,24 +155,25 @@ public class HomePage extends Fragment {
                 else
                     categoryModels.put(category, walletEntry.balanceDifference);
 
-
-
             }
-            long expenses = -expensesSumInDateRange;
-           // long budget = user.
+
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
             ArrayList<Integer> pieColors = new ArrayList<>();
 
-
             categoryModelsHome.clear();
-
+            int count = 10;
             for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
                 float percentage = categoryModel.getValue() / (float) expensesSumInDateRange;
                 final float minPercentageToShowLabelOnChart = 0.1f;
 
+                //Populating arrayList<TopCategoryListViewModel>
+                if (count>0){
+                    categoryModelsHome.add(new TopCategoryListViewModel(categoryModel.getKey(),
+                            categoryModel.getKey().getCategoryVisibleName(getContext()),
+                            categoryModel.getValue()));
+                    count--;
 
-                categoryModelsHome.add(new TopCategoryListViewModel(categoryModel.getKey(), categoryModel.getKey().getCategoryVisibleName(getContext()),
-                        categoryModel.getValue()));
+                }
 
                 if (percentage > minPercentageToShowLabelOnChart) {
                     Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
@@ -193,15 +184,16 @@ public class HomePage extends Fragment {
                     pieEntries.add(new PieEntry(-categoryModel.getValue()));
                 }
                 pieColors.add(categoryModel.getKey().getIconColor());
-
             }
             Collections.sort(categoryModelsHome, new Comparator<TopCategoryListViewModel>() {
                 @Override
                 public int compare(TopCategoryListViewModel o1, TopCategoryListViewModel o2) {
-                        return Long.compare(o1.getMoney(),o2.getMoney());
+                    return Long.compare(o1.getMoney(), o2.getMoney());
                 }
             });
 
+
+            //Pie chart
 
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
             pieDataSet.setDrawValues(false);
@@ -209,7 +201,6 @@ public class HomePage extends Fragment {
             pieDataSet.setSliceSpace(2f);
 
             adapter.refresh(categoryModelsHome);
-
 
 
             PieData data = new PieData(pieDataSet);
@@ -236,14 +227,18 @@ public class HomePage extends Fragment {
             pieChart.animateY(1400, Easing.EaseInOutQuad);
 
 
-
             pieChart.invalidate();
 
             float progress = 100 * incomesSumInDateRange / (float) (incomesSumInDateRange - expensesSumInDateRange);
-           // float progress = expensesSumInDateRange;
+
+            float money = incomesSumInDateRange+expensesSumInDateRange;
             progressbar_income_expense.setProgress((int) progress);
 
-            balance.setText(String.valueOf(progress));
+            balance.setText(String.valueOf(money + "€"));
+            if (money>0)
+                balance.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+            else
+                balance.setTextColor(ContextCompat.getColor(getContext(), R.color.outcome_color));
 
         }
 

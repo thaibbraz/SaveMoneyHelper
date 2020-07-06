@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".auth.ProfileEditActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
         <activity android:name=".intro.DadosActivity" />
         <activity android:name=".intro.DetailActivity" />
         <activity android:name=".intro.IntroActivity" />

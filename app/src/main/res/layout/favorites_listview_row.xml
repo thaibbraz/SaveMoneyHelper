@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:text="23$"
+        android:text="23€"
         android:textSize="18sp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

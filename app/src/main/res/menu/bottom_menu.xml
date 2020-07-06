@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_add"
         android:title="" />
     <item
-        android:id="@+id/transacoes"
+        android:id="@+id/transacao"
         android:icon="@drawable/ic_transacitons"
         android:title="" />
     <item
