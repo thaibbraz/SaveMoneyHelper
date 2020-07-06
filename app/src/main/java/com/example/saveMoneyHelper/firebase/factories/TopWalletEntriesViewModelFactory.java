@@ -27,7 +27,7 @@ public class TopWalletEntriesViewModelFactory implements ViewModelProvider.Facto
         return ViewModelProviders.of(activity, new TopWalletEntriesViewModelFactory(uid)).get(Model.class);
     }
 
-    public static class Model extends WalletEntriesBaseViewModel {
+    public static class Model extends WalletEntriesBaseViewModel{
 
         public Model(String uid) {
             super(uid, FirebaseDatabase.getInstance().getReference().child("wallet-entries").child(uid).child("default").orderByChild("timestamp"));

@@ -183,16 +183,16 @@ public class AddWallet extends Fragment {
 
     public void addToWallet(long balanceDifference, Date entryDate, String entryCategory, String entryName) throws Exception {
         if (balanceDifference == 0) {
-            throw new Exception("Balance difference should not be 0");
+            throw new Exception("O valor deverá ser diferente de 0");
         }
 
         if (entryName == null || entryName.length() == 0) {
-            throw new Exception("Entry name length should be > 0");
+            throw new Exception("O nome deverá ser > 0 caracteres");
         }
 
         FirebaseDatabase.getInstance().getReference().child("wallet-entries").child(user.getUid())
                 .child("default").push().setValue(new WalletEntry(entryCategory, entryName, entryDate.getTime(), balanceDifference));
-        // Toast.makeText(getContext(), " "+ , Toast.LENGTH_SHORT).show();
+
     }
 
 }

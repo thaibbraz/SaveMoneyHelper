@@ -36,6 +36,7 @@
     <string name="add">Adicionar</string>
     <string name="top10">Top 10 despesas:</string>
     <string name="settings">Definições</string>
+    <string name="transactions">Transações</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

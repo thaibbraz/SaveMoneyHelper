@@ -116,9 +116,11 @@ public class HomePage extends Fragment {
         });
 
         //Setting month filter for top 10 expenses
-        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).setDateFilter(dateBegin, dateEnd);
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                getActivity()).setDateFilter(dateBegin, dateEnd);
         //Observer for TopWalletEntries
-        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).observe(this,
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                getActivity()).observe(this,
                 new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
 
                     @Override
@@ -148,6 +150,7 @@ public class HomePage extends Fragment {
                     incomesSumInDateRange += walletEntry.balanceDifference;
                     continue;
                 }
+
                 expensesSumInDateRange += walletEntry.balanceDifference;
                 Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
                 if (categoryModels.get(category) != null)
