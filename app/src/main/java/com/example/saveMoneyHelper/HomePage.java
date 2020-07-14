@@ -78,7 +78,6 @@ public class HomePage extends Fragment {
         //MONTHLY BY DEFAULT
         userSettings = new UserSettings();
 
-
         if (PreferencesManager.getInstance().getSavedUserSettings(getContext()) != null) {
 
             dateBegin = CalendarHelper.getStartDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
@@ -157,9 +156,7 @@ public class HomePage extends Fragment {
                 }
                 expensesSumInDateRange += walletEntry.balanceDifference;
                 Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
-                if (category == userSettings.getBudget().getCategory()){
-                    userSettings.getBudget().setEntry(userSettings.getBudget().getEntry() - walletEntry.balanceDifference);
-                }
+
                 if (categoryModels.get(category) != null)
                     categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
                 else

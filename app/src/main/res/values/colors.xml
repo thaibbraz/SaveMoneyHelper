@@ -20,4 +20,6 @@
     <color name="color2">#656565</color>
     <color name="color3">#c0c0c0</color>
     <color name="color4">#ffffff</color>
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="snow">#FFFAFA</color>
 </resources>
