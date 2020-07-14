@@ -10,8 +10,8 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie_chart"
-        android:layout_width="413dp"
-        android:layout_height="214dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
 
         android:layout_marginTop="52dp"
         android:layout_marginBottom="256dp"
@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.37">
 
     </com.github.mikephil.charting.charts.PieChart>
 
@@ -131,6 +131,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -145,7 +146,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pie_chart"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.18">
 
         <TextView
             android:layout_width="wrap_content"
@@ -155,8 +156,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/top10"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
 
 
     </RelativeLayout>
@@ -170,6 +170,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintVertical_bias="0.060000002" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,6 +78,7 @@ public class HomePage extends Fragment {
         //MONTHLY BY DEFAULT
         userSettings = new UserSettings();
 
+
         if (PreferencesManager.getInstance().getSavedUserSettings(getContext()) != null) {
 
             dateBegin = CalendarHelper.getStartDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
@@ -87,7 +88,10 @@ public class HomePage extends Fragment {
         } else {
             dateBegin = CalendarHelper.getStartDate(userSettings);
             dateEnd = CalendarHelper.getEndDate(userSettings);
+
+
         }
+
 
         return view;
     }
@@ -147,12 +151,15 @@ public class HomePage extends Fragment {
             HashMap<Category, Long> categoryModels = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
                 if (walletEntry.balanceDifference > 0) {
+
                     incomesSumInDateRange += walletEntry.balanceDifference;
                     continue;
                 }
-
                 expensesSumInDateRange += walletEntry.balanceDifference;
                 Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
+                if (category == userSettings.getBudget().getCategory()){
+                    userSettings.getBudget().setEntry(userSettings.getBudget().getEntry() - walletEntry.balanceDifference);
+                }
                 if (categoryModels.get(category) != null)
                     categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
                 else
@@ -178,7 +185,7 @@ public class HomePage extends Fragment {
 
                 }
 
-                if (percentage > minPercentageToShowLabelOnChart) {
+                if (percentage > minPercentageToShowLabelOnChart){
                     Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
                     drawable.setTint(Color.parseColor("#FFFFFF"));
                     pieEntries.add(new PieEntry(-categoryModel.getValue(), drawable));
@@ -186,6 +193,7 @@ public class HomePage extends Fragment {
                 } else {
                     pieEntries.add(new PieEntry(-categoryModel.getValue()));
                 }
+
                 pieColors.add(categoryModel.getKey().getIconColor());
             }
             Collections.sort(categoryModelsHome, new Comparator<TopCategoryListViewModel>() {
@@ -232,14 +240,20 @@ public class HomePage extends Fragment {
 
             pieChart.invalidate();
 
-            float progress = 100 * incomesSumInDateRange / (float) (incomesSumInDateRange - expensesSumInDateRange);
+            float progress = 100 * userSettings.getBudget().getEntry() / (float) (userSettings.getBudget().getLimit());
 
             float money = incomesSumInDateRange+expensesSumInDateRange;
-            progressbar_income_expense.setProgress((int) progress);
+
+                progressbar_income_expense.setMax((int) userSettings.getBudget().getLimit());
+                progressbar_income_expense.setProgress((int) progress);
+
+
 
             balance.setText(String.valueOf(money + "€"));
             if (money>0)
                 balance.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+            else if (money==0)
+                balance.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
             else
                 balance.setTextColor(ContextCompat.getColor(getContext(), R.color.outcome_color));
 
@@ -248,4 +262,3 @@ public class HomePage extends Fragment {
 
     }
 }
-
