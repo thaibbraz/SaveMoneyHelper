@@ -1,6 +1,7 @@
 package com.example.saveMoneyHelper;
 
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -264,18 +265,22 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
                 chart.getData().notifyDataChanged();
                 chart.notifyDataSetChanged();
             } else {
-                set1 = new BarDataSet(values, "Data Set");
+                set1 = new BarDataSet(values, "");
                 set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
-                set1.setDrawValues(true);
+                set1.setDrawValues(false);
 
                 ArrayList<IBarDataSet> dataSets = new ArrayList<>();
                 dataSets.add(set1);
 
                 BarData data = new BarData(dataSets);
-                chart.setDrawGridBackground(false);
+                set1.setValueTextColor(Color.WHITE);
+
+
+              //  set1.setFormLineDashEffect(new DashPathEffect(1f,1f));
                 chart.setDrawBarShadow(false);
-                chart.setHighlightFullBarEnabled(true);
+                chart.setDoubleTapToZoomEnabled(false);
+                chart.setHighlightFullBarEnabled(false);
 
                 chart.setData(data);
                 chart.setFitBars(true);

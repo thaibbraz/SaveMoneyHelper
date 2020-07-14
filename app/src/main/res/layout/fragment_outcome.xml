@@ -21,6 +21,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
@@ -31,7 +32,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@color/white" />
+                app:titleTextColor="@color/white">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addWallet"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/scrollView2"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2"
+                app:layout_constraintVertical_bias="0.45" />
+        </androidx.appcompat.widget.Toolbar>
 
 
             <ScrollView
@@ -147,25 +162,31 @@
                             android:paddingLeft="12dp"
                             android:text="@string/select_day"
                             app:layout_constraintBottom_toTopOf="@+id/choose_day_textview"
-                            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+
                             app:layout_constraintStart_toStartOf="@+id/choose_day_textview"
                             app:layout_constraintTop_toTopOf="@+id/choose_day_textview"
                             app:layout_constraintVertical_bias="0.0" />
 
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:paddingLeft="12dp"
-                            android:text="@string/select_time"
-                            app:layout_constraintEnd_toEndOf="@+id/choose_time_textview"
-                            app:layout_constraintStart_toStartOf="@+id/choose_time_textview"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView
+                            android:id="@+id/icon_imageview"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/icon_background_circle"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="#FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.05"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.58000004" />
 
                         <TextView
                             android:id="@+id/choose_day_textview"
                             style="@style/Widget.AppCompat.Spinner"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
@@ -175,7 +196,6 @@
                             android:paddingLeft="8dp"
                             android:text="aha"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/guideline3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -190,47 +210,19 @@
                             app:layout_constraintStart_toStartOf="@+id/choose_day_textview"
                             app:layout_constraintTop_toBottomOf="@+id/choose_day_textview" />
 
-                        <TextView
-                            android:id="@+id/choose_time_textview"
-                            style="@style/Widget.AppCompat.Spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:paddingRight="8dp"
-                            android:text="aha"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/choose_day_textview"
-                            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            app:layout_constraintEnd_toEndOf="@+id/choose_time_textview"
-                            app:layout_constraintStart_toStartOf="@+id/choose_time_textview"
-                            app:layout_constraintTop_toBottomOf="@+id/choose_time_textview" />
 
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_percent="0.6" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
             </ScrollView>
 
             <Button
+
                 android:id="@+id/add_entry_button"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="120dp"
+                android:layout_width="300dp"
                 android:layout_height="52dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"

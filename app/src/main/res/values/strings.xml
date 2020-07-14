@@ -34,9 +34,10 @@
     <string name="select_day">Selecionar dia:</string>
     <string name="select_time">Selecionar hora:</string>
     <string name="add">Adicionar</string>
-    <string name="top10">Top 10 despesas:</string>
+    <string name="top10">Top 10 despesas</string>
     <string name="settings">Definições</string>
     <string name="transactions">Transações</string>
+    <string name="addWallet">Adicionar transação</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

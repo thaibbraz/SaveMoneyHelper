@@ -9,7 +9,7 @@
     </style>
     <style name="MyProgressBarTwo" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/custom_progressbar_horizontal</item>
-        <item name="android:minWidth">200dp</item>
+        <item name="android:minWidth">150dp</item>
     </style>
 
 </resources>

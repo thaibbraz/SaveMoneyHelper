@@ -68,7 +68,7 @@ public class AddWallet extends Fragment {
         selectNameInputLayout = view.findViewById(R.id.select_name_inputlayout);
         selectTypeSpinner = view.findViewById(R.id.select_type_spinner);
         addEntryButton = view.findViewById(R.id.add_entry_button);
-        chooseTimeTextView = view.findViewById(R.id.choose_time_textview);
+       //chooseTimeTextView = view.findViewById(R.id.choose_time_textview);
         chooseDayTextView = view.findViewById(R.id.choose_day_textview);
         selectAmountEditText = view.findViewById(R.id.select_amount_edittext);
         selectAmountInputLayout = view.findViewById(R.id.select_amount_inputlayout);
@@ -95,13 +95,13 @@ public class AddWallet extends Fragment {
                 pickDate();
             }
         });
-        chooseTimeTextView.setOnClickListener(new View.OnClickListener() {
+       /* chooseTimeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickTime();
             }
         });
-
+*/
         addEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +150,7 @@ public class AddWallet extends Fragment {
         chooseDayTextView.setText(dataFormatter.format(chosenDate.getTime()));
 
         SimpleDateFormat dataFormatter2 = new SimpleDateFormat("HH:mm");
-        chooseTimeTextView.setText(dataFormatter2.format(chosenDate.getTime()));
+//        chooseTimeTextView.setText(dataFormatter2.format(chosenDate.getTime()));
     }
 
     private void pickTime() {
