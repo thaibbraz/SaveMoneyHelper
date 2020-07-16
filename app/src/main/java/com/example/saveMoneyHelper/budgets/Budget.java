@@ -57,7 +57,7 @@ public class Budget extends Fragment {
 
         adapter = new BudgetAdapter(getContext(), budgetModelsHome);
         budgetListView.setAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_budget, container, false);
+        return view;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Budget extends Fragment {
             int count = 20;
             if (count>0){
                 for (WalletEntry walletEntry : entryList) {
-                    System.out.println("Esta em: "+count);
+
                     Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
                     String categoryID = walletEntryListDataSet.getIDList().get(entryList.indexOf(walletEntry));
                     long money = -walletEntry.balanceDifference;
