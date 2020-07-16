@@ -38,6 +38,7 @@
     <string name="settings">Definições</string>
     <string name="transactions">Transações</string>
     <string name="addWallet">Adicionar transação</string>
+    <string name="budget">Budget</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

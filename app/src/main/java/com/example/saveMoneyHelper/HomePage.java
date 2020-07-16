@@ -140,6 +140,7 @@ public class HomePage extends Fragment {
     }
 
     private void dataUpdated() {
+
         if (walletEntryListDataSet != null) {
             //list of entries
             List<WalletEntry> entryList = new ArrayList<>(walletEntryListDataSet.getList());

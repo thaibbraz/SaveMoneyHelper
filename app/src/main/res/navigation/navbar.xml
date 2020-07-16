@@ -11,10 +11,10 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_overview" />
     <fragment
-        android:id="@+id/income"
-        android:name="com.example.saveMoneyHelper.Income"
-        android:label="fragment_income"
-        tools:layout="@layout/fragment_income" />
+        android:id="@+id/budget"
+        android:name="com.example.saveMoneyHelper.budgets.Budget"
+        android:label="fragment_budget"
+        tools:layout="@layout/fragment_budget" />
     <fragment
         android:id="@+id/addWallet"
         android:name="com.example.saveMoneyHelper.wallet.AddWallet"

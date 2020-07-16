@@ -1,4 +1,4 @@
-package com.example.saveMoneyHelper.transactions;
+package com.example.saveMoneyHelper.budgets;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,33 +10,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.saveMoneyHelper.R;
 import com.example.saveMoneyHelper.auth.ProfileEditActivity;
 import com.example.saveMoneyHelper.categories.Category;
-import com.example.saveMoneyHelper.firebase.models.WalletEntry;
-import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
+import com.example.saveMoneyHelper.transactions.TransactionsListViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
-
-public class TransactionsAdapter extends ArrayAdapter<TransactionsListViewModel> implements View.OnClickListener {
-    private ArrayList<TransactionsListViewModel> dataSet;
-
+public class BudgetAdapter extends ArrayAdapter<BudgetListViewModel> implements View.OnClickListener {
+    private ArrayList<BudgetListViewModel> dataSet;
     private Context context;
-    public TransactionsAdapter(ArrayList<TransactionsListViewModel> data, Context context) {
-        super(context, R.layout.transaction_listview_row, data);
+
+    public BudgetAdapter(Context context, ArrayList<BudgetListViewModel> data) {
+        super(context,  R.layout.budget_listview_row, data);
         this.dataSet = data;
         this.context = context;
-
     }
 
     @Override
@@ -47,21 +46,16 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionsListViewModel>
     public View getView(final int position, View convertView, ViewGroup parent) {
         View listItem = convertView;
         if (listItem == null)
-            listItem = LayoutInflater.from(context).inflate(R.layout.transaction_listview_row, parent, false);
-        final TransactionsListViewModel dataModel = getItem(position);
+            listItem = LayoutInflater.from(context).inflate(R.layout.budget_listview_row, parent, false);
+        final BudgetListViewModel dataModel = getItem(position);
         Category category = dataModel.getCategory();
-
+        ImageView iconImageView = listItem.findViewById(R.id.icon_imageview);
         TextView moneyTextView = listItem.findViewById(R.id.money_textview);
         TextView categoryTextView = listItem.findViewById(R.id.category_textview);
-        TextView nameTextView = listItem.findViewById(R.id.name_textview);
-        TextView dateTextView = listItem.findViewById(R.id.date_textview);
-        ImageView iconImageView = listItem.findViewById(R.id.icon_imageview);
+        ProgressBar progressBar = listItem.findViewById(R.id.progress_bar);
 
-
-        nameTextView.setText(dataModel.getNameTextView());
         iconImageView.setImageResource(category.getIconResourceID());
         iconImageView.setBackgroundTintList(ColorStateList.valueOf(category.getIconColor()));
-        dateTextView.setText(dataModel.getDateTextView());
 
         categoryTextView.setText(dataModel.getCategory().getCategoryVisibleName(getContext()));
         moneyTextView.setText(String.valueOf(dataModel.getMoney()));
@@ -82,20 +76,19 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionsListViewModel>
             @Override
             public boolean onLongClick(View view) {
                 Toast.makeText(getContext(),"category id: "+dataModel.getCategoryID()+" | userid"
-                +FirebaseAuth.getInstance().getCurrentUser().getUid().toString(), Toast.LENGTH_SHORT).show();
+                        + FirebaseAuth.getInstance().getCurrentUser().getUid().toString(), Toast.LENGTH_SHORT).show();
                 createDeleteDialog(dataModel.getCategoryID(), FirebaseAuth.getInstance().getCurrentUser().getUid(), dataModel.getMoney(), view.getContext());
                 return false;
             }
         });
         return listItem;
+
     }
 
-    public void refresh(ArrayList<TransactionsListViewModel> transactions){
-        this.dataSet = transactions;
+    public void refresh(ArrayList<BudgetListViewModel> BudgetListViewModel){
+        this.dataSet = BudgetListViewModel;
         notifyDataSetChanged();
-
     }
-
 
     private void createDeleteDialog(final String id, final String uid, long balanceDifference, Context context) {
         new AlertDialog.Builder(context).setMessage("Deseja eliminar?").setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
@@ -112,5 +105,6 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionsListViewModel>
         }).create().show();
 
     }
+
 
 }

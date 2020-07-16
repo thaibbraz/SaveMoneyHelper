@@ -7,13 +7,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -44,13 +47,15 @@ public class AddWallet extends Fragment {
     private Calendar chosenDate;
     private TextInputEditText selectAmountEditText;
     private TextView chooseDayTextView;
-    private TextView chooseTimeTextView;
     private Spinner selectTypeSpinner;
     private Button addEntryButton;
     private FirebaseUser user;
     private TextInputLayout selectAmountInputLayout;
     private TextInputLayout selectNameInputLayout;
     private FirebaseAuth mAuth;
+    private Toolbar toolbar;
+    private ImageView imgCalendar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,11 +73,12 @@ public class AddWallet extends Fragment {
         selectNameInputLayout = view.findViewById(R.id.select_name_inputlayout);
         selectTypeSpinner = view.findViewById(R.id.select_type_spinner);
         addEntryButton = view.findViewById(R.id.add_entry_button);
-       //chooseTimeTextView = view.findViewById(R.id.choose_time_textview);
         chooseDayTextView = view.findViewById(R.id.choose_day_textview);
         selectAmountEditText = view.findViewById(R.id.select_amount_edittext);
         selectAmountInputLayout = view.findViewById(R.id.select_amount_inputlayout);
+        toolbar = view.findViewById(R.id.toolbarAddWallet);
         chosenDate = Calendar.getInstance();
+        imgCalendar =  view.findViewById(R.id.icon_imageview);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -95,13 +101,7 @@ public class AddWallet extends Fragment {
                 pickDate();
             }
         });
-       /* chooseTimeTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pickTime();
-            }
-        });
-*/
+
         addEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,11 +137,35 @@ public class AddWallet extends Fragment {
                 R.layout.new_entry_type_spinner_row, Arrays.asList(
                 new EntryTypeListViewModel("Despesas", Color.parseColor("#ef5350"),
                         R.drawable.money_icon),
-                new EntryTypeListViewModel("Ganhos", Color.parseColor("#66bb6a"),
+                new EntryTypeListViewModel("Ganhos", Color.parseColor("#ef5350"),
                         R.drawable.money_icon)));
 
         selectTypeSpinner.setAdapter(typeAdapter);
 
+        selectTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        addEntryButton.setBackgroundColor(Color.parseColor("#ef5350"));
+                        toolbar.setBackgroundColor(Color.parseColor("#ef5350"));
+                        imgCalendar.setBackgroundColor(Color.parseColor("#ef5350"));
+
+                        break;
+                    case 1:
+                        addEntryButton.setBackgroundColor(Color.parseColor("#03DAC5"));
+                        toolbar.setBackgroundColor(Color.parseColor("#03DAC5"));
+                        imgCalendar.setBackgroundColor(Color.parseColor("#03DAC5"));
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -150,20 +174,10 @@ public class AddWallet extends Fragment {
         chooseDayTextView.setText(dataFormatter.format(chosenDate.getTime()));
 
         SimpleDateFormat dataFormatter2 = new SimpleDateFormat("HH:mm");
-//        chooseTimeTextView.setText(dataFormatter2.format(chosenDate.getTime()));
+
     }
 
-    private void pickTime() {
-        new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                chosenDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                chosenDate.set(Calendar.MINUTE, minute);
-                updateDate();
 
-            }
-        }, chosenDate.get(Calendar.HOUR_OF_DAY), chosenDate.get(Calendar.MINUTE), true).show();
-    }
 
     private void pickDate() {
         final Calendar c = Calendar.getInstance();

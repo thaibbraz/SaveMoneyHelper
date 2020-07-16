@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
     android:layout_height="62dp"
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
-    android:paddingRight="16dp"
+
     android:paddingBottom="16dp">
 
     <ImageView
