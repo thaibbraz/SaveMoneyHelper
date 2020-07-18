@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarBudget">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBudget"
+        app:layout_constraintVertical_bias="0.43">
 
 
     </ListView>
@@ -33,6 +34,22 @@
         app:layout_constraintVertical_bias="0.0"
         />
 
+    <ImageView
+        android:id="@+id/icon_imageview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="7dp"
+        android:src="@drawable/ic_baseline_add"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toEndOf="@+id/budget_list_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"

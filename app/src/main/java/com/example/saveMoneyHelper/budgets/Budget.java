@@ -1,5 +1,6 @@
 package com.example.saveMoneyHelper.budgets;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -9,35 +10,31 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.saveMoneyHelper.R;
+import com.example.saveMoneyHelper.auth.ProfileEditActivity;
 import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.firebase.FirebaseElement;
 import com.example.saveMoneyHelper.firebase.FirebaseObserver;
 import com.example.saveMoneyHelper.firebase.factories.TopWalletEntriesViewModelFactory;
 import com.example.saveMoneyHelper.firebase.models.WalletEntry;
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
-import com.example.saveMoneyHelper.transactions.Transacao;
-import com.example.saveMoneyHelper.transactions.TransactionsAdapter;
-import com.example.saveMoneyHelper.transactions.TransactionsListViewModel;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
 public class Budget extends Fragment {
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private BudgetAdapter adapter;
-    private Toolbar toolbarBudget;
-    private TextView textViewToolBar;
     private ArrayList<BudgetListViewModel> budgetModelsHome;
     private ListView budgetListView;
+    private ImageView imageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,12 +48,10 @@ public class Budget extends Fragment {
         View view = inflater.inflate(R.layout.fragment_budget, container, false);
         budgetModelsHome = new ArrayList<>();
         budgetListView = view.findViewById(R.id.budget_list_view);
-
-        toolbarBudget = (Toolbar) view.findViewById(R.id.toolbarBudget);
-        textViewToolBar = (TextView) toolbarBudget.findViewById(R.id.title);
-
         adapter = new BudgetAdapter(getContext(), budgetModelsHome);
         budgetListView.setAdapter(adapter);
+        imageView = view.findViewById(R.id.icon_imageview);
+
         return view;
     }
 
@@ -77,6 +72,13 @@ public class Budget extends Fragment {
 
 
                 });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), AddBudget.class);
+                startActivity(i);
+            }
+        });
 
     }
 

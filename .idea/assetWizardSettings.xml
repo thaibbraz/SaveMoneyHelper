@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Users/Lovelace/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/193.6514223/plugins/android/lib/android.jar!/images/material/icons/materialicons/calendar_today/baseline_calendar_today_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Users/Lovelace/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/193.6514223/plugins/android/lib/android.jar!/images/material/icons/materialicons/close/baseline_close_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_calendar" />
+                            <entry key="outputName" value="ic_close" />
                             <entry key="sourceFile" value="C:\Users\Lovelace" />
                           </map>
                         </option>

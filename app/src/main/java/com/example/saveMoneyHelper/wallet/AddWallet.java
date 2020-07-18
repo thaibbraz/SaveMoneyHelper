@@ -1,7 +1,6 @@
 package com.example.saveMoneyHelper.wallet;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -19,7 +18,6 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.example.saveMoneyHelper.R;
 import com.example.saveMoneyHelper.categories.Category;
@@ -86,7 +84,7 @@ public class AddWallet extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
         user = mAuth.getCurrentUser();
@@ -137,7 +135,7 @@ public class AddWallet extends Fragment {
                 R.layout.new_entry_type_spinner_row, Arrays.asList(
                 new EntryTypeListViewModel("Despesas", Color.parseColor("#ef5350"),
                         R.drawable.money_icon),
-                new EntryTypeListViewModel("Ganhos", Color.parseColor("#ef5350"),
+                new EntryTypeListViewModel("Ganhos", Color.parseColor("#03DAC5"),
                         R.drawable.money_icon)));
 
         selectTypeSpinner.setAdapter(typeAdapter);

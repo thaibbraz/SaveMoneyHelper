@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="105dp"
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
@@ -62,6 +62,20 @@
             app:layout_constraintStart_toEndOf="@+id/icon_imageview"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/name_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Kebab"
+            android:textColor="@color/grey"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/money_textview"
+            app:layout_constraintStart_toEndOf="@+id/icon_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/category_textview" />
 
         <ProgressBar
             android:id="@+id/background_progress_bar"
