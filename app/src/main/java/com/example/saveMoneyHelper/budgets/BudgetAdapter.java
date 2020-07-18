@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat;
 import com.example.saveMoneyHelper.R;
 import com.example.saveMoneyHelper.auth.ProfileEditActivity;
 import com.example.saveMoneyHelper.categories.Category;
-import com.example.saveMoneyHelper.transactions.TransactionsListViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -94,7 +93,7 @@ public class BudgetAdapter extends ArrayAdapter<BudgetListViewModel> implements 
         new AlertDialog.Builder(context).setMessage("Deseja eliminar?").setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int whichButton) {
-                FirebaseDatabase.getInstance().getReference().child("wallet-entries").child(uid).child("default").child(id).removeValue();
+                FirebaseDatabase.getInstance().getReference().child("budget-entries").child(uid).child(id).removeValue();
 
                 dialog.dismiss();
             }

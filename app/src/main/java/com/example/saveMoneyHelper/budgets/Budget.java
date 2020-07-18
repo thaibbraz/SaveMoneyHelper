@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
+
+
 
 import com.example.saveMoneyHelper.R;
-import com.example.saveMoneyHelper.auth.ProfileEditActivity;
 import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.firebase.FirebaseElement;
 import com.example.saveMoneyHelper.firebase.FirebaseObserver;
-import com.example.saveMoneyHelper.firebase.factories.TopWalletEntriesViewModelFactory;
-import com.example.saveMoneyHelper.firebase.models.WalletEntry;
+import com.example.saveMoneyHelper.firebase.factories.BudgetEntriesViewModelFactory;
+
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,11 +31,12 @@ import java.util.List;
 
 
 public class Budget extends Fragment {
-    private ListDataSet<WalletEntry> walletEntryListDataSet;
+    private ListDataSet<BudgetEntry> budgetEntryListDataSet;
     private BudgetAdapter adapter;
     private ArrayList<BudgetListViewModel> budgetModelsHome;
     private ListView budgetListView;
     private ImageView imageView;
+    private ProgressBar progressbar_limit;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class Budget extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_budget, container, false);
         budgetModelsHome = new ArrayList<>();
+        progressbar_limit = view.findViewById(R.id.progress_bar);
         budgetListView = view.findViewById(R.id.budget_list_view);
         adapter = new BudgetAdapter(getContext(), budgetModelsHome);
         budgetListView.setAdapter(adapter);
@@ -57,14 +60,15 @@ public class Budget extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+
+        BudgetEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 getActivity()).observe(this,
-                new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
+                new FirebaseObserver<FirebaseElement<ListDataSet<BudgetEntry>>>() {
 
                     @Override
-                    public void onChanged(FirebaseElement<ListDataSet<WalletEntry>> firebaseElement) {
+                    public void onChanged(FirebaseElement<ListDataSet<BudgetEntry>> firebaseElement) {
                         if (firebaseElement.hasNoError()) {
-                            Budget.this.walletEntryListDataSet = firebaseElement.getElement();
+                            Budget.this.budgetEntryListDataSet = firebaseElement.getElement();
                             dataUpdated();
 
                         }
@@ -83,18 +87,18 @@ public class Budget extends Fragment {
     }
 
     private void dataUpdated() {
-        if (walletEntryListDataSet != null) {
-            List<WalletEntry> entryList = new ArrayList<>(walletEntryListDataSet.getList());
+        if (budgetEntryListDataSet != null) {
+            List<BudgetEntry> entryList = new ArrayList<>(budgetEntryListDataSet.getList());
 
             budgetModelsHome.clear();
             int count = 20;
             if (count>0){
-                for (WalletEntry walletEntry : entryList) {
+                for (BudgetEntry budgetEntry : entryList) {
 
-                    Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
-                    String categoryID = walletEntryListDataSet.getIDList().get(entryList.indexOf(walletEntry));
-                    long money = -walletEntry.balanceDifference;
-                    budgetModelsHome.add(new BudgetListViewModel(money,category,1000,categoryID));
+                    Category category = CategoriesHelper.searchCategory(budgetEntry.categoryID);
+                    String categoryID = budgetEntryListDataSet.getIDList().get(entryList.indexOf(budgetEntry));
+                    long limit = -budgetEntry.limit;
+                    budgetModelsHome.add(new BudgetListViewModel(limit,category,1000,categoryID));
                     count--;
 
                 }
@@ -102,6 +106,15 @@ public class Budget extends Fragment {
 
             adapter.refresh(budgetModelsHome);
 
+       /*
+            float progress = 100 * userSettings.getBudget().getEntry() / (float) (userSettings.getBudget().getLimit());
+
+            float money = incomesSumInDateRange+expensesSumInDateRange;
+
+            progressbar_income_expense.setMax((int) userSettings.getBudget().getLimit());
+            progressbar_income_expense.setProgress((int) progress);
+
+        */
         }
     }
 }

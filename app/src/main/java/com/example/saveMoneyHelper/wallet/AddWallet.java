@@ -58,7 +58,6 @@ public class AddWallet extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -122,7 +121,6 @@ public class AddWallet extends Fragment {
         });
     }
 
-
     private void updateLists() {
         final List<Category> categories = CategoriesHelper.getCategories();
         EntryCategoriesAdapter categoryAdapter = new EntryCategoriesAdapter(getContext(),
@@ -171,11 +169,7 @@ public class AddWallet extends Fragment {
         SimpleDateFormat dataFormatter = new SimpleDateFormat("yyyy-MM-dd");
         chooseDayTextView.setText(dataFormatter.format(chosenDate.getTime()));
 
-        SimpleDateFormat dataFormatter2 = new SimpleDateFormat("HH:mm");
-
     }
-
-
 
     private void pickDate() {
         final Calendar c = Calendar.getInstance();
@@ -197,11 +191,9 @@ public class AddWallet extends Fragment {
         if (balanceDifference == 0) {
             throw new Exception("O valor deverá ser diferente de 0");
         }
-
         if (entryName == null || entryName.length() == 0) {
             throw new Exception("O nome deverá ser > 0 caracteres");
         }
-
         FirebaseDatabase.getInstance().getReference().child("wallet-entries").child(user.getUid())
                 .child("default").push().setValue(new WalletEntry(entryCategory, entryName, entryDate.getTime(), balanceDifference));
 

@@ -214,7 +214,7 @@ public class HomePage extends Fragment {
 
             PieData data = new PieData(pieDataSet);
             pieChart.setData(data);
-            pieChart.setTouchEnabled(false);
+            pieChart.setTouchEnabled(true);
             pieChart.getLegend().setEnabled(false);
             pieChart.getDescription().setEnabled(false);
             pieChart.setUsePercentValues(true);
@@ -226,14 +226,14 @@ public class HomePage extends Fragment {
             pieChart.setTransparentCircleColor(Color.WHITE);
             pieChart.setTransparentCircleAlpha(110);
 
-            pieChart.setHoleRadius(58f);
-            pieChart.setTransparentCircleRadius(61f);
+            pieChart.setHoleRadius(48f);
+
             pieChart.setDrawCenterText(true);
             pieChart.setRotationAngle(270);
             pieChart.setRotationEnabled(true);
             pieChart.setHighlightPerTapEnabled(true);
 
-            pieChart.animateY(1400, Easing.EaseInOutQuad);
+            pieChart.animateY(1200, Easing.EaseInOutQuad);
 
 
             pieChart.invalidate();

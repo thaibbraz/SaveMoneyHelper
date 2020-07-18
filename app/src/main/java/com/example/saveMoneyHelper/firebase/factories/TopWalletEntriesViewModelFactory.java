@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.saveMoneyHelper.budgets.BudgetEntry;
 import com.example.saveMoneyHelper.firebase.bases.WalletEntriesBaseViewModel;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,6 +38,7 @@ public class TopWalletEntriesViewModelFactory implements ViewModelProvider.Facto
             liveData.setQuery(FirebaseDatabase.getInstance().getReference()
                     .child("wallet-entries").child(uid).child("default").orderByChild("timestamp")
                     .startAt(-endDate.getTimeInMillis()).endAt(-startDate.getTimeInMillis()));
+
         }
     }
 }
