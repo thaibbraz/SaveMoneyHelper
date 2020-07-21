@@ -11,44 +11,60 @@
     tools:context=".HomePage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        android:background="@color/white_smoke"
         android:id="@+id/homeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".HomePage">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pie_chart"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginBottom="256dp"
-            android:clickable="false"
-            android:foregroundTint="@color/snow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            app:layout_constraintVertical_bias="0.0">
-
-        </com.github.mikephil.charting.charts.PieChart>
-
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            app:cardCornerRadius="10dp"
-            android:layout_width="371dp"
-            android:layout_height="134dp"
+            android:id="@+id/cardViewChart"
+            android:layout_width="match_parent"
+            android:layout_height="381dp"
             android:layout_margin="10dp"
             app:cardBackgroundColor="@color/white"
-
+            app:cardCornerRadius="10dp"
             app:contentPadding="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cardView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.43"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.028">
+            app:layout_constraintTop_toBottomOf="@id/cardView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pie_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="165dp"
+                    android:clickable="false"
+                    android:foregroundTint="@color/snow"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.41000003">
+
+                </com.github.mikephil.charting.charts.PieChart>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="174dp"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+
+            app:contentPadding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.43"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -144,50 +160,53 @@
 
         </androidx.cardview.widget.CardView>
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:background="@color/white_smoke"
-            android:orientation="vertical"
-            android:paddingStart="6dp"
-            app:layout_constraintBottom_toTopOf="@+id/cardView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pie_chart"
-            app:layout_constraintVertical_bias="1.0">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/top10"
-                android:textColor="@color/color2"
-                android:textSize="15sp" />
-        </RelativeLayout>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
-            android:layout_width="369dp"
-            android:layout_height="209dp"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
             app:cardBackgroundColor="@color/snow"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pie_chart">
+            app:layout_constraintTop_toBottomOf="@+id/cardViewChart">
 
-            <ListView
-                android:id="@+id/favourite_categories_list_view"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingTop="5dp" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/topDespesas"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/top10"
+                    android:textColor="@color/color2"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.110000014">
+
+
+                </TextView>
+
+                <ListView
+                    android:id="@+id/favourite_categories_list_view"
+                    android:layout_width="349dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="7dp"
+
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topDespesas"
+                    app:layout_constraintVertical_bias="0.38" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
 

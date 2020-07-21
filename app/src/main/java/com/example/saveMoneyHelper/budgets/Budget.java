@@ -22,16 +22,20 @@ import com.example.saveMoneyHelper.firebase.FirebaseElement;
 import com.example.saveMoneyHelper.firebase.FirebaseObserver;
 import com.example.saveMoneyHelper.firebase.factories.BudgetEntriesViewModelFactory;
 
+import com.example.saveMoneyHelper.firebase.factories.TopWalletEntriesViewModelFactory;
+import com.example.saveMoneyHelper.firebase.models.WalletEntry;
 import com.example.saveMoneyHelper.firebase.utils.ListDataSet;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class Budget extends Fragment {
     private ListDataSet<BudgetEntry> budgetEntryListDataSet;
+    private ListDataSet<WalletEntry> walletEntryListDataSet;
     private BudgetAdapter adapter;
     private ArrayList<BudgetListViewModel> budgetModelsHome;
     private ListView budgetListView;
@@ -76,6 +80,20 @@ public class Budget extends Fragment {
 
 
                 });
+
+        TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(), getActivity()).
+                observe(this, new FirebaseObserver<FirebaseElement<ListDataSet<WalletEntry>>>() {
+
+                    @Override
+                    public void onChanged(FirebaseElement<ListDataSet<WalletEntry>> firebaseElement) {
+                        if (firebaseElement.hasNoError()) {
+                            Budget.this.walletEntryListDataSet = firebaseElement.getElement();
+                            dataUpdated();
+                        }
+                    }
+
+                });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,34 +105,36 @@ public class Budget extends Fragment {
     }
 
     private void dataUpdated() {
-        if (budgetEntryListDataSet != null) {
+        if (budgetEntryListDataSet != null && walletEntryListDataSet != null) {
             List<BudgetEntry> entryList = new ArrayList<>(budgetEntryListDataSet.getList());
 
+            long expensesSumInDateRange = 0;
+            List<WalletEntry> entryListWallet = new ArrayList<>(walletEntryListDataSet.getList());
             budgetModelsHome.clear();
             int count = 20;
+
             if (count>0){
                 for (BudgetEntry budgetEntry : entryList) {
+                    long limit = budgetEntry.limit;
+                    for (WalletEntry walletEntry : entryListWallet) {
+                        System.out.println("categoryID budgetEntry: "+budgetEntry.categoryID);
+                        System.out.println("categoryID walletEntry: "+walletEntry.categoryID);
+                        if (budgetEntry.categoryID.compareTo(walletEntry.categoryID)==0 && walletEntry.balanceDifference<0){
+                            expensesSumInDateRange += walletEntry.balanceDifference;
+                        }
+
+                    }
 
                     Category category = CategoriesHelper.searchCategory(budgetEntry.categoryID);
                     String categoryID = budgetEntryListDataSet.getIDList().get(entryList.indexOf(budgetEntry));
-                    long limit = -budgetEntry.limit;
-                    budgetModelsHome.add(new BudgetListViewModel(limit,category,1000,categoryID));
+                    budgetModelsHome.add(new BudgetListViewModel(-expensesSumInDateRange,category,limit,categoryID));
                     count--;
-
                 }
             }
 
             adapter.refresh(budgetModelsHome);
 
-       /*
-            float progress = 100 * userSettings.getBudget().getEntry() / (float) (userSettings.getBudget().getLimit());
 
-            float money = incomesSumInDateRange+expensesSumInDateRange;
-
-            progressbar_income_expense.setMax((int) userSettings.getBudget().getLimit());
-            progressbar_income_expense.setProgress((int) progress);
-
-        */
         }
     }
 }

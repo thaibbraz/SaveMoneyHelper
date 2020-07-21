@@ -44,6 +44,8 @@
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.97"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -62,20 +64,7 @@
             app:layout_constraintStart_toEndOf="@+id/icon_imageview"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/name_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="Kebab"
-            android:textColor="@color/grey"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/money_textview"
-            app:layout_constraintStart_toEndOf="@+id/icon_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/category_textview" />
+
 
         <ProgressBar
             android:id="@+id/background_progress_bar"

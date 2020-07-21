@@ -1,175 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homeFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="1500dp"
+    app:layout_constraintEnd_toStartOf="@+id/pie_chart"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".HomePage">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pie_chart"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white_smoke"
+        android:id="@+id/homeFragment"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
+        tools:context=".HomePage">
 
-        android:layout_marginTop="52dp"
-        android:layout_marginBottom="256dp"
-        android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.37">
-
-    </com.github.mikephil.charting.charts.PieChart>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="431dp"
-        android:layout_height="134dp"
-        android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/white"
-
-        app:contentPadding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="367dp"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3,00€"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.120000005" />
-
-            <TextView
-                android:id="@+id/balanceTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/saldo_title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/balance"
-                app:layout_constraintVertical_bias="0.07999998" />
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_floatingProfile"
-                android:layout_width="43dp"
-                android:layout_height="45dp"
-                android:layout_gravity="start"
-
-                android:layout_margin="4dp"
-                android:foreground="@drawable/ic_person"
-
-                app:backgroundTint="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:maxImageSize="15dp" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewChart"
+            android:layout_width="397dp"
+            android:layout_height="381dp"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.43"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ProgressBar
-                    android:id="@+id/background_progress_bar"
-                    style="@style/MyProgressBarTwo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="100"
-                    android:progressTint="@color/color1"
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pie_chart"
+                    android:layout_width="350dp"
+                    android:layout_height="165dp"
+                    android:clickable="false"
+                    android:foregroundTint="@color/snow"
 
-                    android:theme="@style/MyProgressBarTwo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="@style/MyProgressBarTwo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="50"
-                    android:progressBackgroundTint="@android:color/transparent"
-                    android:progressTint="@color/colorGreen"
-                    android:theme="@style/MyProgressBarTwo"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.77"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.13">
+
+                </com.github.mikephil.charting.charts.PieChart>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="174dp"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+
+            app:contentPadding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.43"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3,00€"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.120000005" />
+
+                <TextView
+                    android:id="@+id/balanceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/saldo_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/balance"
+                    app:layout_constraintVertical_bias="0.07999998" />
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_floatingProfile"
+                    android:layout_width="33dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="4dp"
+                    android:foreground="@drawable/ic_person"
+                    app:backgroundTint="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.97"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.01999998"
+                    app:maxImageSize="15dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <ProgressBar
+                        android:id="@+id/background_progress_bar"
+                        style="@style/MyProgressBarTwo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="100"
+                        android:progressTint="@color/white_smoke"
+
+                        android:theme="@style/MyProgressBarTwo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        style="@style/MyProgressBarTwo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="50"
+                        android:progressBackgroundTint="@android:color/transparent"
+                        android:progressTint="@color/colorGreen"
+                        android:theme="@style/MyProgressBarTwo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.88"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            app:cardBackgroundColor="@color/snow"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewChart">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color1"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pie_chart"
-        app:layout_constraintVertical_bias="0.18">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/top10"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/topDespesas"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/top10"
+                    android:textColor="@color/color2"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.110000014">
 
 
-    </RelativeLayout>
+                </TextView>
 
-    <ListView
-        android:id="@+id/favourite_categories_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintVertical_bias="0.0" />
+                <ListView
+                    android:id="@+id/favourite_categories_list_view"
+                    android:layout_width="349dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="7dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topDespesas"
+                    app:layout_constraintVertical_bias="0.38" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

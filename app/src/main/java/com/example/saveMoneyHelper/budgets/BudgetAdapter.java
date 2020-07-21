@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,15 +55,24 @@ public class BudgetAdapter extends ArrayAdapter<BudgetListViewModel> implements 
         TextView categoryTextView = listItem.findViewById(R.id.category_textview);
         ProgressBar progressBar = listItem.findViewById(R.id.progress_bar);
 
+
+       Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
+       progressBar.setProgressDrawable(progressDrawable);
+
+        float progress = 100 * dataModel.getMoney() / (float) (dataModel.getLimit());
+        progressBar.setProgress((int) progress);
+        if (progress>55 && progress<75)
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+
+        if (progress>=75)
+            progressBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
         iconImageView.setImageResource(category.getIconResourceID());
         iconImageView.setBackgroundTintList(ColorStateList.valueOf(category.getIconColor()));
 
         categoryTextView.setText(dataModel.getCategory().getCategoryVisibleName(getContext()));
-        moneyTextView.setText(String.valueOf(dataModel.getMoney()));
-        if (dataModel.getMoney() < 0)
-            moneyTextView.setTextColor(ContextCompat.getColor(context, R.color.outcome_color));
-        else
-            moneyTextView.setTextColor(ContextCompat.getColor(context, R.color.income_color));
+        moneyTextView.setText(String.valueOf(dataModel.getLimit()+"€"));
+        if (dataModel.getLimit() > 0)
+            moneyTextView.setTextColor(ContextCompat.getColor(context, R.color.grey));
 
         listItem.setClickable(true);
         listItem.setOnClickListener(new View.OnClickListener() {

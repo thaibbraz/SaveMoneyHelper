@@ -91,13 +91,6 @@ public class HomePage extends Fragment {
 
         }
 
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
         categoryModelsHome = new ArrayList<>();
         btnFloattingProfile = view.findViewById(R.id.btn_floatingProfile);
         pieChart = view.findViewById(R.id.pie_chart);
@@ -136,6 +129,13 @@ public class HomePage extends Fragment {
                     }
 
                 });
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
     }
 
@@ -238,14 +238,8 @@ public class HomePage extends Fragment {
 
             pieChart.invalidate();
 
-            float progress = 100 * userSettings.getBudget().getEntry() / (float) (userSettings.getBudget().getLimit());
 
             float money = incomesSumInDateRange+expensesSumInDateRange;
-
-                progressbar_income_expense.setMax((int) userSettings.getBudget().getLimit());
-                progressbar_income_expense.setProgress((int) progress);
-
-
 
             balance.setText(String.valueOf(money + "€"));
             if (money>0)
