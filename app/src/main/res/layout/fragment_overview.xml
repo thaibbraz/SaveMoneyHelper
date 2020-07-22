@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/white_smoke"
     tools:context=".Overview">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="370dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_margin="10dp"
 
-        android:layout_marginStart="8dp"
-        app:cardBackgroundColor="@color/white_smoke"
+        android:layout_marginStart="4dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
         app:contentPadding="20dp"
 
@@ -27,7 +27,7 @@
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart1"
             android:layout_width="336dp"
-            android:layout_height="180dp"
+            android:layout_height="230dp"
             android:layout_above="@+id/seekBar1"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
@@ -36,7 +36,7 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chartLine"
             android:layout_width="336dp"
-            android:layout_height="180dp"
+            android:layout_height="230dp"
             android:layout_above="@+id/seekBar1"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
@@ -49,10 +49,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="386dp"
+        android:layout_width="match_parent"
         android:layout_height="131dp"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/white_smoke"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:contentPadding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -152,15 +152,16 @@
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
-        android:layout_width="392dp"
-        android:layout_height="114dp"
+        android:layout_width="377dp"
+        android:layout_height="84dp"
         android:layout_alignBottom="@+id/cardView"
 
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.18">
 
         <SeekBar
             android:id="@+id/seekBar2"
@@ -171,19 +172,24 @@
             android:layout_margin="8dp"
             android:layout_marginEnd="5dp"
             android:layout_toLeftOf="@+id/tvYMax"
-            android:max="200"
+
             android:paddingBottom="12dp" />
 
         <SeekBar
             android:id="@+id/seekBar1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:layout_height="38dp"
             android:layout_above="@+id/seekBar2"
-            android:layout_margin="8dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+
+            android:layout_marginBottom="5dp"
             android:layout_toLeftOf="@+id/tvXMax"
-            android:max="1500"
+
             android:paddingBottom="12dp" />
 
         <TextView
@@ -192,8 +198,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/seekBar1"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="3dp"
             android:gravity="right"
             android:text="@string/valor"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -204,8 +210,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/seekBar2"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="7dp"
             android:gravity="right"
             android:text="@string/durante"
             android:textAppearance="?android:attr/textAppearanceSmall" />

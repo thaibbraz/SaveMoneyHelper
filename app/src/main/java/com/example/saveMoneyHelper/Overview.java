@@ -62,6 +62,7 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
     private UserSettings userSettings;
     private Calendar dateBegin;
     private Calendar dateEnd;
+    private int flag=0;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private SeekBar seekBarX, seekBarY;
     private TextView editTextTempo, editTextValor;
@@ -176,8 +177,11 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
 
                 switch (position){
                     case 0:
+                        flag=1;
+                        dataUpdated();
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
+
 
                         break;
                     case 1:
@@ -186,7 +190,9 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
                         lineChart.setVisibility(View.VISIBLE);
                         break;
                     case 2:
-                        chart.setVisibility(View.INVISIBLE);
+                        flag=2;
+                        dataUpdated();
+                        chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
                         break;
 
@@ -212,9 +218,8 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
             for (WalletEntry walletEntry : entryList) {
 
                 if (walletEntry.balanceDifference > 0) {
-
                     incomesSumInDateRange += walletEntry.balanceDifference;
-                    continue;
+
                 }
                 expensesSumInDateRange += walletEntry.balanceDifference;
                 Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
@@ -229,19 +234,20 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
             ArrayList<Integer> chartColors = new ArrayList<>();
             int counter = 0;
             for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
+                Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+                drawable.setTint(Color.parseColor("#000000"));
+               // values.add(new BarEntry(counter,-categoryModel.getValue(),drawable));
+
+                if (flag == 1 && categoryModel.getValue()<0) {
+                    values.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
+                }
+                else if (flag == 2 && categoryModel.getValue()>0){
+                    values.add(new BarEntry(counter,categoryModel.getValue(),drawable));
+                }
 
                 counter++;
-                float percentage = categoryModel.getValue() / (float) expensesSumInDateRange;
-                final float minPercentageToShowLabelOnChart = 0.01f;
-                if(counter<11 && percentage>minPercentageToShowLabelOnChart){
+                chartColors.add(categoryModel.getKey().getIconColor());
 
-                    Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
-                    drawable.setTint(Color.parseColor("#000000"));
-                    values.add(new BarEntry(counter,-categoryModel.getValue(),drawable));
-
-
-                    chartColors.add(categoryModel.getKey().getIconColor());
-                }
 
             }
             chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
