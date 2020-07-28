@@ -193,7 +193,9 @@ public class HomePage extends Fragment {
                 }
 
                 pieColors.add(categoryModel.getKey().getIconColor());
+
             }
+            System.out.println(pieColors);
             Collections.sort(categoryModelsHome, new Comparator<TopCategoryListViewModel>() {
                 @Override
                 public int compare(TopCategoryListViewModel o1, TopCategoryListViewModel o2) {

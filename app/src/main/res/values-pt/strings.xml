@@ -41,6 +41,8 @@
     <string name="addWallet">Add transaction</string>
     <string name="addBudget">Add budget</string>
     <string name="budget">Budget</string>
+    <string name="simular">simulate</string>
+    <string name="resetar">reset</string>
 
 
 </resources>

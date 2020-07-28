@@ -20,7 +20,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewChart"
             android:layout_width="match_parent"
-            android:layout_height="381dp"
+            android:layout_height="311dp"
             android:layout_margin="10dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"

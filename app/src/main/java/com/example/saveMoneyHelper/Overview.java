@@ -3,10 +3,12 @@ package com.example.saveMoneyHelper;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,21 +33,21 @@ import com.example.saveMoneyHelper.settings.PreferencesManager;
 import com.example.saveMoneyHelper.settings.UserSettings;
 import com.example.saveMoneyHelper.util.CalendarHelper;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
-import com.github.mikephil.charting.animation.Easing;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
+
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
+
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -55,17 +58,23 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListener {
+public class Overview extends Fragment{
 
     private BarChart chart;
     private LineChart lineChart;
     private UserSettings userSettings;
     private Calendar dateBegin;
+    private Button btn_resetar,btn_simular;
     private Calendar dateEnd;
-    private int flag=0;
+    private Spinner spinner;
+    private ArrayList<ILineDataSet> dataSets;
+    private ArrayList<BarEntry> values;
+    private ArrayList<Entry> valuesLine;
+    private ArrayList<Integer> chartColors;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private SeekBar seekBarX, seekBarY;
-    private TextView editTextTempo, editTextValor;
+    private TextView editTextTempo, editTextValor, tempo,valor;
+    private int flag=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,15 +83,16 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
         editTextValor = view.findViewById(R.id.editTextValor);
         editTextTempo = view.findViewById(R.id.editTextTempo);
 
-        seekBarX = view.findViewById(R.id.seekBar1);
-        seekBarX.setOnSeekBarChangeListener(this);
+        tempo = view.findViewById(R.id.tvTempoMax);
+        valor = view.findViewById(R.id.tvValorMax);
 
+
+        seekBarX = view.findViewById(R.id.seekBar1);
         seekBarY = view.findViewById(R.id.seekBar2);
-        seekBarY.setOnSeekBarChangeListener(this);
 
         chart = view.findViewById(R.id.chart1);
-
-
+        btn_simular = view.findViewById(R.id.btn_simular);
+        btn_resetar = view.findViewById(R.id.btn_resetar);
         chart.getDescription().setEnabled(false);
         chart.setMaxVisibleValueCount(100);
 
@@ -108,12 +118,7 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
         chart.getAxisLeft().setDrawGridLines(false);
 
         // setting data
-        seekBarX.setProgress(10);
-        seekBarY.setProgress(30);
-        seekBarX.setMax(1000);
-
-
-        // add a nice and smooth animation
+      // add a nice and smooth animation
         chart.animateY(1500);
         chart.setDrawGridBackground(false);
         chart.getLegend().setEnabled(false);
@@ -135,17 +140,18 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
 
         }
 
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Spinner spinner = view.findViewById(R.id.spinner2);
+        spinner = view.findViewById(R.id.spinner2);
+        values = new ArrayList<>();
+        chartColors = new ArrayList<>();
+        chartColors.clear();
 
-        String [] names = {"Top Despesas","Balanço", "Top Ganhos"};
+        String [] names = {"Top Despesas","Top Ganhos", "Simulação"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,names);
 
 
@@ -182,18 +188,40 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
 
-
+                        seekBarX.setVisibility(View.INVISIBLE);
+                        seekBarY.setVisibility(View.INVISIBLE);
+                        btn_resetar.setVisibility(View.INVISIBLE);
+                        btn_simular.setVisibility(View.INVISIBLE);
+                        tempo.setVisibility(View.INVISIBLE);
+                        valor.setVisibility(View.INVISIBLE);
                         break;
                     case 1:
-
-                        chart.setVisibility(View.INVISIBLE);
-                        lineChart.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
                         flag=2;
                         dataUpdated();
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
+
+                        seekBarX.setVisibility(View.INVISIBLE);
+                        seekBarY.setVisibility(View.INVISIBLE);
+                        btn_resetar.setVisibility(View.INVISIBLE);
+                        btn_simular.setVisibility(View.INVISIBLE);
+                        tempo.setVisibility(View.INVISIBLE);
+                        valor.setVisibility(View.INVISIBLE);
+
+                        break;
+                    case 2:
+                        flag=3;
+                        dataUpdated();
+                        chart.setVisibility(View.VISIBLE);
+                        lineChart.setVisibility(View.INVISIBLE);
+
+                        seekBarX.setVisibility(View.VISIBLE);
+                        seekBarY.setVisibility(View.VISIBLE);
+                        btn_resetar.setVisibility(View.VISIBLE);
+                        btn_simular.setVisibility(View.VISIBLE);
+                        tempo.setVisibility(View.VISIBLE);
+                        valor.setVisibility(View.VISIBLE);
+
                         break;
 
                 }
@@ -205,7 +233,56 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
             }
         });
 
+        seekBarX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                seekBarX.setMax(2000);
+                editTextValor.setText(String.valueOf(seekBarX.getProgress()+"€"));
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekBarY.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarY.setMin(1);
+                seekBarY.setMax(10);
+
+                if (seekBarY.getProgress()>1)
+                    editTextTempo.setText(String.valueOf(seekBarY.getProgress()+" anos"));
+                else
+                    editTextTempo.setText(String.valueOf(seekBarY.getProgress()+" ano"));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+
     }
+
 
     private void dataUpdated() {
         if (walletEntryListDataSet != null) {
@@ -214,7 +291,7 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
             long expensesSumInDateRange = 0;
             long incomesSumInDateRange = 0;
 
-            HashMap<Category, Long> categoryModels = new HashMap<>();
+             HashMap<Category, Long> categoryModels = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
 
                 if (walletEntry.balanceDifference > 0) {
@@ -230,178 +307,124 @@ public class Overview extends Fragment implements SeekBar.OnSeekBarChangeListene
                     categoryModels.put(category, walletEntry.balanceDifference);
 
             }
-            ArrayList<BarEntry> values = new ArrayList<>();
-            ArrayList<Integer> chartColors = new ArrayList<>();
-            int counter = 0;
-            for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
-                Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
-                drawable.setTint(Color.parseColor("#000000"));
-               // values.add(new BarEntry(counter,-categoryModel.getValue(),drawable));
+            Drawable drawable = null;
 
-                if (flag == 1 && categoryModel.getValue()<0) {
+            int counter = 0;
+            values.clear();
+            chartColors.clear();
+            for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
+                drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+                drawable.setTint(Color.parseColor("#000000"));
+
+                if (flag == 1 && categoryModel.getValue()<=0) {
+
                     values.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
+
+
                 }
-                else if (flag == 2 && categoryModel.getValue()>0){
+                if (flag == 2 && categoryModel.getValue()>0){
+
                     values.add(new BarEntry(counter,categoryModel.getValue(),drawable));
                 }
 
                 counter++;
+
                 chartColors.add(categoryModel.getKey().getIconColor());
-
-
             }
-            chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+
+            btn_simular.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onValueSelected(Entry e, Highlight h) {
-                    editTextValor.setText(String.valueOf(e.getY()));
+                public void onClick(View v) {
+                    if (flag == 3) {
+                        values.clear();
+                        values.add(new BarEntry((int)1,seekBarX.getProgress()*seekBarY.getProgress()*12));
+                        values.add(new BarEntry((int)2, (float) 1.2*(seekBarX.getProgress()*seekBarY.getProgress()*12)));
+                        values.add(new BarEntry((int)3, (float) ((seekBarX.getProgress()*seekBarY.getProgress()*12)*1.5)));
+                        BarDataSet set1;
+                        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+                            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+                            set1.setValues(values);
+
+                            chart.getData().notifyDataChanged();
+                            chart.notifyDataSetChanged();
+                        } else {
+                            set1 = new BarDataSet(values, "");
+                            set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+                            set1.setDrawValues(false);
+
+                            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                            dataSets.add(set1);
+
+                            BarData data = new BarData(dataSets);
+                            set1.setValueTextColor(Color.WHITE);
+
+
+                            //  set1.setFormLineDashEffect(new DashPathEffect(1f,1f));
+                            chart.setDrawBarShadow(false);
+                            chart.setDoubleTapToZoomEnabled(false);
+                            chart.setHighlightFullBarEnabled(false);
+                            chart.setData(data);
+                            chart.setFitBars(true);
+
+                        }
+                        chart.invalidate();
+
+                    }
 
                 }
-
+            });
+            btn_resetar.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onNothingSelected() {
+                public void onClick(View v) {
+
+                    values.clear();
+                    chart.invalidate();
 
                 }
             });
 
-            BarDataSet set1;
-            if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-                set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-                set1.setValues(values);
-
-                chart.getData().notifyDataChanged();
-                chart.notifyDataSetChanged();
-            } else {
-                set1 = new BarDataSet(values, "");
-                set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
-
-                set1.setDrawValues(false);
-
-                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-                dataSets.add(set1);
-
-                BarData data = new BarData(dataSets);
-                set1.setValueTextColor(Color.WHITE);
 
 
-              //  set1.setFormLineDashEffect(new DashPathEffect(1f,1f));
-                chart.setDrawBarShadow(false);
-                chart.setDoubleTapToZoomEnabled(false);
-                chart.setHighlightFullBarEnabled(false);
+/*
+            dataSets = new ArrayList<>();
 
-                chart.setData(data);
-                chart.setFitBars(true);
-
-            }
-            chart.invalidate();
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-
-            for (int z = 0; z < 2; z++) {
-
-                ArrayList<Entry> valuesLine = new ArrayList<>();
-
+            for (int z = 0; z <2; z++) {
+                valuesLine = new ArrayList<>();
                 for (int i = 0; i < 30; i++) {
-                    double val = (Math.random() * seekBarY.getProgress()) + 3;
-                    valuesLine.add(new Entry(i, (float) val));
+                    for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
+                        double val = i * seekBarX.getProgress();
+                        valuesLine.add(new Entry(i, categoryModel.getValue()));
+                    }
                 }
-
                 LineDataSet d = new LineDataSet(valuesLine, " ");
-                d.setLineWidth(3f);
+                d.setLineWidth(5f);
 
                 //d.setCircleColor(color);
                 dataSets.add(d);
             }
-
-            // make the first DataSet dashed
-
-            ((LineDataSet) dataSets.get(1)).setColor(Color.RED);
+              // make the first DataSet dashed
+            ((LineDataSet) dataSets.get(1)).setColor(Color.GREEN);
             ((LineDataSet) dataSets.get(0)).setColor(Color.GREEN);
 
             LineData data = new LineData(dataSets);
             lineChart.setData(data);
             lineChart.animateXY(2000, 2000);
             lineChart.invalidate();
+            */
+
+
+
+
+
+
 
         }
 
-    }
-
-
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-
-
-/*
-           final int valorOutCome=seekBarX.getProgress();
-        int valorIncome=seekBarY.getProgress();
-
-        final ArrayList<BarEntry> values = new ArrayList<>();
-
-        seekBarX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(final SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(final SeekBar seekBar) {
-                chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-                    @Override
-                    public void onValueSelected(Entry e, Highlight h) {
-                        editTextValor.setText(String.valueOf(e.getY()));
-                        e.setY(seekBar.getProgress());
-
-                        values.add(new BarEntry(e.getX(), seekBarX.getProgress()));
-                        chart.getData().notifyDataChanged();
-                        chart.notifyDataSetChanged();
-                        // values.add(new BarEntry(1, valorOutCome));
-                    }
-
-                    @Override
-                    public void onNothingSelected() {
-
-                    }
-                });
-            }
-        });
-
-        BarDataSet set1;
-        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-
-        } else {
-            set1 = new BarDataSet(values, "Data Set");
-            set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
-            set1.setDrawValues(false);
-
-            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
-
-            BarData data = new BarData(dataSets);
-            chart.setData(data);
-            chart.setFitBars(true);
-        }
-        */
-
-
 
     }
 
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
 
-    }
 
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
 
-    }
 }

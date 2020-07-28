@@ -24,8 +24,8 @@
     <!-- Fragment's strings -->
     <string name="hello_blank_fragment">Fragmento branco</string>
     <string name="saldo_title">saldo atual</string>
-    <string name="valor">Valor:</string>
-    <string name="durante">Durante:</string>
+    <string name="valor">Valor</string>
+    <string name="durante">Durante</string>
     <string name="skip">pular</string>
 
     <string name="select_type">Escolher tipo:</string>
@@ -40,6 +40,8 @@
     <string name="addWallet">Adicionar transação</string>
     <string name="addBudget">Adicionar budget</string>
     <string name="budget">Budget</string>
+    <string name="simular">simular</string>
+    <string name="resetar">resetar</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>
