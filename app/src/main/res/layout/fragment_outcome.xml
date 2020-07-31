@@ -74,6 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/add_entry_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbarAddWallet"
                 app:layout_constraintVertical_bias="0.0">
 
@@ -104,8 +106,7 @@
                         android:layout_height="1dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
-                        android:layout_marginBottom="8dp"
-                        />
+                        android:layout_marginBottom="8dp" />
 
                     <TextView
                         android:id="@+id/textView8"
@@ -113,8 +114,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="12dp"
                         android:paddingTop="4dp"
-                        android:text="@string/select_category"
-                         />
+                        android:text="@string/select_category" />
 
                     <Spinner
                         android:id="@+id/select_category_spinner"
@@ -127,8 +127,7 @@
                         android:layout_height="1dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
-                        android:layout_marginBottom="8dp"
-                        />
+                        android:layout_marginBottom="8dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/select_name_inputlayout"
@@ -145,8 +144,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/select_name_edittext"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,7 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            app:errorEnabled="true"/>
+                            app:errorEnabled="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,7 +183,7 @@
 
                             app:layout_constraintStart_toStartOf="@+id/choose_day_textview"
                             app:layout_constraintTop_toTopOf="@+id/choose_day_textview"
-                            app:layout_constraintVertical_bias="0.0" />
+                            />
 
                         <ImageView
                             android:id="@+id/icon_imageview"
@@ -201,7 +199,7 @@
                             app:layout_constraintHorizontal_bias="0.05"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.58000004" />
+                            app:layout_constraintVertical_bias="0.7" />
 
                         <TextView
                             android:id="@+id/choose_day_textview"
@@ -217,6 +215,26 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
+                        <Switch
+                            android:id="@+id/type"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginBottom="24dp"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:buttonTint="#00BCD4"
+                            android:lineSpacingExtra="12sp"
+                            android:switchTextAppearance="@style/TextAppearance.AppCompat.Display1"
+                            android:text="Necessidade"
+                            android:textAlignment="textStart"
+                            android:textSize="14sp"
+                            app:layout_constraintTop_toBottomOf="@+id/editTextValor"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.94"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.25"
+                            tools:checked="false" />
                         <View
                             android:layout_width="0dp"
                             android:layout_height="1dp"
@@ -227,8 +245,6 @@
                             app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="@+id/choose_day_textview"
                             app:layout_constraintTop_toBottomOf="@+id/choose_day_textview" />
-
-
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -254,6 +270,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

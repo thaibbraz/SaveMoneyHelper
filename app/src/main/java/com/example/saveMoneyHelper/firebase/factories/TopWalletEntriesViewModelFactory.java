@@ -13,9 +13,11 @@ import java.util.Calendar;
 
 public class TopWalletEntriesViewModelFactory implements ViewModelProvider.Factory {
     private String uid;
+    private String type;
 
     TopWalletEntriesViewModelFactory(String uid) {
         this.uid = uid;
+
     }
 
     @Override
