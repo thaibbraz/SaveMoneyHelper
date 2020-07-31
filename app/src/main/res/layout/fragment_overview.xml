@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="311dp"
+        android:layout_height="300dp"
         android:layout_margin="10dp"
 
         android:layout_marginStart="4dp"
@@ -31,7 +31,7 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart1"
                 android:layout_width="match_parent"
-                android:layout_height="165dp"
+                android:layout_height="match_parent"
 
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
@@ -45,7 +45,7 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chartLine"
                 android:layout_width="match_parent"
-                android:layout_height="165dp"
+                android:layout_height="match_parent"
 
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
@@ -85,13 +85,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/valor"
+                android:text="@string/valorAnual"
                 android:textColor="@color/color2"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.12"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="titulo"
+                android:textColor="@color/color2"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,6 +116,7 @@
                 android:layout_height="33dp"
                 android:layout_marginTop="24dp"
                 android:background="@android:color/transparent"
+                android:clickable="false"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="0"
@@ -113,7 +129,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/duranteTitulo"
+                android:id="@+id/durante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -124,16 +140,17 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toEndOf="@+id/editTextValor"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextTempo"
-                android:layout_width="79dp"
-                android:layout_height="30dp"
+                android:layout_width="64dp"
+                android:layout_height="27dp"
                 android:layout_marginTop="24dp"
                 android:background="@android:color/transparent"
+                android:clickable="false"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="0"
@@ -141,8 +158,8 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.36"
-                app:layout_constraintStart_toEndOf="@+id/duranteTitulo"
+                app:layout_constraintHorizontal_bias="0.38"
+                app:layout_constraintStart_toEndOf="@+id/durante"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
@@ -153,7 +170,7 @@
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />

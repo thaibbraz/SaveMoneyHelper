@@ -45,9 +45,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -73,7 +75,7 @@ public class Overview extends Fragment{
     private ArrayList<Integer> chartColors;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private SeekBar seekBarX, seekBarY;
-    private TextView editTextTempo, editTextValor, tempo,valor;
+    private TextView editTextTempo, editTextValor, tempo,valor,valorTittle, tempoTittle,titulo;
     private int flag=0;
 
     @Override
@@ -86,6 +88,9 @@ public class Overview extends Fragment{
         tempo = view.findViewById(R.id.tvTempoMax);
         valor = view.findViewById(R.id.tvValorMax);
 
+        titulo = view.findViewById(R.id.titulo);
+        valorTittle = view.findViewById(R.id.valor);
+        tempoTittle = view.findViewById(R.id.durante);
 
         seekBarX = view.findViewById(R.id.seekBar1);
         seekBarY = view.findViewById(R.id.seekBar2);
@@ -124,6 +129,8 @@ public class Overview extends Fragment{
         chart.getLegend().setEnabled(false);
 
 
+
+
         //MONTHLY BY DEFAULT
         userSettings = new UserSettings();
 
@@ -151,7 +158,7 @@ public class Overview extends Fragment{
         chartColors = new ArrayList<>();
         chartColors.clear();
 
-        String [] names = {"Top Despesas","Top Ganhos", "Simulação"};
+        String [] names = {"Top Despesas","Top Ganhos", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,names);
 
 
@@ -188,12 +195,22 @@ public class Overview extends Fragment{
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
 
+                        editTextValor.setVisibility(View.INVISIBLE);
+                        editTextTempo.setVisibility(View.INVISIBLE);
+
+                        valorTittle.setVisibility(View.INVISIBLE);
+                        tempoTittle.setVisibility(View.INVISIBLE);
+
                         seekBarX.setVisibility(View.INVISIBLE);
                         seekBarY.setVisibility(View.INVISIBLE);
                         btn_resetar.setVisibility(View.INVISIBLE);
                         btn_simular.setVisibility(View.INVISIBLE);
+
                         tempo.setVisibility(View.INVISIBLE);
                         valor.setVisibility(View.INVISIBLE);
+                        titulo.setVisibility(View.VISIBLE);
+                        titulo.setText("Top Despesas");
+                        chart.setClickable(false);
                         break;
                     case 1:
                         flag=2;
@@ -201,12 +218,23 @@ public class Overview extends Fragment{
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
 
+                        editTextValor.setVisibility(View.INVISIBLE);
+                        editTextTempo.setVisibility(View.INVISIBLE);
+
+                        valorTittle.setVisibility(View.INVISIBLE);
+                        tempoTittle.setVisibility(View.INVISIBLE);
+
                         seekBarX.setVisibility(View.INVISIBLE);
                         seekBarY.setVisibility(View.INVISIBLE);
                         btn_resetar.setVisibility(View.INVISIBLE);
                         btn_simular.setVisibility(View.INVISIBLE);
+
                         tempo.setVisibility(View.INVISIBLE);
                         valor.setVisibility(View.INVISIBLE);
+                        titulo.setVisibility(View.VISIBLE);
+
+                        titulo.setText("Top Ganhos");
+                        chart.setClickable(false);
 
                         break;
                     case 2:
@@ -215,13 +243,43 @@ public class Overview extends Fragment{
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
 
+                        valorTittle.setVisibility(View.VISIBLE);
+                        tempoTittle.setVisibility(View.VISIBLE);
+
+                        editTextValor.setVisibility(View.VISIBLE);
+                        editTextTempo.setVisibility(View.VISIBLE);
+
                         seekBarX.setVisibility(View.VISIBLE);
                         seekBarY.setVisibility(View.VISIBLE);
                         btn_resetar.setVisibility(View.VISIBLE);
                         btn_simular.setVisibility(View.VISIBLE);
+
                         tempo.setVisibility(View.VISIBLE);
                         valor.setVisibility(View.VISIBLE);
+                        titulo.setVisibility(View.INVISIBLE);
+                        chart.setClickable(false);
+                        break;
+                    case 3:
+                        flag=4;
+                        dataUpdated();
+                        chart.setVisibility(View.VISIBLE);
+                        lineChart.setVisibility(View.INVISIBLE);
 
+                        valorTittle.setVisibility(View.VISIBLE);
+                        tempoTittle.setVisibility(View.VISIBLE);
+
+                        editTextValor.setVisibility(View.VISIBLE);
+                        editTextTempo.setVisibility(View.VISIBLE);
+
+                        seekBarX.setVisibility(View.VISIBLE);
+                        seekBarY.setVisibility(View.VISIBLE);
+                        btn_resetar.setVisibility(View.VISIBLE);
+                        btn_simular.setVisibility(View.VISIBLE);
+
+                        tempo.setVisibility(View.VISIBLE);
+                        valor.setVisibility(View.VISIBLE);
+                        titulo.setVisibility(View.INVISIBLE);
+                        chart.setClickable(false);
                         break;
 
                 }
@@ -235,10 +293,11 @@ public class Overview extends Fragment{
 
         seekBarX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                seekBarX.setMax(2000);
+                seekBarX.setMin(1000);
+                seekBarX.setMax(10000);
                 editTextValor.setText(String.valueOf(seekBarX.getProgress()+"€"));
 
             }
@@ -279,6 +338,50 @@ public class Overview extends Fragment{
             }
         });
 
+        btn_simular.setOnClickListener(new View.OnClickListener() {
+            float IRS= 0.28f;
+            @Override
+            public void onClick(View v) {
+                    values.clear();
+                    for(int i = 0; i<=seekBarY.getProgress();i++){
+                        System.out.println(seekBarY.getProgress());
+                      // values.add(new BarEntry((int)i,seekBarX.getProgress()*seekBarY.getProgress()*12));
+                        if (flag==3){
+                          values.add(new BarEntry((int)i, (float) (seekBarX.getProgress()+ (seekBarX.getProgress()*(0.0125+0.005*i))*0.72)));
+
+                        }
+                       //values.add(new BarEntry((int)i, (seekBarX.getProgress())));
+                        if (flag==4){
+                          values.add(new BarEntry((int)i, (float) (seekBarX.getProgress()+ (seekBarX.getProgress()*(0.0125+0.0044*i))*0.72)));
+                        }
+                    }
+
+                    BarDataSet set1;
+                    if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+                        set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+                        set1.setValues(values);
+
+                        chart.getData().notifyDataChanged();
+                        chart.notifyDataSetChanged();
+                    } else {
+                        set1 = new BarDataSet(values, "");
+
+                        set1.setDrawValues(false);
+                        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                        dataSets.add(set1);
+
+                        BarData data = new BarData(dataSets);
+                        set1.setValueTextColor(Color.WHITE);
+                        chart.setData(data);
+
+                    }
+                    set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                    chart.invalidate();
+
+
+
+            }
+        });
 
 
     }
@@ -319,73 +422,61 @@ public class Overview extends Fragment{
                 if (flag == 1 && categoryModel.getValue()<=0) {
 
                     values.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
-
+                    chartColors.add(categoryModel.getKey().getIconColor());
 
                 }
                 if (flag == 2 && categoryModel.getValue()>0){
 
                     values.add(new BarEntry(counter,categoryModel.getValue(),drawable));
+                    chartColors.add(categoryModel.getKey().getIconColor());
                 }
 
                 counter++;
 
-                chartColors.add(categoryModel.getKey().getIconColor());
             }
 
-            btn_simular.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (flag == 3) {
-                        values.clear();
-                        values.add(new BarEntry((int)1,seekBarX.getProgress()*seekBarY.getProgress()*12));
-                        values.add(new BarEntry((int)2, (float) 1.2*(seekBarX.getProgress()*seekBarY.getProgress()*12)));
-                        values.add(new BarEntry((int)3, (float) ((seekBarX.getProgress()*seekBarY.getProgress()*12)*1.5)));
-                        BarDataSet set1;
-                        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-                            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-                            set1.setValues(values);
-
-                            chart.getData().notifyDataChanged();
-                            chart.notifyDataSetChanged();
-                        } else {
-                            set1 = new BarDataSet(values, "");
-                            set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
-
-                            set1.setDrawValues(false);
-
-                            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-                            dataSets.add(set1);
-
-                            BarData data = new BarData(dataSets);
-                            set1.setValueTextColor(Color.WHITE);
-
-
-                            //  set1.setFormLineDashEffect(new DashPathEffect(1f,1f));
-                            chart.setDrawBarShadow(false);
-                            chart.setDoubleTapToZoomEnabled(false);
-                            chart.setHighlightFullBarEnabled(false);
-                            chart.setData(data);
-                            chart.setFitBars(true);
-
-                        }
-                        chart.invalidate();
-
-                    }
-
-                }
-            });
             btn_resetar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     values.clear();
+                    seekBarX.setProgress(100);
+                    seekBarY.setProgress(1);
                     chart.invalidate();
 
                 }
             });
 
+            BarDataSet set1;
+            if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+                set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+                set1.setValues(values);
+
+                set1.setColors(chartColors);
+                chart.getData().notifyDataChanged();
+                chart.notifyDataSetChanged();
+            } else {
+                set1 = new BarDataSet(values, "");
+
+                set1.setDrawValues(false);
+                set1.setColors(chartColors);
+
+                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                dataSets.add(set1);
+
+                BarData data = new BarData(dataSets);
+                set1.setValueTextColor(Color.WHITE);
 
 
+              //  set1.setFormLineDashEffect(new DashPathEffect(1f,1f));
+                chart.setDrawBarShadow(false);
+                chart.setDoubleTapToZoomEnabled(false);
+                chart.setHighlightFullBarEnabled(false);
+                chart.setData(data);
+                chart.setFitBars(true);
+
+            }
+            chart.invalidate();
 /*
             dataSets = new ArrayList<>();
 
@@ -412,12 +503,6 @@ public class Overview extends Fragment{
             lineChart.animateXY(2000, 2000);
             lineChart.invalidate();
             */
-
-
-
-
-
-
 
         }
 

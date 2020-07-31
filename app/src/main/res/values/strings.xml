@@ -25,6 +25,7 @@
     <string name="hello_blank_fragment">Fragmento branco</string>
     <string name="saldo_title">saldo atual</string>
     <string name="valor">Valor</string>
+    <string name="valorAnual">Valor anual</string>
     <string name="durante">Durante</string>
     <string name="skip">pular</string>
 
