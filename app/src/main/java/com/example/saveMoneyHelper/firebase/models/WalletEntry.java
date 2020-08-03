@@ -15,11 +15,11 @@ public class WalletEntry {
 
     }
 
-    public WalletEntry(String categoryID, String name, long timestamp, long balanceDifference,String type) {
+    public WalletEntry(String categoryID, String name, long timestamp, long balanceDifference, String type) {
         this.categoryID = categoryID;
         this.name = name;
-        this.timestamp = -timestamp;
         this.type = type;
+        this.timestamp = -timestamp;
         this.balanceDifference = balanceDifference;
     }
 

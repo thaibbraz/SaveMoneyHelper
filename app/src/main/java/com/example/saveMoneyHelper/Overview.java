@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
@@ -62,21 +63,22 @@ import java.util.Map;
 
 public class Overview extends Fragment{
 
-    private BarChart chart;
+    private BarChart chart, chartWants,chartNeeds;
     private LineChart lineChart;
     private UserSettings userSettings;
     private Calendar dateBegin;
     private Button btn_resetar,btn_simular;
     private Calendar dateEnd;
     private Spinner spinner;
+    private CardView wantsCard,needsCard;
     private ArrayList<ILineDataSet> dataSets;
-    private ArrayList<BarEntry> values;
+    private ArrayList<BarEntry> values, valuesNeeds, valuesWants;
     private ArrayList<Entry> valuesLine;
     private ArrayList<Integer> chartColors;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private SeekBar seekBarX, seekBarY;
     private TextView editTextTempo, editTextValor, tempo,valor,valorTittle, tempoTittle,titulo;
-    private int flag=0;
+    private int flag=-1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,6 +105,11 @@ public class Overview extends Fragment{
 
         chart.setDrawBarShadow(false);
 
+        chartNeeds = view.findViewById(R.id.chartNeeds);
+        chartWants = view.findViewById(R.id.chartWants);
+
+        needsCard = view.findViewById(R.id.cardViewNeeds);
+        wantsCard = view.findViewById(R.id.cardViewWants);
 
         lineChart = view.findViewById(R.id.chartLine);
         lineChart.setDrawGridBackground(false);
@@ -155,10 +162,13 @@ public class Overview extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         spinner = view.findViewById(R.id.spinner2);
         values = new ArrayList<>();
+        valuesNeeds = new ArrayList<>();
+        valuesWants = new ArrayList<>();
+
         chartColors = new ArrayList<>();
         chartColors.clear();
 
-        String [] names = {"Top Despesas","Top Ganhos", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)"};
+        String [] names = {"Top Despesas","Top Ganhos", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)","Overview"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,names);
 
 
@@ -206,6 +216,13 @@ public class Overview extends Fragment{
                         btn_resetar.setVisibility(View.INVISIBLE);
                         btn_simular.setVisibility(View.INVISIBLE);
 
+
+                        needsCard.setVisibility(View.INVISIBLE);
+                        wantsCard.setVisibility(View.INVISIBLE);
+                        chartWants.setVisibility(View.INVISIBLE);
+                        chartNeeds.setVisibility(View.INVISIBLE);
+
+
                         tempo.setVisibility(View.INVISIBLE);
                         valor.setVisibility(View.INVISIBLE);
                         titulo.setVisibility(View.VISIBLE);
@@ -233,6 +250,12 @@ public class Overview extends Fragment{
                         valor.setVisibility(View.INVISIBLE);
                         titulo.setVisibility(View.VISIBLE);
 
+
+                        needsCard.setVisibility(View.INVISIBLE);
+                        wantsCard.setVisibility(View.INVISIBLE);
+                        chartWants.setVisibility(View.INVISIBLE);
+                        chartNeeds.setVisibility(View.INVISIBLE);
+
                         titulo.setText("Top Ganhos");
                         chart.setClickable(false);
 
@@ -253,6 +276,12 @@ public class Overview extends Fragment{
                         seekBarY.setVisibility(View.VISIBLE);
                         btn_resetar.setVisibility(View.VISIBLE);
                         btn_simular.setVisibility(View.VISIBLE);
+
+                        needsCard.setVisibility(View.INVISIBLE);
+                        wantsCard.setVisibility(View.INVISIBLE);
+                        chartWants.setVisibility(View.INVISIBLE);
+                        chartNeeds.setVisibility(View.INVISIBLE);
+
 
                         tempo.setVisibility(View.VISIBLE);
                         valor.setVisibility(View.VISIBLE);
@@ -276,12 +305,45 @@ public class Overview extends Fragment{
                         btn_resetar.setVisibility(View.VISIBLE);
                         btn_simular.setVisibility(View.VISIBLE);
 
+                        needsCard.setVisibility(View.INVISIBLE);
+                        wantsCard.setVisibility(View.INVISIBLE);
+                        chartWants.setVisibility(View.INVISIBLE);
+                        chartNeeds.setVisibility(View.INVISIBLE);
+
+
                         tempo.setVisibility(View.VISIBLE);
                         valor.setVisibility(View.VISIBLE);
                         titulo.setVisibility(View.INVISIBLE);
                         chart.setClickable(false);
                         break;
+                    case 4:
+                        flag=5;
+                        dataUpdated();
+                        chart.setVisibility(View.INVISIBLE);
+                        lineChart.setVisibility(View.INVISIBLE);
 
+                        editTextValor.setVisibility(View.INVISIBLE);
+                        editTextTempo.setVisibility(View.INVISIBLE);
+
+                        valorTittle.setVisibility(View.INVISIBLE);
+                        tempoTittle.setVisibility(View.INVISIBLE);
+
+                        seekBarX.setVisibility(View.INVISIBLE);
+                        seekBarY.setVisibility(View.INVISIBLE);
+                        btn_resetar.setVisibility(View.INVISIBLE);
+                        btn_simular.setVisibility(View.INVISIBLE);
+
+                        needsCard.setVisibility(View.VISIBLE);
+                        wantsCard.setVisibility(View.VISIBLE);
+                        chartWants.setVisibility(View.VISIBLE);
+                        chartNeeds.setVisibility(View.VISIBLE);
+
+                        tempo.setVisibility(View.INVISIBLE);
+                        valor.setVisibility(View.INVISIBLE);
+                        titulo.setVisibility(View.VISIBLE);
+                        titulo.setText("Overview");
+                        chart.setClickable(false);
+                        break;
                 }
             }
 
@@ -339,12 +401,12 @@ public class Overview extends Fragment{
         });
 
         btn_simular.setOnClickListener(new View.OnClickListener() {
-            float IRS= 0.28f;
+
             @Override
             public void onClick(View v) {
                     values.clear();
                     for(int i = 0; i<=seekBarY.getProgress();i++){
-                        System.out.println(seekBarY.getProgress());
+
                       // values.add(new BarEntry((int)i,seekBarX.getProgress()*seekBarY.getProgress()*12));
                         if (flag==3){
                           values.add(new BarEntry((int)i, (float) (seekBarX.getProgress()+ (seekBarX.getProgress()*(0.0125+0.005*i))*0.72)));
@@ -376,6 +438,13 @@ public class Overview extends Fragment{
 
                     }
                     set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+                chart.setDrawBarShadow(false);
+                chart.setDoubleTapToZoomEnabled(false);
+                chart.setHighlightFullBarEnabled(false);
+                chart.setFitBars(true);
+
+
                     chart.invalidate();
 
 
@@ -393,8 +462,11 @@ public class Overview extends Fragment{
 
             long expensesSumInDateRange = 0;
             long incomesSumInDateRange = 0;
-
-             HashMap<Category, Long> categoryModels = new HashMap<>();
+            long needs = 0;
+            long wants = 0;
+            HashMap<Category, Long> categoryModels = new HashMap<>();
+            HashMap<Category, Long> categoryModelsNeeds = new HashMap<>();
+            HashMap<Category, Long> categoryModelsWants = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
 
                 if (walletEntry.balanceDifference > 0) {
@@ -403,6 +475,24 @@ public class Overview extends Fragment{
                 }
                 expensesSumInDateRange += walletEntry.balanceDifference;
                 Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
+
+                if (walletEntry.type != null){
+                    if (walletEntry.type.contains("needs")){
+                        needs += walletEntry.balanceDifference;
+                        if (categoryModelsNeeds.get(category) != null)
+                            categoryModelsNeeds.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
+                        else
+                            categoryModelsNeeds.put(category, walletEntry.balanceDifference);
+                    }else{
+                        wants += walletEntry.balanceDifference;
+                        if (categoryModelsWants.get(category) != null)
+                            categoryModelsWants.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
+                        else
+                            categoryModelsWants.put(category, walletEntry.balanceDifference);
+                    }
+
+                }
+
 
                 if (categoryModels.get(category) != null)
                     categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
@@ -434,6 +524,93 @@ public class Overview extends Fragment{
                 counter++;
 
             }
+
+
+            for (Map.Entry<Category, Long> categoryModel : categoryModelsNeeds.entrySet()) {
+                drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+                drawable.setTint(Color.parseColor("#000000"));
+
+                if (flag == 5) {
+
+                    valuesNeeds.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
+                    chartColors.add(categoryModel.getKey().getIconColor());
+
+                }
+
+                counter++;
+
+            }
+            for (Map.Entry<Category, Long> categoryModel : categoryModelsWants.entrySet()) {
+                drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+                drawable.setTint(Color.parseColor("#000000"));
+
+                if (flag == 5) {
+
+                    valuesWants.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
+                    chartColors.add(categoryModel.getKey().getIconColor());
+
+                }
+
+                counter++;
+
+            }
+
+
+
+            BarDataSet setNeeds,setWants;
+            if (chartNeeds.getData() != null && chartNeeds.getData().getDataSetCount() > 0) {
+                setNeeds = (BarDataSet) chartNeeds.getData().getDataSetByIndex(0);
+                setNeeds.setValues(valuesNeeds);
+
+                chartNeeds.getData().notifyDataChanged();
+                chartNeeds.notifyDataSetChanged();
+            } else {
+                setNeeds = new BarDataSet(valuesNeeds, "");
+
+                setNeeds.setDrawValues(false);
+                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                dataSets.add(setNeeds);
+
+                BarData data = new BarData(dataSets);
+                setNeeds.setValueTextColor(Color.WHITE);
+                chartNeeds.setData(data);
+
+            }
+            chartNeeds.setDrawBarShadow(false);
+            chartNeeds.setDoubleTapToZoomEnabled(false);
+            chartNeeds.setHighlightFullBarEnabled(false);
+            chartNeeds.setFitBars(true);
+
+            setNeeds.setColors(ColorTemplate.VORDIPLOM_COLORS);
+            chartNeeds.invalidate();
+
+
+            if (chartWants.getData() != null && chartWants.getData().getDataSetCount() > 0) {
+                setWants = (BarDataSet) chartWants.getData().getDataSetByIndex(0);
+                setWants.setValues(valuesWants);
+
+                chartWants.getData().notifyDataChanged();
+                chartWants.notifyDataSetChanged();
+            } else {
+                setWants = new BarDataSet(valuesWants, "");
+
+                setWants.setDrawValues(false);
+                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+                dataSets.add(setWants);
+
+                BarData data = new BarData(dataSets);
+                setWants.setValueTextColor(Color.WHITE);
+                chartWants.setData(data);
+
+            }
+            chartWants.setDrawBarShadow(false);
+            chartWants.setDoubleTapToZoomEnabled(false);
+            chartWants.setHighlightFullBarEnabled(false);
+            chartWants.setFitBars(true);
+
+            setWants.setColors(ColorTemplate.VORDIPLOM_COLORS);
+            chartWants.invalidate();
+
 
             btn_resetar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -474,6 +651,9 @@ public class Overview extends Fragment{
                 chart.setHighlightFullBarEnabled(false);
                 chart.setData(data);
                 chart.setFitBars(true);
+
+
+
 
             }
             chart.invalidate();

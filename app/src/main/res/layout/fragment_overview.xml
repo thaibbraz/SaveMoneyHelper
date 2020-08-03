@@ -40,7 +40,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+            </com.github.mikephil.charting.charts.BarChart>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chartLine"
@@ -74,6 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -180,6 +183,71 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewNeeds"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+
+        app:contentPadding="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewWants"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartNeeds"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewWants"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+
+        app:contentPadding="20dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartWants"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:foregroundGravity="center_vertical|center_horizontal" />
+
+
+    </androidx.cardview.widget.CardView>
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="387dp"

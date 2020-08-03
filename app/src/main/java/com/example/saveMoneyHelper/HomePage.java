@@ -180,7 +180,6 @@ public class HomePage extends Fragment {
                             categoryModel.getKey().getCategoryVisibleName(getContext()),
                             categoryModel.getValue()));
                     count--;
-
                 }
 
                 if (percentage > minPercentageToShowLabelOnChart){
