@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
@@ -19,10 +20,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.saveMoneyHelper.categories.Category;
 import com.example.saveMoneyHelper.firebase.FirebaseElement;
@@ -37,6 +40,7 @@ import com.example.saveMoneyHelper.util.CategoriesHelper;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 
 import com.github.mikephil.charting.data.BarData;
@@ -46,10 +50,14 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,17 +70,19 @@ import java.util.Map;
 
 
 public class Overview extends Fragment{
-
-    private BarChart chart, chartWants,chartNeeds;
+    private PieChart chartWants,chartNeeds;
+    private BarChart chart;
     private LineChart lineChart;
     private UserSettings userSettings;
+    private ToggleButton btn_ganhos, btn_despesas;
     private Calendar dateBegin;
     private Button btn_resetar,btn_simular;
     private Calendar dateEnd;
     private Spinner spinner;
     private CardView wantsCard,needsCard;
     private ArrayList<ILineDataSet> dataSets;
-    private ArrayList<BarEntry> values, valuesNeeds, valuesWants;
+    private ArrayList<PieEntry> valuesNeeds, valuesWants;
+    private ArrayList<BarEntry> values;
     private ArrayList<Entry> valuesLine;
     private ArrayList<Integer> chartColors;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
@@ -108,8 +118,8 @@ public class Overview extends Fragment{
         chartNeeds = view.findViewById(R.id.chartNeeds);
         chartWants = view.findViewById(R.id.chartWants);
 
-        needsCard = view.findViewById(R.id.cardViewNeeds);
-        wantsCard = view.findViewById(R.id.cardViewWants);
+        btn_ganhos = view.findViewById(R.id.btnTganhos);
+        btn_despesas = view.findViewById(R.id.btnTdespesas);
 
         lineChart = view.findViewById(R.id.chartLine);
         lineChart.setDrawGridBackground(false);
@@ -168,7 +178,7 @@ public class Overview extends Fragment{
         chartColors = new ArrayList<>();
         chartColors.clear();
 
-        String [] names = {"Top Despesas","Top Ganhos", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)","Overview"};
+        String [] names = {"Overview", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,names);
 
 
@@ -200,10 +210,11 @@ public class Overview extends Fragment{
 
                 switch (position){
                     case 0:
-                        flag=1;
-                        dataUpdated();
+                        btn_despesas.setChecked(true);
+
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
+
 
                         editTextValor.setVisibility(View.INVISIBLE);
                         editTextTempo.setVisibility(View.INVISIBLE);
@@ -216,51 +227,19 @@ public class Overview extends Fragment{
                         btn_resetar.setVisibility(View.INVISIBLE);
                         btn_simular.setVisibility(View.INVISIBLE);
 
-
-                        needsCard.setVisibility(View.INVISIBLE);
-                        wantsCard.setVisibility(View.INVISIBLE);
-                        chartWants.setVisibility(View.INVISIBLE);
-                        chartNeeds.setVisibility(View.INVISIBLE);
-
+                        chartNeeds.setVisibility(View.VISIBLE);
+                        chartWants.setVisibility(View.VISIBLE);
 
                         tempo.setVisibility(View.INVISIBLE);
                         valor.setVisibility(View.INVISIBLE);
                         titulo.setVisibility(View.VISIBLE);
-                        titulo.setText("Top Despesas");
+
+                        btn_ganhos.setVisibility(View.VISIBLE);
+                        btn_despesas.setVisibility(View.VISIBLE);
                         chart.setClickable(false);
+
                         break;
                     case 1:
-                        flag=2;
-                        dataUpdated();
-                        chart.setVisibility(View.VISIBLE);
-                        lineChart.setVisibility(View.INVISIBLE);
-
-                        editTextValor.setVisibility(View.INVISIBLE);
-                        editTextTempo.setVisibility(View.INVISIBLE);
-
-                        valorTittle.setVisibility(View.INVISIBLE);
-                        tempoTittle.setVisibility(View.INVISIBLE);
-
-                        seekBarX.setVisibility(View.INVISIBLE);
-                        seekBarY.setVisibility(View.INVISIBLE);
-                        btn_resetar.setVisibility(View.INVISIBLE);
-                        btn_simular.setVisibility(View.INVISIBLE);
-
-                        tempo.setVisibility(View.INVISIBLE);
-                        valor.setVisibility(View.INVISIBLE);
-                        titulo.setVisibility(View.VISIBLE);
-
-
-                        needsCard.setVisibility(View.INVISIBLE);
-                        wantsCard.setVisibility(View.INVISIBLE);
-                        chartWants.setVisibility(View.INVISIBLE);
-                        chartNeeds.setVisibility(View.INVISIBLE);
-
-                        titulo.setText("Top Ganhos");
-                        chart.setClickable(false);
-
-                        break;
-                    case 2:
                         flag=3;
                         dataUpdated();
                         chart.setVisibility(View.VISIBLE);
@@ -277,18 +256,19 @@ public class Overview extends Fragment{
                         btn_resetar.setVisibility(View.VISIBLE);
                         btn_simular.setVisibility(View.VISIBLE);
 
-                        needsCard.setVisibility(View.INVISIBLE);
-                        wantsCard.setVisibility(View.INVISIBLE);
-                        chartWants.setVisibility(View.INVISIBLE);
-                        chartNeeds.setVisibility(View.INVISIBLE);
+                        btn_ganhos.setVisibility(View.INVISIBLE);
+                        btn_despesas.setVisibility(View.INVISIBLE);
 
+                        chartNeeds.setVisibility(View.INVISIBLE);
+                        chartWants.setVisibility(View.INVISIBLE);
 
                         tempo.setVisibility(View.VISIBLE);
                         valor.setVisibility(View.VISIBLE);
                         titulo.setVisibility(View.INVISIBLE);
                         chart.setClickable(false);
+
                         break;
-                    case 3:
+                    case 2:
                         flag=4;
                         dataUpdated();
                         chart.setVisibility(View.VISIBLE);
@@ -305,45 +285,18 @@ public class Overview extends Fragment{
                         btn_resetar.setVisibility(View.VISIBLE);
                         btn_simular.setVisibility(View.VISIBLE);
 
-                        needsCard.setVisibility(View.INVISIBLE);
-                        wantsCard.setVisibility(View.INVISIBLE);
-                        chartWants.setVisibility(View.INVISIBLE);
                         chartNeeds.setVisibility(View.INVISIBLE);
+                        chartWants.setVisibility(View.INVISIBLE);
 
+                        btn_ganhos.setVisibility(View.INVISIBLE);
+                        btn_despesas.setVisibility(View.INVISIBLE);
 
                         tempo.setVisibility(View.VISIBLE);
                         valor.setVisibility(View.VISIBLE);
                         titulo.setVisibility(View.INVISIBLE);
                         chart.setClickable(false);
                         break;
-                    case 4:
-                        flag=5;
-                        dataUpdated();
-                        chart.setVisibility(View.INVISIBLE);
-                        lineChart.setVisibility(View.INVISIBLE);
 
-                        editTextValor.setVisibility(View.INVISIBLE);
-                        editTextTempo.setVisibility(View.INVISIBLE);
-
-                        valorTittle.setVisibility(View.INVISIBLE);
-                        tempoTittle.setVisibility(View.INVISIBLE);
-
-                        seekBarX.setVisibility(View.INVISIBLE);
-                        seekBarY.setVisibility(View.INVISIBLE);
-                        btn_resetar.setVisibility(View.INVISIBLE);
-                        btn_simular.setVisibility(View.INVISIBLE);
-
-                        needsCard.setVisibility(View.VISIBLE);
-                        wantsCard.setVisibility(View.VISIBLE);
-                        chartWants.setVisibility(View.VISIBLE);
-                        chartNeeds.setVisibility(View.VISIBLE);
-
-                        tempo.setVisibility(View.INVISIBLE);
-                        valor.setVisibility(View.INVISIBLE);
-                        titulo.setVisibility(View.VISIBLE);
-                        titulo.setText("Overview");
-                        chart.setClickable(false);
-                        break;
                 }
             }
 
@@ -352,7 +305,31 @@ public class Overview extends Fragment{
 
             }
         });
+btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            btn_ganhos.setChecked(false);
+            flag=1;
+            btn_despesas.setBackgroundColor(Color.GRAY);
+            dataUpdated();
+            titulo.setText("Top Despesas");
 
+        }
+    }
+});
+        btn_ganhos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    btn_despesas.setChecked(false);
+                    flag=2;
+                    dataUpdated();
+                    titulo.setText("Top Ganhos");
+
+                }
+            }
+        });
         seekBarX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -532,7 +509,7 @@ public class Overview extends Fragment{
 
                 if (flag == 5) {
 
-                    valuesNeeds.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
+                    valuesNeeds.add(new PieEntry(-categoryModel.getValue(), drawable));
                     chartColors.add(categoryModel.getKey().getIconColor());
 
                 }
@@ -546,7 +523,7 @@ public class Overview extends Fragment{
 
                 if (flag == 5) {
 
-                    valuesWants.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
+                    valuesWants.add(new PieEntry(-categoryModel.getValue(), drawable));
                     chartColors.add(categoryModel.getKey().getIconColor());
 
                 }
@@ -556,61 +533,82 @@ public class Overview extends Fragment{
             }
 
 
-
-            BarDataSet setNeeds,setWants;
-            if (chartNeeds.getData() != null && chartNeeds.getData().getDataSetCount() > 0) {
-                setNeeds = (BarDataSet) chartNeeds.getData().getDataSetByIndex(0);
-                setNeeds.setValues(valuesNeeds);
-
-                chartNeeds.getData().notifyDataChanged();
-                chartNeeds.notifyDataSetChanged();
-            } else {
-                setNeeds = new BarDataSet(valuesNeeds, "");
-
-                setNeeds.setDrawValues(false);
-                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-                dataSets.add(setNeeds);
-
-                BarData data = new BarData(dataSets);
-                setNeeds.setValueTextColor(Color.WHITE);
-                chartNeeds.setData(data);
-
-            }
-            chartNeeds.setDrawBarShadow(false);
-            chartNeeds.setDoubleTapToZoomEnabled(false);
-            chartNeeds.setHighlightFullBarEnabled(false);
-            chartNeeds.setFitBars(true);
-
-            setNeeds.setColors(ColorTemplate.VORDIPLOM_COLORS);
-            chartNeeds.invalidate();
-
-
+            PieDataSet setNeeds,setWants;
             if (chartWants.getData() != null && chartWants.getData().getDataSetCount() > 0) {
-                setWants = (BarDataSet) chartWants.getData().getDataSetByIndex(0);
+                setWants = (PieDataSet) chartWants.getData().getDataSetByIndex(0);
                 setWants.setValues(valuesWants);
 
                 chartWants.getData().notifyDataChanged();
                 chartWants.notifyDataSetChanged();
             } else {
-                setWants = new BarDataSet(valuesWants, "");
 
-                setWants.setDrawValues(false);
-                ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-                dataSets.add(setWants);
+                PieDataSet pieDataSet = new PieDataSet(valuesWants, "");
+                pieDataSet.setDrawValues(false);
+                pieDataSet.setColors(chartColors);
+                pieDataSet.setSliceSpace(2f);
 
-                BarData data = new BarData(dataSets);
-                setWants.setValueTextColor(Color.WHITE);
-                chartWants.setData(data);
+
+                PieData data1 = new PieData(pieDataSet);
+                chartWants.setData(data1);
+                chartWants.setTouchEnabled(true);
+                chartWants.getLegend().setEnabled(false);
+                chartWants.getDescription().setEnabled(false);
+                chartWants.setUsePercentValues(true);
+
+                chartWants.setDragDecelerationFrictionCoef(0.95f);
+                chartWants.setDrawHoleEnabled(true);
+                chartWants.setHoleColor(ContextCompat.getColor(getContext(), R.color.design_default_color_background));
+
+                chartWants.setTransparentCircleColor(Color.WHITE);
+                chartWants.setTransparentCircleAlpha(110);
+
+                chartWants.setHoleRadius(48f);
+
+                chartWants.setDrawCenterText(true);
+                chartWants.setRotationAngle(270);
+                chartWants.setRotationEnabled(true);
+                chartWants.setHighlightPerTapEnabled(true);
+
 
             }
-            chartWants.setDrawBarShadow(false);
-            chartWants.setDoubleTapToZoomEnabled(false);
-            chartWants.setHighlightFullBarEnabled(false);
-            chartWants.setFitBars(true);
 
-            setWants.setColors(ColorTemplate.VORDIPLOM_COLORS);
             chartWants.invalidate();
 
+
+            if (chartNeeds.getData() != null && chartNeeds.getData().getDataSetCount() > 0) {
+                setNeeds = (PieDataSet) chartNeeds.getData().getDataSetByIndex(0);
+                setNeeds.setValues(valuesNeeds);
+
+                chartNeeds.getData().notifyDataChanged();
+                chartNeeds.notifyDataSetChanged();
+            } else {
+
+                PieDataSet pieDataSet = new PieDataSet(valuesNeeds, "");
+                pieDataSet.setDrawValues(false);
+                pieDataSet.setColors(chartColors);
+                pieDataSet.setSliceSpace(2f);
+
+
+                PieData data = new PieData(pieDataSet);
+                chartNeeds.setData(data);
+                chartNeeds.setTouchEnabled(true);
+                chartNeeds.getLegend().setEnabled(false);
+                chartNeeds.getDescription().setEnabled(false);
+                chartNeeds.setUsePercentValues(true);
+
+                chartNeeds.setDrawHoleEnabled(true);
+                chartNeeds.setHoleColor(ContextCompat.getColor(getContext(), R.color.design_default_color_background));
+
+
+
+
+                chartNeeds.setDrawCenterText(true);
+                chartNeeds.setHighlightPerTapEnabled(true);
+
+
+            }
+
+            chartNeeds.invalidate();
 
             btn_resetar.setOnClickListener(new View.OnClickListener() {
                 @Override

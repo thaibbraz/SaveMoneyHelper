@@ -43,6 +43,8 @@
     <string name="budget">Budget</string>
     <string name="simular">simular</string>
     <string name="resetar">resetar</string>
+    <string name="despesas">Despesas</string>
+    <string name="ganhos">Ganhos</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

@@ -30,6 +30,9 @@
     <string name="valorAnual">Annual value</string>
     <string name="durante">Period</string>
     <string name="skip">skip</string>
+    <string name="despesas">Expenses</string>
+    <string name="ganhos">Incomes</string>
+
 
     <string name="select_type">Select type:</string>
     <string name="select_category">Select category:</string>
