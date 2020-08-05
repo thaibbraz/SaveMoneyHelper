@@ -45,6 +45,8 @@
     <string name="resetar">resetar</string>
     <string name="despesas">Despesas</string>
     <string name="ganhos">Ganhos</string>
+    <string name="gastosEssenciais">Essenciais</string>
+    <string name="gastosExtras">Extras</string>
 
     <string-array name="menuSimulacoes">
         <item>Mercury</item>

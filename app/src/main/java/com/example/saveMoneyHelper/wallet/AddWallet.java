@@ -147,10 +147,12 @@ public class AddWallet extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                    // buttonView.setBackgroundColor(Color.GREEN);
-                    buttonView.setHighlightColor(Color.GREEN);
+                    typeSwitch.getTrackDrawable().setTint(Color.DKGRAY);
+
                     type="needs";
                 }
                 else
+                    typeSwitch.getTrackDrawable().setTint(Color.GRAY);
                     type="wants";
             }
         });

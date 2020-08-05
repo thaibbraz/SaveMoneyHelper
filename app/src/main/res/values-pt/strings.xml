@@ -32,7 +32,8 @@
     <string name="skip">skip</string>
     <string name="despesas">Expenses</string>
     <string name="ganhos">Incomes</string>
-
+    <string name="gastosEssenciais">Needs</string>
+    <string name="gastosExtras">Wants</string>
 
     <string name="select_type">Select type:</string>
     <string name="select_category">Select category:</string>

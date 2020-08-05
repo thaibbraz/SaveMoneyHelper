@@ -87,7 +87,7 @@ public class Overview extends Fragment{
     private ArrayList<Integer> chartColors;
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private SeekBar seekBarX, seekBarY;
-    private TextView editTextTempo, editTextValor, tempo,valor,valorTittle, tempoTittle,titulo;
+    private TextView editTextTempo, editTextValor, tempo, valor,valorTittle, tempoTittle, titulo, gastosEssencias,gastosExtras,dinheiroGastosEssencias,dinheiroGastosExtras;
     private int flag=-1;
 
     @Override
@@ -106,6 +106,12 @@ public class Overview extends Fragment{
 
         seekBarX = view.findViewById(R.id.seekBar1);
         seekBarY = view.findViewById(R.id.seekBar2);
+
+        gastosEssencias = view.findViewById(R.id.gastosEssencias);
+        gastosExtras = view.findViewById(R.id.gastosExtras);
+        dinheiroGastosEssencias = view.findViewById(R.id.dinheiroGastosEssenciais);
+        dinheiroGastosExtras = view.findViewById(R.id.dinheiroGastosExtras);
+
 
         chart = view.findViewById(R.id.chart1);
         btn_simular = view.findViewById(R.id.btn_simular);
@@ -173,7 +179,6 @@ public class Overview extends Fragment{
         valuesWants = new ArrayList<>();
 
         chartColors = new ArrayList<>();
-        chartColors.clear();
 
         String [] names = {"Overview", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,names);
@@ -212,6 +217,11 @@ public class Overview extends Fragment{
                         chart.setVisibility(View.VISIBLE);
                         lineChart.setVisibility(View.INVISIBLE);
 
+                        gastosEssencias.setVisibility(View.VISIBLE);
+                        gastosExtras.setVisibility(View.VISIBLE);
+                        dinheiroGastosEssencias.setVisibility(View.VISIBLE);
+                        dinheiroGastosExtras.setVisibility(View.VISIBLE);
+
 
                         editTextValor.setVisibility(View.INVISIBLE);
                         editTextTempo.setVisibility(View.INVISIBLE);
@@ -248,6 +258,11 @@ public class Overview extends Fragment{
                         editTextValor.setVisibility(View.VISIBLE);
                         editTextTempo.setVisibility(View.VISIBLE);
 
+                        gastosEssencias.setVisibility(View.INVISIBLE);
+                        gastosExtras.setVisibility(View.INVISIBLE);
+                        dinheiroGastosEssencias.setVisibility(View.INVISIBLE);
+                        dinheiroGastosExtras.setVisibility(View.INVISIBLE);
+
                         seekBarX.setVisibility(View.VISIBLE);
                         seekBarY.setVisibility(View.VISIBLE);
                         btn_resetar.setVisibility(View.VISIBLE);
@@ -282,6 +297,11 @@ public class Overview extends Fragment{
                         btn_resetar.setVisibility(View.VISIBLE);
                         btn_simular.setVisibility(View.VISIBLE);
 
+                        gastosEssencias.setVisibility(View.INVISIBLE);
+                        gastosExtras.setVisibility(View.INVISIBLE);
+                        dinheiroGastosEssencias.setVisibility(View.INVISIBLE);
+                        dinheiroGastosExtras.setVisibility(View.INVISIBLE);
+
                         chartNeeds.setVisibility(View.INVISIBLE);
                         chartWants.setVisibility(View.INVISIBLE);
 
@@ -310,7 +330,7 @@ public class Overview extends Fragment{
                     btn_ganhos.setChecked(false);
                     buttonView.setBackgroundColor(Color.BLACK);
                     buttonView.setTextColor(Color.RED);
-                    btn_despesas.setBackgroundColor(Color.GRAY);
+
                     dataUpdated();
                     titulo.setText("Top Despesas");
                 }else{
@@ -417,7 +437,7 @@ public class Overview extends Fragment{
                         chart.setData(data);
 
                     }
-                    set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
 
                 chart.setDrawBarShadow(false);
                 chart.setDoubleTapToZoomEnabled(false);
@@ -426,8 +446,6 @@ public class Overview extends Fragment{
 
 
                     chart.invalidate();
-
-
 
             }
         });
@@ -448,30 +466,39 @@ public class Overview extends Fragment{
             HashMap<Category, Long> categoryModelsNeeds = new HashMap<>();
             HashMap<Category, Long> categoryModelsWants = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
+                categoryModelsNeeds.clear();
+                categoryModelsNeeds.clear();
 
                 if (walletEntry.balanceDifference > 0) {
                     incomesSumInDateRange += walletEntry.balanceDifference;
-
+                }else{
+                    expensesSumInDateRange += walletEntry.balanceDifference;
                 }
-                expensesSumInDateRange += walletEntry.balanceDifference;
+
                 Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
 
-                if (walletEntry.type != null){
-                    if (walletEntry.type.contains("needs")){
-                        needs += walletEntry.balanceDifference;
-                        if (categoryModelsNeeds.get(category) != null)
-                            categoryModelsNeeds.put(category, categoryModelsNeeds.get(category) + walletEntry.balanceDifference);
-                        else
-                            categoryModelsNeeds.put(category, walletEntry.balanceDifference);
-                    }else{
-                        wants += walletEntry.balanceDifference;
-                        if (categoryModelsWants.get(category) != null)
-                            categoryModelsWants.put(category, categoryModelsWants.get(category) + walletEntry.balanceDifference);
-                        else
-                            categoryModelsWants.put(category, walletEntry.balanceDifference);
+                if (walletEntry.type != null && walletEntry.balanceDifference<0){
+                    switch (walletEntry.type){
+                        case "needs":
+                            needs += walletEntry.balanceDifference;
+                            if (categoryModelsNeeds.get(category) != null)
+                                categoryModelsNeeds.put(category, categoryModelsNeeds.get(category) + walletEntry.balanceDifference);
+                            else
+                                categoryModelsNeeds.put(category, walletEntry.balanceDifference);
+                            break;
+                        case "wants":
+                            wants += walletEntry.balanceDifference;
+                            if (categoryModelsWants.get(category) != null)
+                                categoryModelsWants.put(category, categoryModelsWants.get(category) + walletEntry.balanceDifference);
+                            else
+                               categoryModelsWants.put(category, walletEntry.balanceDifference);
+                            break;
+
                     }
 
                 }
+                dinheiroGastosEssencias.setText(needs+"€");
+                dinheiroGastosExtras.setText(wants+"€");
 
                 if (categoryModels.get(category) != null)
                     categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
@@ -491,17 +518,17 @@ public class Overview extends Fragment{
             values.clear();
             chartColors.clear();
             for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
-                drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
-                drawable.setTint(Color.parseColor("#000000"));
 
-                if (flag == 1 && categoryModel.getValue()<=0) {
-
+                if (flag == 1 && categoryModel.getValue()<0) {
+                    drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+                    drawable.setTint(Color.parseColor("#000000"));
                     values.add(new BarEntry(counter, -categoryModel.getValue(), drawable));
                     chartColors.add(categoryModel.getKey().getIconColor());
 
                 }
                 if (flag == 2 && categoryModel.getValue()>0){
-
+                    drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+                    drawable.setTint(Color.parseColor("#000000"));
                     values.add(new BarEntry(counter,categoryModel.getValue(),drawable));
                     chartColors.add(categoryModel.getKey().getIconColor());
                 }
@@ -511,47 +538,38 @@ public class Overview extends Fragment{
             }
 
             PieDataSet setNeeds,setWants;
-            for (Map.Entry<Category, Long> categoryModel : categoryModelsNeeds.entrySet()) {
-                drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+            for (Map.Entry<Category, Long> categoryModelNeeds : categoryModelsNeeds.entrySet()) {
+                drawable = getContext().getDrawable(categoryModelNeeds.getKey().getIconResourceID());
                 drawable.setTint(Color.parseColor("#000000"));
 
-                if (flag == 5) {
-                    valuesNeeds.add(new PieEntry(-categoryModel.getValue(), drawable));
-                    chartColors.add(categoryModel.getKey().getIconColor());
+                   // chartColors.add(categoryModelNeeds.getKey().getIconColor());
+                    valuesNeeds.add(new PieEntry(-categoryModelNeeds.getValue()));
 
-                }
-                counter++;
 
             }
-            System.out.println(valuesNeeds);
-            for (Map.Entry<Category, Long> categoryModel : categoryModelsWants.entrySet()) {
-                drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
+            valuesWants.clear();
+            for (Map.Entry<Category, Long> categoryModelWants : categoryModelsWants.entrySet()) {
+                drawable = getContext().getDrawable(categoryModelWants.getKey().getIconResourceID());
                 drawable.setTint(Color.parseColor("#000000"));
 
-                if (flag == 5) {
 
-                    valuesWants.add(new PieEntry(-categoryModel.getValue(), drawable));
-                    chartColors.add(categoryModel.getKey().getIconColor());
+                    valuesWants.add(new PieEntry(-categoryModelWants.getValue()));
+                 //   chartColors.add(categoryModelWants.getKey().getIconColor());
 
-                }
-
-                counter++;
 
             }
-
-
 
             if (chartWants.getData() != null && chartWants.getData().getDataSetCount() > 0) {
                 setWants = (PieDataSet) chartWants.getData().getDataSetByIndex(0);
                 setWants.setValues(valuesWants);
-
                 chartWants.getData().notifyDataChanged();
                 chartWants.notifyDataSetChanged();
             } else {
 
                 PieDataSet pieDataSet = new PieDataSet(valuesWants, "");
                 pieDataSet.setDrawValues(false);
-                pieDataSet.setColors(chartColors);
+               // pieDataSet.setColors(chartColors);
+                pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
                 pieDataSet.setSliceSpace(2f);
 
 
@@ -567,10 +585,9 @@ public class Overview extends Fragment{
                 chartWants.setHoleColor(ContextCompat.getColor(getContext(), R.color.design_default_color_background));
 
                 chartWants.setTransparentCircleColor(Color.WHITE);
-                chartWants.setTransparentCircleAlpha(110);
+                chartWants.setTransparentCircleAlpha(50);
 
-                chartWants.setHoleRadius(48f);
-
+                chartWants.setHoleRadius(50f);
                 chartWants.setDrawCenterText(true);
                 chartWants.setRotationAngle(270);
                 chartWants.setRotationEnabled(true);
@@ -581,7 +598,7 @@ public class Overview extends Fragment{
 
             chartWants.invalidate();
 
-
+            chartNeeds.clear();
             if (chartNeeds.getData() != null && chartNeeds.getData().getDataSetCount() > 0) {
                 setNeeds = (PieDataSet) chartNeeds.getData().getDataSetByIndex(0);
                 setNeeds.setValues(valuesNeeds);
@@ -592,31 +609,36 @@ public class Overview extends Fragment{
 
                 PieDataSet pieDataSet = new PieDataSet(valuesNeeds, "");
                 pieDataSet.setDrawValues(false);
-                pieDataSet.setColors(chartColors);
+              //  pieDataSet.setColors(chartColors);
+                pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
                 pieDataSet.setSliceSpace(2f);
 
 
                 PieData data = new PieData(pieDataSet);
+
                 chartNeeds.setData(data);
                 chartNeeds.setTouchEnabled(true);
                 chartNeeds.getLegend().setEnabled(false);
                 chartNeeds.getDescription().setEnabled(false);
                 chartNeeds.setUsePercentValues(true);
 
+                chartNeeds.setDragDecelerationFrictionCoef(0.95f);
                 chartNeeds.setDrawHoleEnabled(true);
                 chartNeeds.setHoleColor(ContextCompat.getColor(getContext(), R.color.design_default_color_background));
 
+                chartNeeds.setTransparentCircleColor(Color.WHITE);
+                chartNeeds.setTransparentCircleAlpha(50);
 
-
-
+                chartNeeds.setHoleRadius(50f);
                 chartNeeds.setDrawCenterText(true);
+                chartNeeds.setRotationAngle(270);
+                chartNeeds.setRotationEnabled(true);
                 chartNeeds.setHighlightPerTapEnabled(true);
 
 
             }
 
             chartNeeds.invalidate();
-
             btn_resetar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -657,9 +679,6 @@ public class Overview extends Fragment{
                 chart.setData(data);
                 chart.setFitBars(true);
 
-
-
-
             }
             chart.invalidate();
 /*
@@ -687,6 +706,8 @@ public class Overview extends Fragment{
             lineChart.setData(data);
             lineChart.animateXY(2000, 2000);
             lineChart.invalidate();
+
+
             */
 
         }
