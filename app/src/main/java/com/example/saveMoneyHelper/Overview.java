@@ -139,13 +139,10 @@ public class Overview extends Fragment{
 
         chart.getAxisLeft().setDrawGridLines(false);
 
-        // setting data
       // add a nice and smooth animation
         chart.animateY(1500);
         chart.setDrawGridBackground(false);
         chart.getLegend().setEnabled(false);
-
-
 
 
         //MONTHLY BY DEFAULT
@@ -181,7 +178,6 @@ public class Overview extends Fragment{
         String [] names = {"Overview", "Simulador do Tesouro poupança","Simulador de Certificados de Aforro (série e)"};
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,names);
 
-
         //Setting month filter for top 10 expenses
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 getActivity()).setDateFilter(dateBegin, dateEnd);
@@ -210,6 +206,7 @@ public class Overview extends Fragment{
 
                 switch (position){
                     case 0:
+
                         btn_despesas.setChecked(true);
 
                         chart.setVisibility(View.VISIBLE);
@@ -305,28 +302,34 @@ public class Overview extends Fragment{
 
             }
         });
-btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            btn_ganhos.setChecked(false);
-            flag=1;
-            btn_despesas.setBackgroundColor(Color.GRAY);
-            dataUpdated();
-            titulo.setText("Top Despesas");
-
-        }
-    }
-});
+        btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    flag=1;
+                    btn_ganhos.setChecked(false);
+                    buttonView.setBackgroundColor(Color.BLACK);
+                    buttonView.setTextColor(Color.RED);
+                    btn_despesas.setBackgroundColor(Color.GRAY);
+                    dataUpdated();
+                    titulo.setText("Top Despesas");
+                }else{
+                    buttonView.setTextColor(Color.GRAY);
+                }
+            }
+        });
         btn_ganhos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    btn_despesas.setChecked(false);
                     flag=2;
+                    buttonView.setTextColor(Color.GREEN);
+                    btn_despesas.setChecked(false);
                     dataUpdated();
                     titulo.setText("Top Ganhos");
 
+                }else{
+                    buttonView.setTextColor(Color.GRAY);
                 }
             }
         });
@@ -457,19 +460,18 @@ btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListen
                     if (walletEntry.type.contains("needs")){
                         needs += walletEntry.balanceDifference;
                         if (categoryModelsNeeds.get(category) != null)
-                            categoryModelsNeeds.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
+                            categoryModelsNeeds.put(category, categoryModelsNeeds.get(category) + walletEntry.balanceDifference);
                         else
                             categoryModelsNeeds.put(category, walletEntry.balanceDifference);
                     }else{
                         wants += walletEntry.balanceDifference;
                         if (categoryModelsWants.get(category) != null)
-                            categoryModelsWants.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
+                            categoryModelsWants.put(category, categoryModelsWants.get(category) + walletEntry.balanceDifference);
                         else
                             categoryModelsWants.put(category, walletEntry.balanceDifference);
                     }
 
                 }
-
 
                 if (categoryModels.get(category) != null)
                     categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
@@ -477,6 +479,12 @@ btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListen
                     categoryModels.put(category, walletEntry.balanceDifference);
 
             }
+            btn_ganhos.setTextOff("ganhos "+incomesSumInDateRange+"€");
+            btn_ganhos.setTextOn("ganhos "+incomesSumInDateRange+"€");
+
+            btn_despesas.setTextOff("despesas "+expensesSumInDateRange+"€");
+            btn_despesas.setTextOn("despesas "+expensesSumInDateRange+"€");
+
             Drawable drawable = null;
 
             int counter = 0;
@@ -502,21 +510,20 @@ btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListen
 
             }
 
-
+            PieDataSet setNeeds,setWants;
             for (Map.Entry<Category, Long> categoryModel : categoryModelsNeeds.entrySet()) {
                 drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
                 drawable.setTint(Color.parseColor("#000000"));
 
                 if (flag == 5) {
-
                     valuesNeeds.add(new PieEntry(-categoryModel.getValue(), drawable));
                     chartColors.add(categoryModel.getKey().getIconColor());
 
                 }
-
                 counter++;
 
             }
+            System.out.println(valuesNeeds);
             for (Map.Entry<Category, Long> categoryModel : categoryModelsWants.entrySet()) {
                 drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
                 drawable.setTint(Color.parseColor("#000000"));
@@ -533,7 +540,7 @@ btn_despesas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListen
             }
 
 
-            PieDataSet setNeeds,setWants;
+
             if (chartWants.getData() != null && chartWants.getData().getDataSetCount() > 0) {
                 setWants = (PieDataSet) chartWants.getData().getDataSetByIndex(0);
                 setWants.setValues(valuesWants);
