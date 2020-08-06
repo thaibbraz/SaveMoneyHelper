@@ -39,6 +39,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -113,7 +114,7 @@ public class HomePage extends Fragment {
 
         //Setting month filter for top 10 expenses
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                getActivity()).setDateFilter(dateBegin, dateEnd);
+        getActivity()).setDateFilter(dateBegin, dateEnd);
         //Observer for TopWalletEntries
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 getActivity()).observe(this,
@@ -148,50 +149,45 @@ public class HomePage extends Fragment {
             long expensesSumInDateRange = 0;
             long incomesSumInDateRange = 0;
 
-            HashMap<Category, Long> categoryModels = new HashMap<>();
+            HashMap<String, Long> categoryModels = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
+
                 if (walletEntry.balanceDifference > 0) {
-
                     incomesSumInDateRange += walletEntry.balanceDifference;
-                    continue;
+
+                    if (categoryModels.get("ganhos") != null)
+                        categoryModels.put("ganhos", categoryModels.get("ganhos") + walletEntry.balanceDifference);
+                    else
+                        categoryModels.put("ganhos", walletEntry.balanceDifference);
+
                 }
-                expensesSumInDateRange += walletEntry.balanceDifference;
-                Category category = CategoriesHelper.searchCategory(walletEntry.categoryID);
 
-                if (categoryModels.get(category) != null)
-                    categoryModels.put(category, categoryModels.get(category) + walletEntry.balanceDifference);
-                else
-                    categoryModels.put(category, walletEntry.balanceDifference);
-
+                 if (walletEntry.balanceDifference < 0 && walletEntry.type != null){
+                     expensesSumInDateRange += walletEntry.balanceDifference;
+                     if (categoryModels.get(walletEntry.type) != null)
+                         categoryModels.put(walletEntry.type, categoryModels.get(walletEntry.type) + walletEntry.balanceDifference);
+                     else
+                         categoryModels.put(walletEntry.type, walletEntry.balanceDifference);
+                 }
+                 
             }
 
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
             ArrayList<Integer> pieColors = new ArrayList<>();
 
             categoryModelsHome.clear();
+
             int count = 10;
-            for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
-                float percentage = categoryModel.getValue() / (float) expensesSumInDateRange;
-                final float minPercentageToShowLabelOnChart = 0.1f;
+            for (Map.Entry<String, Long> categoryModel : categoryModels.entrySet()) {
 
                 //Populating arrayList<TopCategoryListViewModel>
-                if (count>0){
-                    categoryModelsHome.add(new TopCategoryListViewModel(categoryModel.getKey(),
-                            categoryModel.getKey().getCategoryVisibleName(getContext()),
-                            categoryModel.getValue()));
-                    count--;
+
+                if (categoryModel.getValue()<0){
+                    pieEntries.add(new PieEntry(-categoryModel.getValue(), categoryModel.getKey()));
+                }else{
+                    pieEntries.add(new PieEntry(categoryModel.getValue(), categoryModel.getKey()));
                 }
 
-                if (percentage > minPercentageToShowLabelOnChart){
-                    Drawable drawable = getContext().getDrawable(categoryModel.getKey().getIconResourceID());
-                    drawable.setTint(Color.parseColor("#FFFFFF"));
-                    pieEntries.add(new PieEntry(-categoryModel.getValue(), drawable));
-
-                } else {
-                    pieEntries.add(new PieEntry(-categoryModel.getValue()));
-                }
-
-                pieColors.add(categoryModel.getKey().getIconColor());
 
             }
 
@@ -209,7 +205,7 @@ public class HomePage extends Fragment {
             pieDataSet.setDrawValues(false);
             pieDataSet.setColors(pieColors);
             pieDataSet.setSliceSpace(2f);
-
+            pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
             adapter.refresh(categoryModelsHome);
 
 

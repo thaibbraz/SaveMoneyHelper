@@ -56,7 +56,7 @@ public class AddWallet extends Fragment {
     private Toolbar toolbar;
     private Switch typeSwitch;
     private ImageView imgCalendar;
-    private String type="wants";
+    private String type=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,12 +148,15 @@ public class AddWallet extends Fragment {
                 if (isChecked){
                    // buttonView.setBackgroundColor(Color.GREEN);
                     typeSwitch.getTrackDrawable().setTint(Color.DKGRAY);
-
                     type="needs";
-                }
-                else
+                    System.out.println("addwallet type"+type);
+                }else{
                     typeSwitch.getTrackDrawable().setTint(Color.GRAY);
                     type="wants";
+                    System.out.println("addwallet type "+type);
+
+                }
+
             }
         });
         selectTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
