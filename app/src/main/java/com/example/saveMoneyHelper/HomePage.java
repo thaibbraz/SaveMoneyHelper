@@ -3,6 +3,7 @@ package com.example.saveMoneyHelper;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -39,6 +40,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +54,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.github.mikephil.charting.utils.ColorTemplate.rgb;
 
 
 public class HomePage extends Fragment {
@@ -68,6 +72,10 @@ public class HomePage extends Fragment {
     private ListDataSet<WalletEntry> walletEntryListDataSet;
     private TopCategoriesAdapter adapter;
     private ArrayList<TopCategoryListViewModel> categoryModelsHome;
+    private ArrayList<Integer> colors = new ArrayList<>();
+    private static final int[] PIE_COLORS = {
+            rgb("#02c39a"), rgb("#028090"), rgb("#b7e4c7")
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,8 +109,6 @@ public class HomePage extends Fragment {
 
         adapter = new TopCategoriesAdapter(categoryModelsHome, getContext());
         favoriteListView.setAdapter(adapter);
-
-
 
         //Profile button
         btnFloattingProfile.setOnClickListener(new View.OnClickListener() {
@@ -152,28 +158,40 @@ public class HomePage extends Fragment {
             HashMap<String, Long> categoryModels = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
 
-                if (walletEntry.balanceDifference > 0) {
+                if (walletEntry.categoryID.contains("savings") && walletEntry.balanceDifference > 0) {
                     incomesSumInDateRange += walletEntry.balanceDifference;
 
-                    if (categoryModels.get("ganhos") != null)
-                        categoryModels.put("ganhos", categoryModels.get("ganhos") + walletEntry.balanceDifference);
+                    if (categoryModels.get("poupanças") != null)
+                        categoryModels.put("poupanças", categoryModels.get("poupanças") + walletEntry.balanceDifference);
                     else
-                        categoryModels.put("ganhos", walletEntry.balanceDifference);
+                        categoryModels.put("poupanças", walletEntry.balanceDifference);
 
                 }
 
                  if (walletEntry.balanceDifference < 0 && walletEntry.type != null){
                      expensesSumInDateRange += walletEntry.balanceDifference;
-                     if (categoryModels.get(walletEntry.type) != null)
-                         categoryModels.put(walletEntry.type, categoryModels.get(walletEntry.type) + walletEntry.balanceDifference);
-                     else
-                         categoryModels.put(walletEntry.type, walletEntry.balanceDifference);
+                     switch (walletEntry.type){
+                         case "wants":
+                             if (categoryModels.get("extras") != null)
+                                 categoryModels.put("extras", categoryModels.get("extras") + walletEntry.balanceDifference);
+                             else
+                                 categoryModels.put("extras", walletEntry.balanceDifference);
+                             break;
+                         case "needs":
+                             if (categoryModels.get("necessidades") != null)
+                                 categoryModels.put("necessidades", categoryModels.get("necessidades") + walletEntry.balanceDifference);
+                             else
+                                 categoryModels.put("necessidades", walletEntry.balanceDifference);
+                             break;
+                     }
+
+
                  }
                  
             }
 
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
-            ArrayList<Integer> pieColors = new ArrayList<>();
+
 
             categoryModelsHome.clear();
 
@@ -197,38 +215,46 @@ public class HomePage extends Fragment {
                     return Long.compare(o1.getMoney(), o2.getMoney());
                 }
             });
-
+            for (int c :PIE_COLORS)
+                colors.add(c);
 
             //Pie chart
-
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
             pieDataSet.setDrawValues(false);
-            pieDataSet.setColors(pieColors);
+            pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+
+            pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+            pieDataSet.setValueLinePart1Length(0.5f);
+            pieDataSet.setValueLinePart2Length(0.8f);
+
+
             pieDataSet.setSliceSpace(2f);
-            pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+            pieDataSet.setColors(colors);
             adapter.refresh(categoryModelsHome);
 
 
             PieData data = new PieData(pieDataSet);
+
+            data.setValueFormatter(new PercentFormatter());
+            data.setValueTextSize(18f);
+            data.setValueTextColor(Color.DKGRAY);
+
+            data.setDrawValues(true);
+            pieChart.setDrawEntryLabels(false);
             pieChart.setData(data);
             pieChart.setTouchEnabled(true);
-            pieChart.getLegend().setEnabled(false);
             pieChart.getDescription().setEnabled(false);
+
             pieChart.setUsePercentValues(true);
 
             pieChart.setDragDecelerationFrictionCoef(0.95f);
-            pieChart.setDrawHoleEnabled(true);
-            pieChart.setHoleColor(ContextCompat.getColor(getContext(), R.color.design_default_color_background));
+            pieChart.setDrawHoleEnabled(false);
 
-            pieChart.setTransparentCircleColor(Color.WHITE);
-            pieChart.setTransparentCircleAlpha(110);
-
-            pieChart.setHoleRadius(48f);
-
-            pieChart.setDrawCenterText(true);
             pieChart.setRotationAngle(270);
             pieChart.setRotationEnabled(true);
             pieChart.setHighlightPerTapEnabled(true);
+
+            pieChart.setExtraOffsets(20.f, 0.f, 20.f, 0.f);
 
             pieChart.animateY(1200, Easing.EaseInOutQuad);
 

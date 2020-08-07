@@ -18,6 +18,7 @@ public  class DefaultCategories {
             new Category(":pharmacy", "Farmácia", R.drawable.category_pharmacy, Color.parseColor("#00796b")),
             new Category(":repair", "Reparação", R.drawable.category_repair, Color.parseColor("#388e3c")),
             new Category(":shopping", "Compras", R.drawable.category_shopping, Color.parseColor("#689f38")),
+            new Category(":savings", "Poupanças", R.drawable.savingpig, Color.parseColor("#83e377")),
             new Category(":sport", "Desporto", R.drawable.category_sport, Color.parseColor("#afb42b")),
             new Category(":transfer", "Transferência", R.drawable.category_transfer, Color.parseColor("#fbc02d")),
             new Category(":transport", "Transporte", R.drawable.category_transport, Color.parseColor("#ffa000")),

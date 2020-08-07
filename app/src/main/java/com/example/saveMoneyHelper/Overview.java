@@ -569,7 +569,7 @@ public class Overview extends Fragment{
                 PieDataSet pieDataSet = new PieDataSet(valuesWants, "");
                 pieDataSet.setDrawValues(false);
                // pieDataSet.setColors(chartColors);
-                pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 pieDataSet.setSliceSpace(2f);
 
 
@@ -610,7 +610,7 @@ public class Overview extends Fragment{
                 PieDataSet pieDataSet = new PieDataSet(valuesNeeds, "");
                 pieDataSet.setDrawValues(false);
               //  pieDataSet.setColors(chartColors);
-                pieDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+                pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 pieDataSet.setSliceSpace(2f);
 
 
