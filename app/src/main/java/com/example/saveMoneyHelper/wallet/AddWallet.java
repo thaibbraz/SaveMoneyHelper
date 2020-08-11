@@ -149,11 +149,10 @@ public class AddWallet extends Fragment {
                    // buttonView.setBackgroundColor(Color.GREEN);
                     typeSwitch.getTrackDrawable().setTint(Color.DKGRAY);
                     type="needs";
-                    System.out.println("addwallet type"+type);
+
                 }else{
                     typeSwitch.getTrackDrawable().setTint(Color.GRAY);
                     type="wants";
-                    System.out.println("addwallet type "+type);
 
                 }
 

@@ -60,7 +60,6 @@
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
 
-            app:contentPadding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.43"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +73,7 @@
                     android:id="@+id/balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="42dp"
+                    android:layout_marginTop="24dp"
                     android:text="3,00€"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -96,22 +95,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/balance"
                     app:layout_constraintVertical_bias="0.0" />
 
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btn_floatingProfile"
-                    android:layout_width="30dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="start"
-                    android:layout_margin="4dp"
-                    android:foreground="@drawable/ic_coinsvg"
-                    app:backgroundTint="#FFFFFF"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.93"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.01999998" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="0dp"
@@ -132,17 +115,19 @@
                         android:max="100"
                         android:progress="100"
                         android:progressTint="@color/white_smoke"
-
                         android:theme="@style/MyProgressBarTwo"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <ProgressBar
                         android:id="@+id/progress_bar"
                         style="@style/MyProgressBarTwo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
                         android:max="100"
                         android:progress="50"
                         android:progressBackgroundTint="@android:color/transparent"
@@ -156,6 +141,19 @@
                         app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <ImageButton
+                    android:id="@+id/img_btn"
+                    android:layout_width="67dp"
+                    android:layout_height="64dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_coinstar"
+                    android:background="@drawable/shape"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.01999998" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -163,9 +161,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
-            android:layout_width="match_parent"
+            android:layout_width="390dp"
             android:layout_height="155dp"
-            app:cardBackgroundColor="@color/snow"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -173,7 +171,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardViewChart">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="391dp"
                 android:layout_height="match_parent">
 
                 <TextView

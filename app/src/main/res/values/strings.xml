@@ -3,6 +3,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Palavra-passe</string>
     <string name="hint_name">Nome</string>
+    <string name="hint_monthly_income">Ganho mensal</string>
     <string name="login">Login</string>
     <string name="register">Registar-se</string>
     <string name="btn_link_to_register">Não é um membro? regista-te já</string>
@@ -39,6 +40,7 @@
     <string name="settings">Definições</string>
     <string name="transactions">Transações</string>
     <string name="addWallet">Adicionar transação</string>
+    <string name="addTarget">Adicionar meta</string>
     <string name="addBudget">Adicionar budget</string>
     <string name="budget">Budget</string>
     <string name="simular">simular</string>
@@ -47,15 +49,7 @@
     <string name="ganhos">Ganhos</string>
     <string name="gastosEssenciais">Necessidades</string>
     <string name="gastosExtras">Extras</string>
+    <string name="savings">Poupanças</string>
 
-    <string-array name="menuSimulacoes">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
+
 </resources>

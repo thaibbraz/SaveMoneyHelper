@@ -568,7 +568,6 @@ public class Overview extends Fragment{
 
                 PieDataSet pieDataSet = new PieDataSet(valuesWants, "");
                 pieDataSet.setDrawValues(false);
-               // pieDataSet.setColors(chartColors);
                 pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 pieDataSet.setSliceSpace(2f);
 
@@ -681,41 +680,10 @@ public class Overview extends Fragment{
 
             }
             chart.invalidate();
-/*
-            dataSets = new ArrayList<>();
-
-            for (int z = 0; z <2; z++) {
-                valuesLine = new ArrayList<>();
-                for (int i = 0; i < 30; i++) {
-                    for (Map.Entry<Category, Long> categoryModel : categoryModels.entrySet()) {
-                        double val = i * seekBarX.getProgress();
-                        valuesLine.add(new Entry(i, categoryModel.getValue()));
-                    }
-                }
-                LineDataSet d = new LineDataSet(valuesLine, " ");
-                d.setLineWidth(5f);
-
-                //d.setCircleColor(color);
-                dataSets.add(d);
-            }
-              // make the first DataSet dashed
-            ((LineDataSet) dataSets.get(1)).setColor(Color.GREEN);
-            ((LineDataSet) dataSets.get(0)).setColor(Color.GREEN);
-
-            LineData data = new LineData(dataSets);
-            lineChart.setData(data);
-            lineChart.animateXY(2000, 2000);
-            lineChart.invalidate();
-
-
-            */
 
         }
 
 
     }
-
-
-
 
 }

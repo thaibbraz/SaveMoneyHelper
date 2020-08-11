@@ -4,7 +4,8 @@
     <string name="app_name">SaveMoneyHelper</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="hint_name">Nome</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_monthly_income">Monthly after-tax income</string>
     <string name="login">Login</string>
     <string name="register">register</string>
     <string name="btn_link_to_register">Not a member? Register! </string>
@@ -34,7 +35,7 @@
     <string name="ganhos">Incomes</string>
     <string name="gastosEssenciais">Needs</string>
     <string name="gastosExtras">Wants</string>
-
+    <string name="addTarget">Add Target</string>
     <string name="select_type">Select type:</string>
     <string name="select_category">Select category:</string>
     <string name="amount">Amount</string>
@@ -48,6 +49,7 @@
     <string name="budget">Budget</string>
     <string name="simular">simulate</string>
     <string name="resetar">reset</string>
+    <string name="savings">Savings</string>
 
 
 </resources>

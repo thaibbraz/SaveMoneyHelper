@@ -24,10 +24,19 @@
         android:id="@+id/homePage"
         android:name="com.example.saveMoneyHelper.HomePage"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_coinFragment"
+            app:destination="@id/coinFragment" />
+    </fragment>
     <fragment
         android:id="@+id/transacao"
         android:name="com.example.saveMoneyHelper.transactions.Transacao"
         android:label="fragment_transacoes"
         tools:layout="@layout/fragment_transacoes" />
+    <fragment
+        android:id="@+id/coinFragment"
+        android:name="com.example.saveMoneyHelper.CoinFragment"
+        android:label="fragment_coin"
+        tools:layout="@layout/fragment_coin" />
 </navigation>

@@ -19,7 +19,7 @@ public class CategoriesHelper {
             if(category.getCategoryID().equals(categoryName)) return category;
         }
 
-        return DefaultCategories.createDefaultCategoryModel("Others");
+        return DefaultCategories.createDefaultCategoryModel("Outros");
     }
 
     public static List<Category> getCategories() {

@@ -81,8 +81,6 @@ public class TransactionsAdapter extends ArrayAdapter<TransactionsListViewModel>
         listItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(getContext(),"category id: "+dataModel.getCategoryID()+" | userid"
-                +FirebaseAuth.getInstance().getCurrentUser().getUid().toString(), Toast.LENGTH_SHORT).show();
                 createDeleteDialog(dataModel.getCategoryID(), FirebaseAuth.getInstance().getCurrentUser().getUid(), dataModel.getMoney(), view.getContext());
                 return false;
             }

@@ -10,11 +10,14 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -62,7 +65,7 @@ public class HomePage extends Fragment {
 
     private PieChart pieChart;
     private UserSettings userSettings;
-    private FloatingActionButton btnFloattingProfile;
+    private ImageButton btnFloattingProfile;
     private ProgressBar progressbar_income_expense;
     private TextView incomesTextView;
     private TextView balance;
@@ -101,7 +104,7 @@ public class HomePage extends Fragment {
         }
 
         categoryModelsHome = new ArrayList<>();
-        btnFloattingProfile = view.findViewById(R.id.btn_floatingProfile);
+        btnFloattingProfile = view.findViewById(R.id.img_btn);
         pieChart = view.findViewById(R.id.pie_chart);
         favoriteListView = view.findViewById(R.id.favourite_categories_list_view);
         progressbar_income_expense = view.findViewById(R.id.progress_bar);
@@ -113,14 +116,15 @@ public class HomePage extends Fragment {
         //Profile button
         btnFloattingProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), ProfileEditActivity.class);
-                startActivity(i);
+                Navigation.findNavController(getView()).navigate(R.id.coinFragment);
+
             }
         });
 
         //Setting month filter for top 10 expenses
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
         getActivity()).setDateFilter(dateBegin, dateEnd);
+
         //Observer for TopWalletEntries
         TopWalletEntriesViewModelFactory.getModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 getActivity()).observe(this,

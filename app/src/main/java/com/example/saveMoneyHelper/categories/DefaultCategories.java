@@ -25,8 +25,16 @@ public  class DefaultCategories {
             new Category(":work", "Trabalho", R.drawable.category_briefcase, Color.parseColor("#f57c00")),
 
 
-    };
 
+    };
+    private static Category[] categoriesIncome = new Category[]{
+            new Category(":othersIncome", "Outros", R.drawable.category_default, Color.parseColor("#17c3b2")),
+            new Category(":savings", "Poupanças", R.drawable.savingpig, Color.parseColor("#83e377")),
+            new Category(":salary", "Salário", R.drawable.salary, Color.parseColor("#048A81")),
+            new Category(":business", "Negócios", R.drawable.business, Color.parseColor("#004e98")),
+
+
+    };
     public static Category createDefaultCategoryModel(String visibleName) {
         return new Category("default", visibleName, R.drawable.category_default,
                 Color.parseColor("#26a69a"));
@@ -35,5 +43,9 @@ public  class DefaultCategories {
 
     public static Category[] getDefaultCategories() {
         return categories;
+    }
+
+    public static Category[] getcategoriesIncome() {
+            return categoriesIncome;
     }
 }
