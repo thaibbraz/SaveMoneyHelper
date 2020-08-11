@@ -134,7 +134,7 @@ public class AddWallet extends Fragment {
 
         selectCategorySpinner.setAdapter(categoryAdapter);
 
-        EntryTypesAdapter typeAdapter = new EntryTypesAdapter(getContext(),
+        final EntryTypesAdapter typeAdapter = new EntryTypesAdapter(getContext(),
                 R.layout.new_entry_type_spinner_row, Arrays.asList(
                 new EntryTypeListViewModel("Despesas", Color.parseColor("#ef5350"),
                         R.drawable.money_icon),
@@ -142,17 +142,17 @@ public class AddWallet extends Fragment {
                         R.drawable.money_icon)));
 
         selectTypeSpinner.setAdapter(typeAdapter);
+
         typeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                   // buttonView.setBackgroundColor(Color.GREEN);
-                    typeSwitch.getTrackDrawable().setTint(Color.DKGRAY);
-                    type="needs";
-
-                }else{
+                if (!isChecked){
                     typeSwitch.getTrackDrawable().setTint(Color.GRAY);
                     type="wants";
+
+                }else{
+                    typeSwitch.getTrackDrawable().setTint(Color.DKGRAY);
+                    type="needs";
 
                 }
 
@@ -167,6 +167,8 @@ public class AddWallet extends Fragment {
                         toolbar.setBackgroundColor(Color.parseColor("#ef5350"));
                         imgCalendar.setBackgroundColor(Color.parseColor("#ef5350"));
                         typeSwitch.setVisibility(View.VISIBLE);
+                        if (type==null)
+                            type="wants";
 
                         break;
                     case 1:
