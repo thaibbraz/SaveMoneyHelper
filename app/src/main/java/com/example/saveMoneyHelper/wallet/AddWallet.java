@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.saveMoneyHelper.R;
 import com.example.saveMoneyHelper.categories.Category;
+import com.example.saveMoneyHelper.categories.DefaultCategories;
 import com.example.saveMoneyHelper.categories.EntryCategoriesAdapter;
 import com.example.saveMoneyHelper.firebase.models.WalletEntry;
 import com.example.saveMoneyHelper.util.CategoriesHelper;
@@ -57,6 +58,7 @@ public class AddWallet extends Fragment {
     private Switch typeSwitch;
     private ImageView imgCalendar;
     private String type=null;
+    private List<Category> categories = CategoriesHelper.getCategories();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +129,8 @@ public class AddWallet extends Fragment {
     }
 
     private void updateLists() {
-        final List<Category> categories = CategoriesHelper.getCategories();
+
+
         EntryCategoriesAdapter categoryAdapter = new EntryCategoriesAdapter(getContext(),
                 R.layout.new_entry_type_spinner_row, categories);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -167,6 +170,9 @@ public class AddWallet extends Fragment {
                         toolbar.setBackgroundColor(Color.parseColor("#ef5350"));
                         imgCalendar.setBackgroundColor(Color.parseColor("#ef5350"));
                         typeSwitch.setVisibility(View.VISIBLE);
+                        categories.clear();
+                        categories.addAll(Arrays.asList(DefaultCategories.getCategoriesOutcome()));
+
                         if (type==null)
                             type="wants";
 
@@ -175,6 +181,8 @@ public class AddWallet extends Fragment {
                         addEntryButton.setBackgroundColor(Color.parseColor("#03DAC5"));
                         toolbar.setBackgroundColor(Color.parseColor("#03DAC5"));
                         imgCalendar.setBackgroundColor(Color.parseColor("#03DAC5"));
+                        categories.clear();
+                        categories.addAll(Arrays.asList(DefaultCategories.getCategoriesIncome()));
                         typeSwitch.setVisibility(View.INVISIBLE);
                         break;
 
