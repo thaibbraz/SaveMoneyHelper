@@ -10,13 +10,25 @@ public class UserSettings {
 
     public static final int PERIOD_MONTHLY = 0;
     public static final int PERIOD_WEEKLY = 1;
+    public static final int XP_ON = 0;
+
 
 
     private Budget budget;
     private int homeCounterPeriod = UserSettings.PERIOD_MONTHLY;
+    private int XP = UserSettings.XP_ON;
+    private int salary;
 
     public UserSettings() {
-        budget = new Budget(100,   new Category(":others", "Outros", R.drawable.category_default, Color.parseColor("#455a64")),0);
+
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
     public Budget getBudget() {
@@ -31,7 +43,13 @@ public class UserSettings {
         this.homeCounterPeriod = homeCounterPeriod;
     }
 
+    public int getXP() {
+        return XP;
+    }
 
+    public void setXP(int XP) {
+        this.XP = XP;
+    }
 
     public int getHomeCounterPeriod() {
         return homeCounterPeriod;

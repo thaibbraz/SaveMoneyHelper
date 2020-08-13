@@ -6,7 +6,7 @@ import com.example.saveMoneyHelper.R;
 
 public  class DefaultCategories {
     private static Category[] categories = new Category[]{
-            new Category(":others", "Outros", R.drawable.category_default, Color.parseColor("#455a64")),
+            new Category(":others", "Outros", R.drawable.category_default, Color.parseColor("#772e25")),
             new Category(":clothing", "Roupas", R.drawable.category_clothing, Color.parseColor("#d32f2f")),
             new Category(":food", "Alimentação", R.drawable.category_food, Color.parseColor("#c2185b")),
             new Category(":gas_station", "Combustível", R.drawable.category_gas_station, Color.parseColor("#7b1fa2")),

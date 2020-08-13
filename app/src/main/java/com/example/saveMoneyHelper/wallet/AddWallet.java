@@ -105,7 +105,6 @@ public class AddWallet extends Fragment {
                 pickDate();
             }
         });
-
         addEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +128,6 @@ public class AddWallet extends Fragment {
     }
 
     private void updateLists() {
-
 
         EntryCategoriesAdapter categoryAdapter = new EntryCategoriesAdapter(getContext(),
                 R.layout.new_entry_type_spinner_row, categories);
@@ -184,6 +182,7 @@ public class AddWallet extends Fragment {
                         categories.clear();
                         categories.addAll(Arrays.asList(DefaultCategories.getCategoriesIncome()));
                         typeSwitch.setVisibility(View.INVISIBLE);
+                        type=null;
                         break;
 
                 }

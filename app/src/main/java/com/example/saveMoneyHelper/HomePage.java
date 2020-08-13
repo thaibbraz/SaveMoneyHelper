@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.saveMoneyHelper.auth.ProfileEditActivity;
 import com.example.saveMoneyHelper.categories.Category;
@@ -66,8 +67,7 @@ public class HomePage extends Fragment {
     private PieChart pieChart;
     private UserSettings userSettings;
     private ImageButton btnFloattingProfile;
-    private ProgressBar progressbar_income_expense;
-    private TextView incomesTextView;
+    private ProgressBar progressbar_income_expense,background_progress_bar;
     private TextView balance;
     private Calendar dateBegin;
     private Calendar dateEnd;
@@ -92,6 +92,7 @@ public class HomePage extends Fragment {
 
         if (PreferencesManager.getInstance().getSavedUserSettings(getContext()) != null) {
 
+
             dateBegin = CalendarHelper.getStartDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
             dateEnd = CalendarHelper.getEndDate(PreferencesManager.getInstance().getSavedUserSettings(getContext()));
 
@@ -99,15 +100,16 @@ public class HomePage extends Fragment {
         } else {
             dateBegin = CalendarHelper.getStartDate(userSettings);
             dateEnd = CalendarHelper.getEndDate(userSettings);
-
-
         }
+
+
 
         categoryModelsHome = new ArrayList<>();
         btnFloattingProfile = view.findViewById(R.id.img_btn);
         pieChart = view.findViewById(R.id.pie_chart);
         favoriteListView = view.findViewById(R.id.favourite_categories_list_view);
         progressbar_income_expense = view.findViewById(R.id.progress_bar);
+        background_progress_bar = view.findViewById(R.id.background_progress_bar);
         balance = view.findViewById(R.id.balance);
 
         adapter = new TopCategoriesAdapter(categoryModelsHome, getContext());
@@ -141,12 +143,12 @@ public class HomePage extends Fragment {
 
                 });
 
-
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
 
     }
 
@@ -158,13 +160,18 @@ public class HomePage extends Fragment {
 
             long expensesSumInDateRange = 0;
             long incomesSumInDateRange = 0;
+            long necessidades=0;
+            long extras=0;
+            long poupanças=0;
 
             HashMap<String, Long> categoryModels = new HashMap<>();
             for (WalletEntry walletEntry : entryList) {
+                if (walletEntry.balanceDifference>0 && !(walletEntry.categoryID.contains("savings"))){
+                    incomesSumInDateRange += walletEntry.balanceDifference;
+                }
 
                 if (walletEntry.categoryID.contains("savings") && walletEntry.balanceDifference > 0) {
-                    incomesSumInDateRange += walletEntry.balanceDifference;
-
+                    poupanças +=walletEntry.balanceDifference;
                     if (categoryModels.get("poupanças") != null)
                         categoryModels.put("poupanças", categoryModels.get("poupanças") + walletEntry.balanceDifference);
                     else
@@ -176,12 +183,15 @@ public class HomePage extends Fragment {
                      expensesSumInDateRange += walletEntry.balanceDifference;
                      switch (walletEntry.type){
                          case "wants":
+                             extras +=walletEntry.balanceDifference;
+
                              if (categoryModels.get("extras") != null)
                                  categoryModels.put("extras", categoryModels.get("extras") + walletEntry.balanceDifference);
                              else
                                  categoryModels.put("extras", walletEntry.balanceDifference);
                              break;
                          case "needs":
+                             necessidades +=walletEntry.balanceDifference;
                              if (categoryModels.get("necessidades") != null)
                                  categoryModels.put("necessidades", categoryModels.get("necessidades") + walletEntry.balanceDifference);
                              else
@@ -195,8 +205,6 @@ public class HomePage extends Fragment {
             }
 
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-
             categoryModelsHome.clear();
 
             int count = 10;
@@ -265,8 +273,47 @@ public class HomePage extends Fragment {
 
             pieChart.invalidate();
 
-
             float money = incomesSumInDateRange+expensesSumInDateRange;
+            int totalnecessidades =0;
+            int totalExtras =0;
+            int totalPoupanças =0;
+            if (incomesSumInDateRange>0){
+            //50%
+            totalnecessidades = (int) ((-necessidades * 100)/(incomesSumInDateRange*0.5));
+            //30%
+            totalExtras = (int) ((-extras * 100)/(incomesSumInDateRange*0.3));
+            //20%
+            totalPoupanças = (int) ((poupanças * 100)/(incomesSumInDateRange*0.2));
+
+        }
+
+            if (totalnecessidades>100)
+                totalnecessidades = (int) (totalnecessidades - ((totalnecessidades-100)*2));
+            if (totalPoupanças>100)
+                totalPoupanças = (int) (totalPoupanças - ((totalPoupanças-100)*2));
+            if (totalExtras>100)
+                totalExtras = (int) (totalExtras - ((totalExtras-100)*2));
+
+            int progress = (int)((totalnecessidades+totalExtras+totalPoupanças)/3);
+
+            System.out.println("totalnecessidades: "+totalnecessidades);
+            System.out.println("incomesSumInDateRange: "+incomesSumInDateRange);
+            System.out.println("totalExtras: "+totalExtras);
+            System.out.println("totalPoupanças: "+totalPoupanças);
+            System.out.println("progress: "+progress);
+
+
+            if (PreferencesManager.getInstance().getSavedUserSettings(getContext()).getXP()==0){
+                System.out.println("XP: "+PreferencesManager.getInstance().getSavedUserSettings(getContext()).getXP());
+                progressbar_income_expense.setVisibility(View.INVISIBLE);
+                background_progress_bar.setVisibility(View.INVISIBLE);
+            }else{
+                progressbar_income_expense.setVisibility(View.VISIBLE);
+                background_progress_bar.setVisibility(View.VISIBLE);
+                progressbar_income_expense.setMax(100);
+                progressbar_income_expense.setProgress(progress);
+            }
+
 
             balance.setText(String.valueOf(money + "€"));
             if (money>0)

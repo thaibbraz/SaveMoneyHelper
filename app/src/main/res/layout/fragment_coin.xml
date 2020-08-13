@@ -22,13 +22,10 @@
             android:id="@+id/root_layout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             >
-
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarAddWallet"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
@@ -97,13 +94,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="12dp"
-                        android:paddingTop="8dp"
+                        android:paddingTop="18dp"
+                        android:textSize="16sp"
                         android:text="@string/hint_monthly_income"
                         android:textColor="@color/black" />
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/select_name_inputlayout"
+                        android:id="@+id/valorinputlayout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,7 +112,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/sign_out_button">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/select_name_edittext"
+                            android:id="@+id/valorEdit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -205,9 +203,7 @@
                         android:layout_width="191dp"
                         android:layout_height="110dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
                         tools:src="@drawable/treasure_chest" />
-
                 </LinearLayout>
             </ScrollView>
 
@@ -215,7 +211,7 @@
 
                 android:id="@+id/add_entry_button"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="300dp"
+                android:layout_width="170dp"
                 android:layout_height="52dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
@@ -227,7 +223,28 @@
                 android:text="@string/add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.03"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.93" />
+
+            <Button
+
+                android:id="@+id/cancel_entry_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="170dp"
+                android:layout_height="52dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/grey"
+                android:backgroundTint="@color/snow"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_entry_button"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.93" />
 
