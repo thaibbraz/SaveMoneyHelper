@@ -81,7 +81,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.120000005" />
+                    app:layout_constraintVertical_bias="0.39" />
 
                 <TextView
                     android:id="@+id/balanceTitle"
@@ -142,11 +142,38 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageButton
+                    android:id="@+id/img_profile"
+                    android:layout_width="67dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/shape"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.01999998" />
+                <ImageButton
+                    android:id="@+id/img_xp"
+                    android:layout_width="67dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/shape"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_diamond"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.49"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.01999998" />
+
+                <ImageButton
                     android:id="@+id/img_btn"
                     android:layout_width="67dp"
                     android:layout_height="64dp"
                     android:backgroundTint="@color/white"
-                    android:src="@drawable/ic_coinstar"
+                    android:src="@drawable/ic_target"
                     android:background="@drawable/shape"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

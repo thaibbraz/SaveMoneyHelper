@@ -18,11 +18,19 @@ public class UserSettings {
     private int homeCounterPeriod = UserSettings.PERIOD_MONTHLY;
     private int XP = UserSettings.XP_ON;
     private int salary;
+    private int countXP;
 
     public UserSettings() {
 
     }
 
+    public int getCountXP() {
+        return countXP;
+    }
+
+    public void setCountXP(int countXP) {
+        this.countXP = countXP;
+    }
     public int getSalary() {
         return salary;
     }
